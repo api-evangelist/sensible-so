@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "sensible": "https://api.sensible.so/v0/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Extraction": {
+      "@id": "sensible:Extraction",
+      "@context": {
+        "id": { "@id": "sensible:Extraction/id", "@type": "xsd:string" },
+        "type": { "@id": "sensible:Extraction/type", "@type": "xsd:string" },
+        "configuration": { "@id": "sensible:Extraction/configuration", "@type": "xsd:string" },
+        "environment": { "@id": "sensible:Extraction/environment", "@type": "xsd:string" },
+        "status": { "@id": "sensible:Extraction/status", "@type": "xsd:string" },
+        "created_at": { "@id": "sensible:Extraction/createdAt", "@type": "xsd:dateTime" },
+        "updated_at": { "@id": "sensible:Extraction/updatedAt", "@type": "xsd:dateTime" },
+        "download_link": { "@id": "sensible:Extraction/downloadLink", "@type": "xsd:anyURI" },
+        "parsed_document": { "@id": "sensible:Extraction/parsedDocument", "@type": "sensible:ParsedDocument" },
+        "validations": { "@id": "sensible:Extraction/validations", "@container": "@list" },
+        "review_status": { "@id": "sensible:Extraction/reviewStatus", "@type": "xsd:string" },
+        "coverage": { "@id": "sensible:Extraction/coverage", "@type": "xsd:decimal" }
+      }
+    },
+
+    "ParsedField": {
+      "@id": "sensible:ParsedField",
+      "@context": {
+        "type": { "@id": "sensible:ParsedField/type", "@type": "xsd:string" },
+        "value": { "@id": "sensible:ParsedField/value" },
+        "source": { "@id": "sensible:ParsedField/source", "@type": "@json" },
+        "confidence": { "@id": "sensible:ParsedField/confidence", "@type": "@json" }
+      }
+    },
+
+    "DocumentType": {
+      "@id": "sensible:DocumentType",
+      "@context": {
+        "id": { "@id": "sensible:DocumentType/id", "@type": "xsd:string" },
+        "name": { "@id": "sensible:DocumentType/name", "@type": "xsd:string" },
+        "human_name": { "@id": "sensible:DocumentType/humanName", "@type": "xsd:string" },
+        "description": { "@id": "sensible:DocumentType/description", "@type": "xsd:string" },
+        "schema": { "@id": "sensible:DocumentType/schema", "@type": "@json" },
+        "configurations": { "@id": "sensible:DocumentType/configurations", "@container": "@list" }
+      }
+    },
+
+    "Configuration": {
+      "@id": "sensible:Configuration",
+      "@context": {
+        "name": { "@id": "sensible:Configuration/name", "@type": "xsd:string" },
+        "human_name": { "@id": "sensible:Configuration/humanName", "@type": "xsd:string" },
+        "description": { "@id": "sensible:Configuration/description", "@type": "xsd:string" },
+        "current_draft_version": { "@id": "sensible:Configuration/currentDraftVersion", "@type": "xsd:string" },
+        "publications": { "@id": "sensible:Configuration/publications", "@container": "@list" }
+      }
+    },
+
+    "ReferenceDocument": {
+      "@id": "sensible:ReferenceDocument",
+      "@context": {
+        "document_name": { "@id": "sensible:ReferenceDocument/documentName", "@type": "xsd:string" },
+        "type_id": { "@id": "sensible:ReferenceDocument/typeId", "@type": "xsd:string" },
+        "download_url": { "@id": "sensible:ReferenceDocument/downloadUrl", "@type": "xsd:anyURI" },
+        "associated_configurations": { "@id": "sensible:ReferenceDocument/associatedConfigurations", "@container": "@list" }
+      }
+    },
+
+    "Classification": {
+      "@id": "sensible:Classification",
+      "@context": {
+        "document_type": { "@id": "sensible:Classification/documentType", "@type": "xsd:string" },
+        "score": { "@id": "sensible:Classification/score", "@type": "xsd:decimal" },
+        "alternatives": { "@id": "sensible:Classification/alternatives", "@container": "@list" }
+      }
+    }
+  }
+}

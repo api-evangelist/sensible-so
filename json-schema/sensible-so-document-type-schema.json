@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sensible-so/main/json-schema/sensible-so-document-type-schema.json",
+  "title": "SensibleDocumentType",
+  "description": "A Sensible document type — a logical category (e.g. bank_statement, acord_25) that groups one or more SenseML configurations.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": {
+      "type": "string",
+      "description": "Slug-style identifier used in API paths (e.g. `bank_statement`)."
+    },
+    "human_name": { "type": "string" },
+    "description": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "schema": {
+      "type": "object",
+      "description": "Optional JSON schema describing expected output fields.",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "validations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": { "type": "string" },
+              "condition": { "type": "object" },
+              "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+              "fields": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "configurations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Configuration" }
+    }
+  },
+  "definitions": {
+    "Configuration": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "human_name": { "type": "string" },
+        "description": { "type": "string" },
+        "current_draft_version": { "type": ["string", "null"] },
+        "publications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "environment": { "type": "string", "enum": ["production", "development"] },
+              "version": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sensible.so/v0/classify/async",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document_url": "https://example.com/inbox/unknown_doc_8821.pdf",
+      "types": ["bank_statement", "acord_25", "rate_confirmation", "1040s", "loss_run"]
+    }
+  },
+  "response_200": {
+    "id": "f3e29117-9b22-46e1-bd80-2d12a9123b41",
+    "status": "WAITING",
+    "download_link": "https://api.sensible.so/v0/classify/result/f3e29117-9b22-46e1-bd80-2d12a9123b41"
+  },
+  "polled_result_when_complete": {
+    "id": "f3e29117-9b22-46e1-bd80-2d12a9123b41",
+    "status": "COMPLETE",
+    "document_type": "acord_25",
+    "score": 0.94,
+    "alternatives": [
+      { "document_type": "loss_run", "score": 0.41 },
+      { "document_type": "bank_statement", "score": 0.02 }
+    ]
+  }
+}

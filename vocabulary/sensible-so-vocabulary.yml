@@ -1,0 +1,55 @@
+name: Sensible Document-Automation Vocabulary
+provider: Sensible
+providerId: sensible-so
+description: Domain vocabulary covering Sensible's document-extraction surface — extraction lifecycle, document types, SenseML configurations, reference documents, and review.
+terms:
+- term: Document Type
+  description: A logical category of document (e.g. bank_statement, acord_25, rate_confirmation) that groups one or more SenseML configurations.
+- term: Configuration
+  description: A named SenseML configuration that extracts a specific document variant within a document type.
+- term: SenseML
+  description: Sensible's domain-specific language for declaring how to extract fields, tables, and sections from documents.
+- term: Reference Document (Golden)
+  description: A reference PDF associated with a document type and configuration; used as a fingerprint and tuning anchor.
+- term: Extraction
+  description: A single processing job that converts a source document into a parsed_document containing typed field values.
+- term: Sync Extraction
+  description: Synchronous extraction (`/extract`) — testing-grade endpoint that returns parsed_document inline.
+- term: Async Extraction
+  description: Asynchronous extraction (`/extract_from_url`, `/generate_upload_url`) — production pattern; results retrieved via webhook or `/documents/{id}` polling.
+- term: Portfolio Extraction
+  description: Multi-document extraction where Sensible segments a packaged file into multiple document types and runs extractions on each.
+- term: Webhook
+  description: Push notification sent when extraction status changes to COMPLETE or review status changes to APPROVED.
+- term: Classification
+  description: Routing a document into one of the configured document types prior to extraction.
+- term: Fingerprint
+  description: A document-layout signature used to match incoming documents to the correct configuration.
+- term: Anchor
+  description: A textual or layout reference used by SenseML to locate a field on the page.
+- term: Method
+  description: An extraction algorithm (layout-based, LLM-based, or preprocessing) referenced inside a SenseML field definition.
+- term: Layout-Based Method
+  description: Deterministic extraction methods (label, region, box, paragraph, fixed_table, row, column, intersection, regex, etc.).
+- term: LLM-Based Method
+  description: LLM-driven extraction methods (query_group, list, nlp_table) with confidence scoring and fallback configs.
+- term: Preprocessor
+  description: Document-transformation step run before extraction (deskew, ligature, linearize, multicolumn, remove_header, etc.).
+- term: Postprocessor
+  description: Output-transformation step run after extraction (concatenate, constant, mapper, pick_values, split, zip, custom_computation).
+- term: Validation
+  description: A rule (with severity warning/error) that asserts properties of an extraction's parsed_document.
+- term: Coverage
+  description: Fraction of configured fields that returned a non-null value for a given extraction; reported via /extractions/statistics.
+- term: Confidence
+  description: LLM-method-level scoring used to qualify accuracy and trigger human review.
+- term: Human Review
+  description: Optional reviewer-driven approval/rejection/edit workflow accessed via account auth tokens and the Sensible app.
+- term: Environment
+  description: Publication target for a configuration — production or development. Promote drafts through environments.
+- term: Document Splitting
+  description: Built-in capability that segments multi-document PDFs into individual document boundaries.
+- term: Postman Collection
+  description: Sensible publishes a Postman collection (id 16839934-45339059-3fec-4c31-a891-9a12a3e1c22b) for hands-on API exploration.
+- term: MCP Server
+  description: Remote Model Context Protocol server at https://docs.sensible.so/mcp providing AI agents with API access plus docs search.

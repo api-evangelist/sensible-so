@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sensible Classification API — Classification
+  description: 'Sensible Classification API — Classification. 2 operations: sync classify (testing) and async classify (production). Routes a document into one of the document types defined in your Sensible account.'
+  tags:
+  - Sensible
+  - Classification
+  - Document Processing
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SENSIBLE_API_KEY: SENSIBLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: classification
+    baseUri: https://api.sensible.so/v0
+    description: Sensible Classification business capability.
+    resources:
+    - name: classify-sync
+      path: /classify
+      operations:
+      - name: classifySync
+        method: POST
+        description: Synchronously classify a document into one of the configured document types.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: classify-async
+      path: /classify/async
+      operations:
+      - name: classifyAsync
+        method: POST
+        description: Asynchronously classify a document into one of the configured document types.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: 'Bearer {{env.SENSIBLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: classification-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sensible Classification.
+    tools:
+    - name: sensible-classify-sync
+      description: Classify a document synchronously (testing).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: classification.classifySync
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sensible-classify-async
+      description: Classify a document asynchronously (production).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: classification.classifyAsync
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

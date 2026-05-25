@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sensible.so/v0/extract_from_url/1040s",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document_url": "https://example.com/path/to/1040_2025_sample.pdf",
+      "content_type": "application/pdf",
+      "webhook": {
+        "url": "https://hooks.example.com/sensible",
+        "payload": "lead-id-49102"
+      }
+    }
+  },
+  "response_200": {
+    "id": "5093c65f-05bd-46a3-8df7-da3ed00f6d35",
+    "status": "WAITING",
+    "type": "1040s",
+    "created_at": "2026-05-25T14:05:11.014Z"
+  },
+  "webhook_payload_when_complete": {
+    "id": "5093c65f-05bd-46a3-8df7-da3ed00f6d35",
+    "type": "1040s",
+    "status": "COMPLETE",
+    "webhook": {
+      "url": "https://hooks.example.com/sensible",
+      "payload": "lead-id-49102"
+    },
+    "parsed_document": {
+      "year": { "type": "string", "value": "2025" },
+      "filing_status.single": { "type": "boolean", "value": true },
+      "filing_status.married_filing_jointly": { "type": "boolean", "value": false },
+      "name": { "type": "string", "value": "Connor Roy" },
+      "ssn": { "type": "string", "value": "***-**-4421" },
+      "total_income": { "type": "currency", "value": { "amount": 187432.00, "currency": "USD" } },
+      "refund": { "type": "currency", "value": { "amount": 4218.00, "currency": "USD" } }
+    }
+  }
+}

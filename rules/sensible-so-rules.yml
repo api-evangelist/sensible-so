@@ -1,0 +1,63 @@
+rules:
+  info-title-required:
+    description: Info title must be present
+    severity: error
+    given: $.info
+    then: {field: title, function: truthy}
+  info-description-required:
+    description: Info description must be present
+    severity: error
+    given: $.info
+    then: {field: description, function: truthy}
+  info-contact-required:
+    description: Sensible specs should expose contact info
+    severity: warn
+    given: $.info
+    then: {field: contact, function: truthy}
+  servers-required:
+    description: Servers block must be present
+    severity: error
+    given: $
+    then: {field: servers, function: truthy}
+  servers-production-url:
+    description: At least one server must point at https://api.sensible.so/v0
+    severity: error
+    given: $.servers[*]
+    then: {field: url, function: pattern, functionOptions: {match: '^https://api\\.sensible\\.so/v0'}}
+  security-bearer-required:
+    description: Sensible authenticates with a bearer API key
+    severity: error
+    given: $.components.securitySchemes
+    then: {field: bearerAuth, function: truthy}
+  operation-operationid-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then: {field: operationId, function: truthy}
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then: {field: summary, function: truthy}
+  operation-tags-required:
+    description: Every operation must have tags
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then: {field: tags, function: truthy}
+  response-description-required:
+    description: Every response must have a description
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then: {field: description, function: truthy}
+  response-429-required:
+    description: Endpoints under quota must document 429 Too Many Requests
+    severity: warn
+    given: $.paths[*][post,put,patch,delete]
+    then: {field: responses.429, function: truthy}
+  path-snake-case:
+    description: Sensible paths use snake_case (e.g. /extract_from_url, /document_types).
+    severity: warn
+    given: $.paths
+    then:
+      function: pattern
+      functionOptions: {match: '^/[a-z0-9_/{}]+$'}

@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sensible Reference Documents API — Reference Documents
+  description: 'Sensible Reference Documents API — 7 operations covering reference PDF lifecycle: create with upload URL, list, get metadata, update metadata, delete, unassociate from config, and extract all text as standardized output.'
+  tags:
+  - Sensible
+  - Reference Documents
+  - Goldens
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SENSIBLE_API_KEY: SENSIBLE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: reference-documents
+    baseUri: https://api.sensible.so/v0
+    description: Sensible Reference Documents (goldens) capability.
+    resources:
+    - name: goldens
+      path: /document_types/{type-id}/goldens
+      operations:
+      - name: listReferenceDocuments
+        method: GET
+        description: List all reference documents in a document type.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-id
+          in: path
+          type: string
+          required: true
+      - name: createReferenceDocument
+        method: POST
+        description: Create a reference document and receive an upload URL.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+    - name: golden
+      path: /document_types/{type-id}/goldens/{document-name}
+      operations:
+      - name: getReferenceDocument
+        method: GET
+        description: Get download URL and other metadata for a reference document.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-id
+          in: path
+          type: string
+          required: true
+        - name: document-name
+          in: path
+          type: string
+          required: true
+      - name: updateReferenceDocument
+        method: PUT
+        description: Update metadata for a reference document.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-id
+          in: path
+          type: string
+          required: true
+        - name: document-name
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: true
+      - name: deleteReferenceDocument
+        method: DELETE
+        description: Delete a reference document and break associations to any configs.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-id
+          in: path
+          type: string
+          required: true
+        - name: document-name
+          in: path
+          type: string
+          required: true
+    - name: extract-text
+      path: /extract_text_from_golden/{type-name}
+      operations:
+      - name: extractAllTextFromReferenceDocument
+        method: POST
+        description: Get all the text (lines) for a reference document as standardized output.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type-name
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          required: false
+    authentication:
+      type: apikey
+      key: Authorization
+      value: 'Bearer {{env.SENSIBLE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: mcp
+    namespace: reference-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sensible Reference Documents.
+    tools:
+    - name: sensible-list-reference-documents
+      description: List all reference documents in a document type.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: reference-documents.listReferenceDocuments
+      with:
+        type-id: tools.type-id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sensible-create-reference-document
+      description: Create a reference document and receive an upload URL.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: reference-documents.createReferenceDocument
+      with:
+        type-id: tools.type-id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

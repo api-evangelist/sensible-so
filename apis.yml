@@ -1,0 +1,221 @@
+aid: sensible-so
+url: https://raw.githubusercontent.com/api-evangelist/sensible-so/refs/heads/main/apis.yml
+apis:
+- aid: sensible-so:sensible-extractions-api
+  name: Sensible Extractions API
+  tags:
+  - Document Extraction
+  - IDP
+  - Extractions
+  - Async
+  - Webhooks
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  properties:
+  - url: https://docs.sensible.so/reference/extract-data-from-a-document
+    type: Documentation
+  - url: https://docs.sensible.so/reference/extract-from-url
+    type: Documentation
+  - url: https://docs.sensible.so/reference/generate-an-upload-url
+    type: Documentation
+  - url: https://docs.sensible.so/reference/retrieving-results
+    type: Documentation
+  - url: https://docs.sensible.so/docs/api-tutorial-webhook
+    type: Documentation
+  - url: openapi/sensible-extractions-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/sensible-so-extraction-schema.json
+    type: JSONSchema
+  - url: json-ld/sensible-so-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/extractions-extractions.yaml
+  - type: Example
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Example
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Example
+    url: examples/sensible-so-list-extractions-example.json
+  description: Extract structured data from documents synchronously or asynchronously. Supports sync `POST /extract/{document_type}`, async `POST /extract_from_url`, async via Sensible-signed `POST /generate_upload_url`, portfolio (multi-document) extractions, CSV and Excel output, `/extractions` listing and `/documents/{id}` retrieval, daily coverage statistics, and review auth-token issuance for human-in-the-loop workflows. All endpoints are bearer-auth and webhook-capable.
+- aid: sensible-so:sensible-classification-api
+  name: Sensible Classification API
+  tags:
+  - Document Extraction
+  - Classification
+  - Routing
+  humanURL: https://docs.sensible.so/reference/classify-document
+  properties:
+  - url: https://docs.sensible.so/reference/classify-document
+    type: Documentation
+  - url: https://docs.sensible.so/reference/classify-document-sync
+    type: Documentation
+  - url: https://docs.sensible.so/docs/classify
+    type: Documentation
+  - url: openapi/sensible-classification-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/classification-classification.yaml
+  - type: Example
+    url: examples/sensible-so-classify-async-example.json
+  description: Classify a document into one of the document types defined in the account, either synchronously (testing) or asynchronously (production). Useful both as a routing step in an extraction workflow and as a standalone labeling service.
+- aid: sensible-so:sensible-document-types-api
+  name: Sensible Document Types and Configurations API
+  tags:
+  - Document Extraction
+  - Document Types
+  - Configurations
+  - SenseML
+  - Versioning
+  humanURL: https://docs.sensible.so/reference/list-document-types
+  properties:
+  - url: https://docs.sensible.so/reference/list-document-types
+    type: Documentation
+  - url: https://docs.sensible.so/reference/create-configuration
+    type: Documentation
+  - url: https://docs.sensible.so/reference/publish-configuration-by-version
+    type: Documentation
+  - url: https://docs.sensible.so/docs/senseml-reference-introduction
+    type: Documentation
+  - url: https://schema.sensible.so/configuration.schema.json
+    type: JSONSchema
+  - url: openapi/sensible-document-types-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/sensible-so-document-type-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/document-types-document-types.yaml
+  - type: Example
+    url: examples/sensible-so-create-document-type-example.json
+  description: Manage Sensible document types and SenseML configurations. Create, list, fetch, update, and delete document types; create, list, fetch, update, publish, version, and delete SenseML configurations; list versions for a configuration; promote drafts through development and production environments.
+- aid: sensible-so:sensible-reference-documents-api
+  name: Sensible Reference Documents API
+  tags:
+  - Document Extraction
+  - Reference Documents
+  - Goldens
+  humanURL: https://docs.sensible.so/reference/list-reference-documents
+  properties:
+  - url: https://docs.sensible.so/reference/list-reference-documents
+    type: Documentation
+  - url: https://docs.sensible.so/reference/create-reference-document
+    type: Documentation
+  - url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+    type: Documentation
+  - url: openapi/sensible-reference-documents-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/reference-documents-reference-documents.yaml
+  description: Manage reference PDFs ("goldens") associated with document types. Create with a pre-signed upload URL, list, get metadata, update metadata, delete, associate or unassociate with a configuration, and extract all standardized text lines from a reference document for layout tuning.
+common:
+- url: https://www.sensible.so
+  type: Portal
+- url: https://docs.sensible.so
+  type: Documentation
+- url: https://docs.sensible.so/reference
+  type: Documentation
+- url: https://docs.sensible.so/changelog
+  type: ChangeLog
+- url: https://docs.sensible.so/reference/authentication
+  type: Authentication
+- url: https://docs.sensible.so/docs/quickstart
+  type: GettingStarted
+- url: https://docs.sensible.so/docs/api-tutorial
+  type: GettingStarted
+- url: https://docs.sensible.so/llms.txt
+  name: llms.txt
+  type: Documentation
+- url: https://sensible.statuspage.io
+  type: StatusPage
+- url: https://app.sensible.so/register
+  type: SignUp
+- url: https://app.sensible.so/account
+  type: Account
+- url: https://www.sensible.so/pricing
+  type: Pricing
+- url: https://docs.sensible.so/reference/mcp
+  name: Sensible MCP Server
+  type: Documentation
+- url: https://docs.sensible.so/mcp
+  name: Sensible MCP Endpoint
+  type: MCPServer
+- url: https://github.com/sensible-hq
+  name: Sensible GitHub Organization
+  type: GitHubOrganization
+- url: https://github.com/sensible-hq/sensible-api-py
+  name: Python SDK
+  type: SDK
+- url: https://github.com/sensible-hq/sensible-api-js
+  name: JavaScript / TypeScript SDK
+  type: SDK
+- url: https://github.com/sensible-hq/sensible-code-examples
+  name: Code Examples
+  type: SDK
+- url: https://github.com/sensible-hq/sensible-configuration-library
+  name: SenseML Configuration Library (150+ document types)
+  type: Samples
+- url: https://github.com/sensible-hq/sensible-sample-documents
+  name: Sample Documents
+  type: Samples
+- url: https://github.com/sensible-hq/sensible-salesforce-py
+  name: Salesforce Integration Example
+  type: Integrations
+- url: https://github.com/sensible-hq/sensible-quickbooks-py
+  name: QuickBooks Integration Example
+  type: Integrations
+- url: https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b
+  name: Postman Collection
+  type: Postman
+- url: https://docs.sensible.so/docs/zapier
+  name: Zapier
+  type: Integrations
+- url: plans/sensible-so-plans-pricing.yml
+  type: Plans
+- url: rate-limits/sensible-so-rate-limits.yml
+  type: RateLimits
+- url: finops/sensible-so-finops.yml
+  type: FinOps
+- url: vocabulary/sensible-so-vocabulary.yml
+  type: Vocabulary
+- url: rules/sensible-so-rules.yml
+  type: SpectralRules
+- type: Features
+  data:
+  - Hybrid extraction combining layout-based methods (label, region, box, paragraph, fixed_table, row, column, intersection, regex) with LLM-based methods (query_group, list, nlp_table)
+  - SenseML configuration language with version control (draft, development, production) and environment promotion
+  - 150+ pre-built configurations in the open-source sensible-configuration-library covering common document types (1040, W-2, 1099, ACORD forms, loss runs, bank statements, rate confirmations)
+  - Synchronous extraction `/extract/{document_type}` (testing) and asynchronous extraction `/extract_from_url`, `/generate_upload_url` (production)
+  - Portfolio extractions — segment a packaged PDF into multiple document types and extract each automatically
+  - Webhook delivery on extraction COMPLETE or human review APPROVED
+  - Document classification (sync + async) into account-defined document types
+  - Confidence scoring and fallback configs for LLM-based methods
+  - Computer vision-enhanced table detection and automatic + selective OCR (handwriting supported)
+  - Document splitting and fingerprinting for multi-document PDFs
+  - CSV and Excel output endpoints (`/generate_csv`, `/generate_excel`) for one or many extractions
+  - Daily coverage statistics per configuration (`/extractions/statistics`) for tuning and FinOps attribution
+  - Reference documents ("goldens") for layout tuning and fingerprinting
+  - Human review workflow with magic-link account auth tokens for non-account reviewers
+  - Validations (warning / error severity) declared inside the document-type schema
+  - Per-document pricing (linear, no token volatility) — Growth $499/mo (750 docs), Scale $1,499/mo (3,200 docs), Enterprise custom
+  - Bearer API key authentication; per-second concurrency limits scale by plan (1 → 10 → 25+)
+  - Python and JavaScript/TypeScript SDKs, Salesforce and QuickBooks integration examples
+  - Postman collection (16839934-45339059-3fec-4c31-a891-9a12a3e1c22b) for hands-on exploration
+  - Zapier app for Airtable, Slack, Google Sheets integrations
+  - Remote MCP server at https://docs.sensible.so/mcp for AI editors (Cursor, Windsurf, Claude Desktop)
+  - HIPAA on Enterprise; SOC 2 Type II
+  sources:
+  - https://www.sensible.so
+  - https://docs.sensible.so
+  - https://docs.sensible.so/reference
+  - https://docs.sensible.so/llms.txt
+  - https://www.sensible.so/pricing
+  - https://github.com/sensible-hq
+  updated: '2026-05-25'
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: Sensible is a document-automation API platform that extracts structured data from PDFs, images, spreadsheets, and emails using a hybrid of deterministic layout-based methods and LLM-based query methods. SenseML, Sensible's config language, lets engineers declare what to pull and where. The platform ships with 150+ open-source pre-built configurations across financial services, insurance, logistics, real estate, and healthcare. Sensible exposes sync and async extraction, classification, portfolio segmentation, CSV/Excel export, human review, coverage statistics, configuration versioning, and webhook delivery, all behind a bearer-auth REST surface plus a Postman collection, an MCP server, and Python / JavaScript SDKs.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

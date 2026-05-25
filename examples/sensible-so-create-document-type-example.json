@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sensible.so/v0/document_types",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "rate_confirmation",
+      "human_name": "Rate confirmation (logistics)",
+      "description": "Carrier rate confirmation issued by brokers for freight loads.",
+      "schema": {
+        "validations": [
+          {
+            "description": "Broker email is a well-formed address",
+            "condition": { "match": [{ "var": "broker.email.value" }, "^\\S+@\\S+$"] },
+            "severity": "warning",
+            "fields": ["broker.email"]
+          }
+        ]
+      }
+    }
+  },
+  "response_201": {
+    "id": "f01e64de-1b5b-4f7d-8c10-7df9c8b1a204",
+    "name": "rate_confirmation",
+    "human_name": "Rate confirmation (logistics)",
+    "description": "Carrier rate confirmation issued by brokers for freight loads.",
+    "created_at": "2026-05-25T14:11:00.000Z"
+  }
+}

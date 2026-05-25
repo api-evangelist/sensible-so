@@ -1,0 +1,75 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Sensible
+providerId: sensible-so
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Document Extraction
+  - IDP
+description: 'FOCUS-aligned FinOps for Sensible: tiered subscription with monthly extraction allotment and per-document overage.'
+sources:
+  - https://www.sensible.so/pricing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Sensible
+serviceCategory: Document Processing
+billingModel:
+  pricingCategory: Tiered Subscription with Usage Overage
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Purchase
+    - Usage
+    - Credit
+    - Adjustment
+  primaryUnit: extraction
+  secondaryUnits:
+    - classification
+    - portfolio_extraction
+focusColumns:
+  ServiceName: Sensible
+  ServiceCategory: Document Processing
+  ProviderName: Sensible
+  PublisherName: Sensible
+  InvoiceIssuerName: Sensible
+  PricingCategory: Tiered Subscription with Usage Overage
+  PricingUnit: extraction
+  BillingCurrency: USD
+meters:
+  - name: subscription_fee
+    description: Flat monthly subscription per plan tier (Growth $499, Scale $1,499, Enterprise custom).
+    unit: month
+    aggregation: max
+    dimensions:
+      - plan
+      - environment
+  - name: extractions_consumed
+    description: Successful document extractions counted against the monthly allotment.
+    unit: extraction
+    aggregation: sum
+    dimensions:
+      - document_type
+      - configuration
+      - environment
+  - name: overage_extractions
+    description: Per-document charge after the monthly allotment is exhausted (Growth & Scale, $0.50/doc).
+    unit: extraction
+    aggregation: sum
+    dimensions:
+      - document_type
+      - configuration
+recommendations:
+  - Tag extractions by document_type and configuration so cost can be attributed to a business surface (e.g. bank-statements, loss-runs, ACORD-25).
+  - Use async extraction + webhook pattern to avoid burning the rps budget on polling.
+  - Set up monthly usage alerts before the overage cliff; both Growth (750) and Scale (3,200) charge $0.50 per extra extraction.
+  - Use the GET /extractions/statistics endpoint to break down coverage per config and identify low-yield configs that should be retired or merged.
+  - Promote configs through development → production environments to avoid burning production extractions on tuning.

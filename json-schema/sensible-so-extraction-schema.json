@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sensible-so/main/json-schema/sensible-so-extraction-schema.json",
+  "title": "SensibleExtraction",
+  "description": "An asynchronous-extraction record returned by the Sensible API. Captures status, parsed_document, validations, and source linkage.",
+  "type": "object",
+  "required": ["id", "type", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique extraction identifier returned by Sensible."
+    },
+    "type": {
+      "type": "string",
+      "description": "Document type slug (e.g. bank_statement, acord_25, rate_confirmation)."
+    },
+    "configuration": {
+      "type": "string",
+      "description": "Name of the SenseML configuration that produced the extraction."
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["production", "development"],
+      "description": "Sensible publication environment that ran the config."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["WAITING", "PROCESSING", "FAILED", "COMPLETE"],
+      "description": "Current extraction status. Poll until COMPLETE or FAILED."
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "document_name": { "type": ["string", "null"] },
+    "download_link": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Pre-signed S3 URL for downloading the source document."
+    },
+    "parsed_document": {
+      "type": ["object", "null"],
+      "additionalProperties": {
+        "$ref": "#/definitions/ParsedField"
+      },
+      "description": "Field-name → parsed field. Null until extraction completes."
+    },
+    "validations": {
+      "type": ["array", "null"],
+      "items": { "$ref": "#/definitions/Validation" }
+    },
+    "review_status": {
+      "type": ["string", "null"],
+      "enum": [null, "UNREVIEWED", "IN_REVIEW", "APPROVED", "REJECTED"]
+    },
+    "coverage": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Fraction of fields in the config that returned a non-null value."
+    }
+  },
+  "definitions": {
+    "ParsedField": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "integer", "boolean", "date", "currency", "address", "name", "phone_number", "row", "table"]
+        },
+        "value": {
+          "description": "Parsed value (typed) or null if not found."
+        },
+        "source": {
+          "type": "object",
+          "description": "Optional source coordinates / line traceability."
+        },
+        "confidence": {
+          "type": "object",
+          "description": "Optional confidence scoring for LLM-based methods."
+        }
+      }
+    },
+    "Validation": {
+      "type": "object",
+      "required": ["severity"],
+      "properties": {
+        "description": { "type": "string" },
+        "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+        "fields": { "type": "array", "items": { "type": "string" } },
+        "passed": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.sensible.so/v0/extract/bank_statement",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/pdf"
+    },
+    "body_note": "Raw PDF bytes posted directly as the request body."
+  },
+  "response_200": {
+    "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf",
+    "type": "bank_statement",
+    "configuration": "chase_personal_checking",
+    "environment": "production",
+    "status": "COMPLETE",
+    "created_at": "2026-05-25T14:02:15.122Z",
+    "parsed_document": {
+      "account_holder_name": { "type": "name", "value": "Connor Roy" },
+      "account_number_last4": { "type": "string", "value": "4421" },
+      "statement_period_start": { "type": "date", "value": "2026-04-01" },
+      "statement_period_end": { "type": "date", "value": "2026-04-30" },
+      "beginning_balance": { "type": "currency", "value": { "amount": 5821.43, "currency": "USD" } },
+      "ending_balance": { "type": "currency", "value": { "amount": 6233.17, "currency": "USD" } },
+      "transactions": {
+        "type": "table",
+        "value": [
+          { "date": "2026-04-02", "description": "Direct Deposit — ACME PAYROLL", "amount": 4250.00, "type": "credit" },
+          { "date": "2026-04-04", "description": "Zelle to J. Bloggs", "amount": -150.00, "type": "debit" }
+        ]
+      }
+    },
+    "validations": [
+      { "description": "Ending balance equals beginning + net of transactions", "severity": "warning", "passed": true, "fields": ["ending_balance"] }
+    ],
+    "coverage": 0.93
+  }
+}

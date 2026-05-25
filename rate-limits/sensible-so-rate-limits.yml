@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Sensible
+providerId: sensible-so
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Document Extraction
+  - Rate Limiting
+  - Quotas
+description: Reconciled rate limits for the Sensible Extraction, Classification, Document Types, and Reference Documents APIs. Per-second concurrency and per-month extraction quotas are governed by plan tier.
+sources:
+  - https://www.sensible.so/pricing
+  - https://docs.sensible.so/reference/authentication
+  - https://docs.sensible.so/reference/extract-data-from-a-document
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: per-account concurrency + monthly quota
+spendLimits:
+  - tier: Free trial
+    monthlyExtractions: 'Growth-tier allotment for 14 days'
+    rps: 1
+  - tier: Growth
+    monthlyExtractions: 750
+    rps: 1
+  - tier: Scale
+    monthlyExtractions: 3200
+    rps: 10
+  - tier: Enterprise
+    monthlyExtractions: '10,000+'
+    rps: '25+'
+limits:
+  - tier: Free
+    surface: All endpoints
+    cap: 150 API calls per month (legacy free accounts; surfaced in 429 error text).
+  - tier: Pro (legacy)
+    surface: All endpoints
+    cap: 5,000 API calls per month (surfaced in 429 error text).
+  - tier: Growth
+    surface: Extraction (sync and async)
+    cap: 1 request/sec concurrency; 750 successful extractions/month before overage.
+  - tier: Scale
+    surface: Extraction (sync and async)
+    cap: 10 requests/sec concurrency; 3,200 successful extractions/month before overage.
+  - tier: Enterprise
+    surface: Extraction (sync and async)
+    cap: '25+ requests/sec concurrency; 10,000+ extractions/month; custom SLA.'
+fileLimits:
+  pdfMaxDimensionsInches: 17x17
+  pdfMaxSizeOcrMB: 50
+  supportedTypes: 'See https://docs.sensible.so/docs/file-types — PDFs, images (JPEG/PNG/TIFF), Office documents, spreadsheets, and emails.'
+notes:
+  - The 429 response describes which quota was exceeded — per-second concurrency, monthly extractions, or legacy free/pro caps.
+  - For asynchronous extractions, use webhooks to avoid polling pressure on /documents/{id}.
+  - Enterprise customers can negotiate custom data retention and custom region (e.g. EU residency).
