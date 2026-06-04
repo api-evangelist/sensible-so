@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Portfolio Upload URL And Poll
+  summary: Generate a Sensible-signed upload URL for a multi-document portfolio, then poll the portfolio extraction to completion.
+  description: >-
+    The Sensible-hosted upload variant of portfolio extraction. The workflow
+    asks Sensible for a presigned upload_url scoped to the document types
+    contained in a portfolio, returns that URL and the portfolio extraction id,
+    and then polls the Retrieve extraction by ID endpoint until the portfolio
+    reports a COMPLETE status. The PUT of the portfolio PDF bytes to the
+    returned upload_url happens out of band against Amazon S3 and is not a
+    Sensible API operation, so it is documented as an output expectation rather
+    than modeled as a step. Every step spells out its request inline, including
+    the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: portfolio-upload-url-and-poll
+  summary: Generate a portfolio upload URL for a set of document types and poll the resulting portfolio extraction.
+  description: >-
+    Requests a presigned upload_url for a portfolio of the supplied document
+    types, surfaces the upload_url and portfolio id for an out-of-band PUT, then
+    polls the portfolio id until Sensible reports COMPLETE.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - types
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      types:
+        type: array
+        description: The document types contained in the portfolio.
+        items:
+          type: string
+      segmentDocumentsWith:
+        type: string
+        description: How to segment the portfolio page ranges.
+        enum:
+        - llm
+        - fingerprints
+        default: fingerprints
+  steps:
+  - stepId: generatePortfolioUploadUrl
+    description: >-
+      Request a Sensible-signed upload_url for a portfolio of the supplied
+      document types, returning the portfolio extraction id.
+    operationId: generate-an-upload-url-for-a-pdf-portfolio
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        types: $inputs.types
+        segment_documents_with: $inputs.segmentDocumentsWith
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      portfolioId: $response.body#/id
+      uploadUrl: $response.body#/upload_url
+      status: $response.body#/status
+  - stepId: pollPortfolio
+    description: >-
+      After the portfolio is PUT to the upload_url out of band, poll the
+      portfolio extraction by id until Sensible reports the COMPLETE status.
+    operationId: retrieving-results
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.generatePortfolioUploadUrl.outputs.portfolioId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      documents: $response.body#/documents
+    onSuccess:
+    - name: portfolioComplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETE"
+        type: jsonpath
+    - name: keepPolling
+      type: goto
+      stepId: pollPortfolio
+      criteria:
+      - context: $response.body
+        condition: $.status == "WAITING" || $.status == "PROCESSING"
+        type: jsonpath
+  outputs:
+    portfolioId: $steps.generatePortfolioUploadUrl.outputs.portfolioId
+    uploadUrl: $steps.generatePortfolioUploadUrl.outputs.uploadUrl
+    documents: $steps.pollPortfolio.outputs.documents

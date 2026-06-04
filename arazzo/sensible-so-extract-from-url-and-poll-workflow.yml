@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Extract From URL And Poll
+  summary: Kick off an asynchronous extraction from a document URL with a chosen config, poll until it completes, then read the parsed results.
+  description: >-
+    The canonical asynchronous single-document extraction pattern for Sensible.
+    The workflow submits a publicly accessible (or presigned) document URL to
+    the extract-from-url endpoint for a chosen document type and config,
+    receives an extraction id, polls the Retrieve extraction by ID endpoint
+    until Sensible reports a COMPLETE status, and then surfaces the
+    parsed_document and coverage. Every step spells out its request inline,
+    including the Bearer authorization, so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: extract-from-url-and-poll
+  summary: Asynchronously extract data from a document at a URL with a specified config and poll for the completed result.
+  description: >-
+    Submits a document URL for extraction under the supplied document type and
+    config, then polls the extraction id until the status is COMPLETE and
+    returns the extracted fields.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentType
+    - configName
+    - documentUrl
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentType:
+        type: string
+        description: The document type to extract from (e.g. senseml_basics).
+      configName:
+        type: string
+        description: The config to use for extraction.
+      documentUrl:
+        type: string
+        description: A publicly accessible or presigned URL returning the document bytes.
+      documentName:
+        type: string
+        description: Optional filename echoed back in the extraction response.
+  steps:
+  - stepId: submitExtraction
+    description: >-
+      Submit the document URL for asynchronous extraction under the chosen
+      document type and config, and capture the returned extraction id.
+    operationId: provide-a-download-url-with-config
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: document_type
+      in: path
+      value: $inputs.documentType
+    - name: config_name
+      in: path
+      value: $inputs.configName
+    requestBody:
+      contentType: application/json
+      payload:
+        document_url: $inputs.documentUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionId: $response.body#/id
+      initialStatus: $response.body#/status
+  - stepId: pollStatus
+    description: >-
+      Poll the extraction by id until Sensible reports the COMPLETE status,
+      retrying while the extraction is still WAITING or PROCESSING.
+    operationId: retrieving-results
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.submitExtraction.outputs.extractionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      parsedDocument: $response.body#/parsed_document
+      coverage: $response.body#/coverage
+      validationSummary: $response.body#/validation_summary
+    onSuccess:
+    - name: extractionComplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETE"
+        type: jsonpath
+    - name: keepPolling
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "WAITING" || $.status == "PROCESSING"
+        type: jsonpath
+  outputs:
+    extractionId: $steps.submitExtraction.outputs.extractionId
+    status: $steps.pollStatus.outputs.status
+    parsedDocument: $steps.pollStatus.outputs.parsedDocument
+    coverage: $steps.pollStatus.outputs.coverage

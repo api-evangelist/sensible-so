@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Portfolio Extract From URL And Poll
+  summary: Segment and extract a multi-document portfolio at a URL, then poll until every sub-document extraction completes.
+  description: >-
+    Handles the multi-document "portfolio" case where several documents are
+    bundled into a single file. The workflow submits the portfolio URL together
+    with the list of document types Sensible should segment it into, receives a
+    portfolio extraction id, and polls the Retrieve extraction by ID endpoint
+    until the portfolio reports a COMPLETE status. On completion it surfaces the
+    per-document outputs array. Every step spells out its request inline,
+    including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: portfolio-extract-from-url-and-poll
+  summary: Extract a multi-document portfolio from a URL and poll the portfolio extraction to completion.
+  description: >-
+    Submits a portfolio URL and the document types to segment it into, then
+    polls the returned portfolio id until Sensible reports COMPLETE and returns
+    the per-document extraction results.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentUrl
+    - types
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentUrl:
+        type: string
+        description: A publicly accessible or presigned URL returning the portfolio PDF bytes.
+      types:
+        type: array
+        description: The document types contained in the portfolio (e.g. ["tax_returns","bank_statements"]).
+        items:
+          type: string
+      segmentDocumentsWith:
+        type: string
+        description: How to segment the portfolio page ranges.
+        enum:
+        - llm
+        - fingerprints
+        default: fingerprints
+  steps:
+  - stepId: submitPortfolio
+    description: >-
+      Submit the portfolio URL and the document types to segment it into,
+      capturing the returned portfolio extraction id.
+    operationId: provide-a-download-url-for-a-pdf-portfolio
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        document_url: $inputs.documentUrl
+        types: $inputs.types
+        segment_documents_with: $inputs.segmentDocumentsWith
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      portfolioId: $response.body#/id
+      status: $response.body#/status
+  - stepId: pollPortfolio
+    description: >-
+      Poll the portfolio extraction by id until Sensible reports the COMPLETE
+      status, retrying while it is still WAITING or PROCESSING.
+    operationId: retrieving-results
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.submitPortfolio.outputs.portfolioId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      documents: $response.body#/documents
+      coverage: $response.body#/coverage
+      validationSummary: $response.body#/validation_summary
+    onSuccess:
+    - name: portfolioComplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETE"
+        type: jsonpath
+    - name: keepPolling
+      type: goto
+      stepId: pollPortfolio
+      criteria:
+      - context: $response.body
+        condition: $.status == "WAITING" || $.status == "PROCESSING"
+        type: jsonpath
+  outputs:
+    portfolioId: $steps.submitPortfolio.outputs.portfolioId
+    status: $steps.pollPortfolio.outputs.status
+    documents: $steps.pollPortfolio.outputs.documents

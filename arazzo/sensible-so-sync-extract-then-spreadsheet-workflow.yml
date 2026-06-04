@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Sync Extract Then Spreadsheet
+  summary: Synchronously extract a document, then convert that extraction to a downloadable Excel spreadsheet.
+  description: >-
+    A test-and-export flow. The workflow extracts data from local document
+    bytes synchronously against a chosen document type, captures the extraction
+    id from the response, and then converts that single extraction to an Excel
+    spreadsheet, returning the time-limited download URL. Because the sync
+    extract endpoint returns results immediately, no polling is required. Every
+    step spells out its request inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: sync-extract-then-spreadsheet
+  summary: Synchronously extract a document and export the result as an Excel spreadsheet.
+  description: >-
+    Posts the document bytes for a synchronous extraction, captures the
+    extraction id, and converts that extraction to an Excel file, returning the
+    download URL.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentType
+    - documentBytes
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentType:
+        type: string
+        description: The document type to extract from (e.g. senseml_basics).
+      documentBytes:
+        type: string
+        description: The raw (non-encoded) document bytes to extract.
+  steps:
+  - stepId: syncExtract
+    description: >-
+      Extract data from the posted document bytes synchronously and capture the
+      resulting extraction id.
+    operationId: extract-data-from-a-document
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: document_type
+      in: path
+      value: $inputs.documentType
+    requestBody:
+      contentType: application/pdf
+      payload: $inputs.documentBytes
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionId: $response.body#/id
+      status: $response.body#/status
+      parsedDocument: $response.body#/parsed_document
+  - stepId: exportExcel
+    description: >-
+      Convert the completed extraction to an Excel spreadsheet and return the
+      time-limited download URL.
+    operationId: get-excel-extraction
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: ids
+      in: path
+      value: $steps.syncExtract.outputs.extractionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      downloadUrl: $response.body#/url
+  outputs:
+    extractionId: $steps.syncExtract.outputs.extractionId
+    parsedDocument: $steps.syncExtract.outputs.parsedDocument
+    downloadUrl: $steps.exportExcel.outputs.downloadUrl

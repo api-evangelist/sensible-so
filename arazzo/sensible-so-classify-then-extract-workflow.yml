@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Classify Then Extract
+  summary: Classify a document to discover its best-fit document type, then submit an asynchronous extraction against that type.
+  description: >-
+    A routing-then-extraction flow. The workflow first classifies the document
+    bytes synchronously to discover which document type in the account the
+    document most resembles, then feeds that document type name into an
+    asynchronous extract-from-url request so the document is extracted using
+    the right type and config. The classify step posts the raw document bytes,
+    while the extraction step references a URL where the same document is
+    hosted. Every step spells out its request inline, including the Bearer
+    authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: classificationApi
+  url: ../openapi/sensible-classification-api-openapi.yml
+  type: openapi
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: classify-then-extract
+  summary: Classify a document and then asynchronously extract it using the discovered document type.
+  description: >-
+    Classifies the document bytes synchronously to resolve the best-fit
+    document type, then submits an asynchronous URL extraction for that type
+    and the supplied config and returns the extraction id.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentBytes
+    - documentUrl
+    - configName
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentBytes:
+        type: string
+        description: The raw (non-encoded) document bytes to classify.
+      documentUrl:
+        type: string
+        description: A publicly accessible or presigned URL returning the same document bytes for extraction.
+      configName:
+        type: string
+        description: The config to use for extraction once the document type is resolved.
+  steps:
+  - stepId: classifyDocument
+    description: >-
+      Classify the document bytes synchronously to discover which document type
+      in the account the document is most similar to.
+    operationId: classify-document-sync
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/pdf
+      payload: $inputs.documentBytes
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentTypeName: $response.body#/document_type/name
+      documentTypeId: $response.body#/document_type/id
+  - stepId: extractWithClassifiedType
+    description: >-
+      Submit an asynchronous URL extraction using the document type discovered
+      by classification and the supplied config.
+    operationId: provide-a-download-url-with-config
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: document_type
+      in: path
+      value: $steps.classifyDocument.outputs.documentTypeName
+    - name: config_name
+      in: path
+      value: $inputs.configName
+    requestBody:
+      contentType: application/json
+      payload:
+        document_url: $inputs.documentUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionId: $response.body#/id
+      status: $response.body#/status
+  outputs:
+    documentTypeName: $steps.classifyDocument.outputs.documentTypeName
+    extractionId: $steps.extractWithClassifiedType.outputs.extractionId

@@ -1,0 +1,69 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Get Document Type Then List Configurations
+  summary: Fetch a document type by id and then enumerate the configurations defined inside it.
+  description: >-
+    A drill-down flow that resolves a document type and then lists the configs
+    that belong to it. The workflow fetches the document type by its id to read
+    its name and schema, then lists the configurations inside that type so the
+    caller has the full picture of how the type extracts data. This is the read
+    path used to understand an existing extraction target. Every step spells out
+    its request inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentTypesApi
+  url: ../openapi/sensible-document-types-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: get-document-type-then-list-configurations
+  summary: Fetch a document type by id and list the configurations it contains.
+  description: >-
+    Retrieves the document type by id, then lists the configurations defined
+    within that document type.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - typeId
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      typeId:
+        type: string
+        description: The document type id (v4 UUID) to fetch and enumerate.
+  steps:
+  - stepId: getDocumentType
+    description: >-
+      Fetch the document type by its id to read its name and schema.
+    operationId: get-document-type
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/name
+      schema: $response.body#/schema
+  - stepId: listConfigurations
+    description: >-
+      List the configurations defined inside the resolved document type.
+    operationId: list-configurations
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      configurations: $response.body
+  outputs:
+    documentTypeName: $steps.getDocumentType.outputs.name
+    configurations: $steps.listConfigurations.outputs.configurations

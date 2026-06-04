@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Config Versions Then Get By Version
+  summary: List the version history of a configuration, then fetch one specific version of that configuration in full.
+  description: >-
+    A configuration version-audit flow. The workflow lists the version ids for
+    a named configuration in a document type, takes the first version id from
+    the list, and then fetches that exact configuration version as stringified
+    JSON. This is the read path used to inspect or roll back to a prior config
+    version. Every step spells out its request inline, including the Bearer
+    authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentTypesApi
+  url: ../openapi/sensible-document-types-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: config-versions-then-get-by-version
+  summary: List a configuration's versions and fetch one version in full.
+  description: >-
+    Lists the version ids for a configuration, then retrieves the first version
+    in the list as stringified JSON.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - typeId
+    - configName
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      typeId:
+        type: string
+        description: The document type id (v4 UUID) containing the configuration.
+      configName:
+        type: string
+        description: The name of the configuration whose versions to list.
+  steps:
+  - stepId: listVersions
+    description: >-
+      List the version ids for the named configuration and capture the first
+      version id in the list.
+    operationId: get-configuration-versions
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    - name: config-name
+      in: path
+      value: $inputs.configName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      versions: $response.body#/versions
+      firstVersionId: $response.body#/versions/0/version_id
+  - stepId: getConfigurationByVersion
+    description: >-
+      Fetch the configuration at the selected version id as stringified JSON.
+    operationId: get-configuration-by-version
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    - name: config-name
+      in: path
+      value: $inputs.configName
+    - name: version
+      in: path
+      value: $steps.listVersions.outputs.firstVersionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/name
+      configuration: $response.body#/configuration
+      versionId: $response.body#/version_id
+  outputs:
+    versions: $steps.listVersions.outputs.versions
+    configuration: $steps.getConfigurationByVersion.outputs.configuration

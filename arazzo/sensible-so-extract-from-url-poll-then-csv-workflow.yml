@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Extract From URL Poll Then CSV
+  summary: Asynchronously extract a document from a URL, poll until complete, then export the extraction as a CSV file.
+  description: >-
+    Combines the asynchronous extraction pattern with a downstream CSV export.
+    The workflow submits a document URL for extraction under a chosen document
+    type and config, polls the Retrieve extraction by ID endpoint until the
+    status is COMPLETE, and then converts the finished extraction to a
+    comma-separated values file, returning the time-limited download URL. The
+    CSV export must run after the extraction completes, which the poll loop
+    guarantees. Every step spells out its request inline, including the Bearer
+    authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: extract-from-url-poll-then-csv
+  summary: Asynchronously extract a document from a URL, poll to completion, then export it as CSV.
+  description: >-
+    Submits a document URL for extraction, polls the extraction id until
+    COMPLETE, then converts the extraction to a CSV file and returns the
+    download URL.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentType
+    - configName
+    - documentUrl
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentType:
+        type: string
+        description: The document type to extract from.
+      configName:
+        type: string
+        description: The config to use for extraction.
+      documentUrl:
+        type: string
+        description: A publicly accessible or presigned URL returning the document bytes.
+  steps:
+  - stepId: submitExtraction
+    description: >-
+      Submit the document URL for asynchronous extraction under the chosen
+      document type and config, and capture the returned extraction id.
+    operationId: provide-a-download-url-with-config
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: document_type
+      in: path
+      value: $inputs.documentType
+    - name: config_name
+      in: path
+      value: $inputs.configName
+    requestBody:
+      contentType: application/json
+      payload:
+        document_url: $inputs.documentUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionId: $response.body#/id
+  - stepId: pollStatus
+    description: >-
+      Poll the extraction by id until Sensible reports the COMPLETE status,
+      retrying while the extraction is still WAITING or PROCESSING.
+    operationId: retrieving-results
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.submitExtraction.outputs.extractionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: extractionComplete
+      type: goto
+      stepId: exportCsv
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETE"
+        type: jsonpath
+    - name: keepPolling
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "WAITING" || $.status == "PROCESSING"
+        type: jsonpath
+  - stepId: exportCsv
+    description: >-
+      Convert the completed extraction to a CSV file and return the time-limited
+      download URL.
+    operationId: get-csv-extraction
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: ids
+      in: path
+      value: $steps.submitExtraction.outputs.extractionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      downloadUrl: $response.body#/url
+  outputs:
+    extractionId: $steps.submitExtraction.outputs.extractionId
+    downloadUrl: $steps.exportCsv.outputs.downloadUrl

@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Sensible List Configurations Then Get
+  summary: List the configurations in a document type, then fetch the full stringified JSON of one named configuration.
+  description: >-
+    An inspection flow for configuration management. The workflow lists the
+    configurations defined in a document type so the caller can see which
+    configs exist, then fetches the complete stringified SenseML JSON and
+    version history for one named configuration. This is the read path used
+    before editing or auditing a config. Every step spells out its request
+    inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentTypesApi
+  url: ../openapi/sensible-document-types-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: list-configurations-then-get
+  summary: List the configurations in a document type and fetch one config in full.
+  description: >-
+    Lists the configurations in a document type, then retrieves the full
+    stringified JSON and version list for the named configuration.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - typeId
+    - configName
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      typeId:
+        type: string
+        description: The document type id (v4 UUID) containing the configurations.
+      configName:
+        type: string
+        description: The name of the configuration to fetch in full.
+  steps:
+  - stepId: listConfigurations
+    description: >-
+      List the configurations defined in the document type so the caller can
+      see which configs exist.
+    operationId: list-configurations
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      configurations: $response.body
+  - stepId: getConfiguration
+    description: >-
+      Fetch the complete stringified SenseML JSON and version history for the
+      named configuration.
+    operationId: get-configuration
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    - name: config-name
+      in: path
+      value: $inputs.configName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/name
+      configuration: $response.body#/configuration
+      versionId: $response.body#/version_id
+      versions: $response.body#/versions
+  outputs:
+    configurations: $steps.listConfigurations.outputs.configurations
+    configuration: $steps.getConfiguration.outputs.configuration
+    versionId: $steps.getConfiguration.outputs.versionId

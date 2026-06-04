@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Create Document Type And Configuration
+  summary: Create a new document type and then add a SenseML configuration to it in one pass.
+  description: >-
+    The bootstrap flow for a new extraction target. The workflow creates a
+    document type with the supplied name and schema, captures the returned
+    document type id, and then creates a SenseML configuration inside that
+    document type using the supplied stringified configuration JSON, optionally
+    publishing it to an environment. This produces a ready-to-extract document
+    type and config in a single sequence. Every step spells out its request
+    inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentTypesApi
+  url: ../openapi/sensible-document-types-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-document-type-and-configuration
+  summary: Create a document type and add a configuration to it.
+  description: >-
+    Creates a document type, then creates a SenseML configuration within the
+    new type and returns the configuration name and version id.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentTypeName
+    - configName
+    - configuration
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentTypeName:
+        type: string
+        description: Unique user-friendly name for the new document type.
+      schema:
+        type: object
+        description: Document type schema (fingerprint_mode, ocr_engine, validations, etc.).
+      configName:
+        type: string
+        description: Unique user-friendly name for the new configuration.
+      configuration:
+        type: string
+        description: The configuration as JSON-stringified SenseML.
+      publishAs:
+        type: string
+        description: Optional environment to publish the configuration to.
+        enum:
+        - production
+        - development
+  steps:
+  - stepId: createDocumentType
+    description: >-
+      Create the document type with the supplied name and schema and capture
+      the returned document type id.
+    operationId: create-document-type
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.documentTypeName
+        schema: $inputs.schema
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentTypeId: $response.body#/id
+      documentTypeName: $response.body#/name
+  - stepId: createConfiguration
+    description: >-
+      Create a SenseML configuration inside the new document type using the
+      supplied stringified configuration JSON.
+    operationId: create-configuration
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $steps.createDocumentType.outputs.documentTypeId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.configName
+        configuration: $inputs.configuration
+        publish_as: $inputs.publishAs
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      configurationName: $response.body#/name
+      versionId: $response.body#/version_id
+  outputs:
+    documentTypeId: $steps.createDocumentType.outputs.documentTypeId
+    configurationName: $steps.createConfiguration.outputs.configurationName
+    versionId: $steps.createConfiguration.outputs.versionId

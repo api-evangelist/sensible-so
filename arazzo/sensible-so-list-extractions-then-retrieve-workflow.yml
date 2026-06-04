@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Sensible List Extractions Then Retrieve
+  summary: List recent extractions with filters, then retrieve the full result of the most recent matching extraction.
+  description: >-
+    A history-and-detail flow. The workflow lists past extractions filtered by
+    status and document type, takes the id of the first (most recent)
+    extraction in the returned page, and then retrieves that extraction in full
+    so the caller can read its parsed_document, coverage, and validations. This
+    is the audit path for reviewing previously completed extractions. Every step
+    spells out its request inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: list-extractions-then-retrieve
+  summary: List recent extractions by filter and retrieve the most recent one in full.
+  description: >-
+    Lists extractions filtered by status and document type ids, then retrieves
+    the first extraction in the page by id and returns its parsed document.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      statuses:
+        type: string
+        description: Comma-delimited statuses to filter by (e.g. COMPLETE).
+        default: COMPLETE
+      documentTypeIds:
+        type: string
+        description: Comma-delimited document type ids to filter by.
+      limit:
+        type: number
+        description: Page size for the listing.
+        default: 20
+  steps:
+  - stepId: listExtractions
+    description: >-
+      List past extractions filtered by status and document type, and capture
+      the id of the first (most recent) extraction in the page.
+    operationId: list-extractions
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: statuses
+      in: query
+      value: $inputs.statuses
+    - name: document_type_ids
+      in: query
+      value: $inputs.documentTypeIds
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractions: $response.body#/extractions
+      firstExtractionId: $response.body#/extractions/0/id
+      continuationToken: $response.body#/continuation_token
+  - stepId: retrieveExtraction
+    description: >-
+      Retrieve the first extraction from the listing in full so the caller can
+      read its parsed document and validations.
+    operationId: retrieving-results
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: id
+      in: path
+      value: $steps.listExtractions.outputs.firstExtractionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      parsedDocument: $response.body#/parsed_document
+      coverage: $response.body#/coverage
+  outputs:
+    extractions: $steps.listExtractions.outputs.extractions
+    parsedDocument: $steps.retrieveExtraction.outputs.parsedDocument

@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Sensible List Document Types Then Extract
+  summary: Confirm a document type exists in the account before submitting an asynchronous extraction against it.
+  description: >-
+    A guarded extraction flow. The workflow first lists the document types
+    defined in the Sensible account so the caller can confirm the target type
+    exists, then submits an asynchronous extraction from a document URL against
+    that type and config and returns the extraction id for later retrieval.
+    This avoids firing an extraction against a misspelled or non-existent
+    document type. Every step spells out its request inline, including the
+    Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentTypesApi
+  url: ../openapi/sensible-document-types-api-openapi.yml
+  type: openapi
+- name: extractionsApi
+  url: ../openapi/sensible-extractions-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: list-document-types-then-extract
+  summary: List account document types and then submit an asynchronous extraction against the chosen type and config.
+  description: >-
+    Lists the document types in the account, then submits a document URL for
+    asynchronous extraction under the supplied document type and config and
+    returns the extraction id.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - documentType
+    - configName
+    - documentUrl
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      documentType:
+        type: string
+        description: The document type name to extract from.
+      configName:
+        type: string
+        description: The config to use for extraction.
+      documentUrl:
+        type: string
+        description: A publicly accessible or presigned URL returning the document bytes.
+  steps:
+  - stepId: listDocumentTypes
+    description: >-
+      List all document types defined in the Sensible account so the caller can
+      confirm the target type exists before extracting.
+    operationId: list-document-types
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentTypes: $response.body
+  - stepId: submitExtraction
+    description: >-
+      Submit the document URL for asynchronous extraction under the chosen
+      document type and config, and capture the returned extraction id.
+    operationId: provide-a-download-url-with-config
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: document_type
+      in: path
+      value: $inputs.documentType
+    - name: config_name
+      in: path
+      value: $inputs.configName
+    requestBody:
+      contentType: application/json
+      payload:
+        document_url: $inputs.documentUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionId: $response.body#/id
+      status: $response.body#/status
+  outputs:
+    documentTypes: $steps.listDocumentTypes.outputs.documentTypes
+    extractionId: $steps.submitExtraction.outputs.extractionId

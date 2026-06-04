@@ -1,0 +1,82 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Extract Reference Text Then List
+  summary: Pull all standardized text from a reference document, then list the document type's reference documents.
+  description: >-
+    A reference-document inspection flow. The workflow extracts all the text
+    (lines) from a named reference document in a document type as standardized
+    page output, which is useful when authoring SenseML against a known
+    document, and then lists every reference document registered in that type
+    using its id so the caller can see the full reference set. Every step spells
+    out its request inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceDocumentsApi
+  url: ../openapi/sensible-reference-documents-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: extract-reference-text-then-list
+  summary: Extract standardized text from a reference document and then list the reference documents in the type.
+  description: >-
+    Extracts all text from a named reference document by document type name,
+    then lists the reference documents registered in the document type by id.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - typeName
+    - typeId
+    - golden
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      typeName:
+        type: string
+        description: User-friendly document type name for the text extraction.
+      typeId:
+        type: string
+        description: The document type id (v4 UUID) used to list reference documents.
+      golden:
+        type: string
+        description: User-friendly name of the reference document to extract text from.
+  steps:
+  - stepId: extractReferenceText
+    description: >-
+      Extract all the text (lines) from the named reference document as
+      standardized page output.
+    operationId: extract-all-text-from-reference-document
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-name
+      in: path
+      value: $inputs.typeName
+    requestBody:
+      contentType: application/json
+      payload:
+        golden: $inputs.golden
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pages: $response.body#/pages
+  - stepId: listReferenceDocuments
+    description: >-
+      List every reference document registered in the document type so the
+      caller can see the full reference set.
+    operationId: list-reference-documents
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      referenceDocuments: $response.body
+  outputs:
+    pages: $steps.extractReferenceText.outputs.pages
+    referenceDocuments: $steps.listReferenceDocuments.outputs.referenceDocuments

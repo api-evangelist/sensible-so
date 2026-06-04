@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Sensible Create Reference Document And List
+  summary: Register a reference document in a document type, then list the type's reference documents to confirm registration.
+  description: >-
+    Sets up a reference (golden) PDF for a document type. The workflow registers
+    a reference document by name and optional config association, returning a
+    presigned upload_url where the PDF bytes must be PUT out of band, and then
+    lists all reference documents in the document type so the caller can confirm
+    the new entry is present. The PUT of the PDF to the upload_url happens
+    against Amazon S3 and is not a Sensible API operation, so it is documented
+    as an output expectation rather than modeled as a step. Every step spells
+    out its request inline, including the Bearer authorization.
+  version: 1.0.0
+sourceDescriptions:
+- name: referenceDocumentsApi
+  url: ../openapi/sensible-reference-documents-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-reference-document-and-list
+  summary: Create a reference document in a document type and then list the type's reference documents.
+  description: >-
+    Registers a reference document and returns its upload_url, then lists all
+    reference documents in the document type to confirm the registration.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - typeId
+    - documentName
+    properties:
+      apiKey:
+        type: string
+        description: Sensible API key used as the Bearer token.
+      typeId:
+        type: string
+        description: The document type id (v4 UUID) to register the reference document under.
+      documentName:
+        type: string
+        description: Unique user-friendly name for the reference document.
+      configuration:
+        type: string
+        description: Optional config name to associate the reference document with.
+  steps:
+  - stepId: createReferenceDocument
+    description: >-
+      Register the reference document by name and optional config association,
+      returning the presigned upload_url for the PDF bytes.
+    operationId: create-reference-document
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.documentName
+        configuration: $inputs.configuration
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/name
+      uploadUrl: $response.body#/upload_url
+  - stepId: listReferenceDocuments
+    description: >-
+      List all reference documents in the document type to confirm the new
+      reference document is present.
+    operationId: list-reference-documents
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiKey"
+    - name: type-id
+      in: path
+      value: $inputs.typeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      referenceDocuments: $response.body
+  outputs:
+    uploadUrl: $steps.createReferenceDocument.outputs.uploadUrl
+    referenceDocuments: $steps.listReferenceDocuments.outputs.referenceDocuments
