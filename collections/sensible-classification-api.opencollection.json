@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sensible Classification API",
+    "version": "v0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Classify document by type (sync)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/classify",
+            "params": [
+              {
+                "name": "document_types",
+                "value": "1040s, pay_stubs, bank_statements",
+                "type": "query",
+                "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+              }
+            ]
+          },
+          "docs": "\n**Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.\n\nClassify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determi"
+        },
+        {
+          "info": {
+            "name": "Classify document by type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/classify/async",
+            "params": [
+              {
+                "name": "document_types",
+                "value": "1040s, pay_stubs, bank_statements",
+                "type": "query",
+                "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+              }
+            ]
+          },
+          "docs": "Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\nTo retrieve document's classification, poll the `download_link` in this endpoint's response until it returns a non-error response.\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workfl"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,423 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sensible Extractions API",
+    "version": "v0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract data from a document using specified config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/extract/:document_type/:config_name",
+            "params": [
+              {
+                "name": "document_type",
+                "value": "senseml_basics",
+                "type": "path",
+                "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+              },
+              {
+                "name": "config_name",
+                "value": "anyco_insurance_auto_declarations",
+                "type": "path",
+                "description": "User-friendly name of the config to use to extract data from the document."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ]
+          },
+          "docs": "This endpoint's behavior identical to the [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n"
+        },
+        {
+          "info": {
+            "name": "Extract data from a document (sync)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/extract/:document_type",
+            "params": [
+              {
+                "name": "document_type",
+                "value": "senseml_basics",
+                "type": "path",
+                "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ]
+          },
+          "docs": "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](https://docs.sensible.so/docs/quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](https://docs.sensible.so/docs/"
+        },
+        {
+          "info": {
+            "name": "Extract doc at a Sensible URL using specified config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/generate_upload_url/:document_type/:config_name",
+            "params": [
+              {
+                "name": "document_type",
+                "value": "senseml_basics",
+                "type": "path",
+                "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              },
+              {
+                "name": "config_name",
+                "value": "anyco_insurance_auto_declarations",
+                "type": "path",
+                "description": "User-friendly name of the config to use to extract data from the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint's behavior is identical to the [Extract doc at a Sensible URL](https://docs.sensible.so/reference/generate-an-upload-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n"
+        },
+        {
+          "info": {
+            "name": "Extract doc at your URL using config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/extract_from_url/:document_type/:config_name",
+            "params": [
+              {
+                "name": "document_type",
+                "value": "senseml_basics",
+                "type": "path",
+                "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              },
+              {
+                "name": "config_name",
+                "value": "anyco_insurance_auto_declarations",
+                "type": "path",
+                "description": "User-friendly name of the config to use to extract data from the document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint's behavior is identical to the [Extract doc at your URL](https://docs.sensible.so/reference/extract-from-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Get Excel from documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get CSV extraction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/generate_csv/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "Comma-delimited list of unique extraction IDs."
+              }
+            ]
+          },
+          "docs": "You can use this endpoint to get CSV files from documents, for example, from PDFs. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.\nTo compile multiple documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,\n`/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.\nFor the best compiled spreadsheet results, configure your SenseML so that the document"
+        },
+        {
+          "info": {
+            "name": "Get Excel extraction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/generate_excel/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "Comma-delimited list of unique extraction IDs."
+              }
+            ]
+          },
+          "docs": "You can use this endpoint to get Excel files from documents, for example from PDFs. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.\nTo compile multiple documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,\n`/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.\nFor the best compiled spreadsheet results, configure your SenseML so that the documen"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract portfolio at your URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/extract_from_url",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nUse this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)\nand then runs extractions asynchronously for each document Sensible finds in the portfolio. Take the following steps.\n1. Run this endpoint.\n3. To retrieve the extract"
+        },
+        {
+          "info": {
+            "name": "Extract portfolio at a Sensible URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/generate_upload_url",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions\nasynchronously for each document Sensible finds in the portfolio.  Take the following steps -\n1. Use this endpoint to generate a Sensible URL.\n2. PUT the document you want t"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Retrieve extractions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extraction statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/extractions/statistics",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "2020-10-10T00:00:00.000Z",
+                "type": "query",
+                "description": "Retrieves statistics for configs used on this day and later. Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time."
+              },
+              {
+                "name": "end_date",
+                "value": "2020-10-20T00:00:00.000Z",
+                "type": "query",
+                "description": "Retrieves daily statistics for configs used on this day and earlier."
+              },
+              {
+                "name": "environments",
+                "value": "development",
+                "type": "query",
+                "description": "Specifies the comma-delimited list of environments for which to retrieve statistics, for example, `production`. If unspecified, returns statistics for all environments."
+              }
+            ]
+          },
+          "docs": "Returns daily extraction coverage statistics as a `coverage_histogram` per config.  Sensible returns coverage for each config that was used for at least one extraction performed in the specified environments  in the specified time period. For more information about coverage, see [Monitoring extractions](https://docs.sensible.so/docs/metrics). For more information about the returned `coverage_histogram`, see the response model."
+        },
+        {
+          "info": {
+            "name": "Retrieve extraction by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for the extraction, used to retrieve the extraction."
+              }
+            ]
+          },
+          "docs": "Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results.\nYou can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.\nTo poll extraction status, check the `status` field in this endpoint's response.\nWhen the extraction completes, the returned status is `COMPLETE` and the response includes results in the\n`parsed_document` field.  For fields in the extraction for which Sensible couldn't find a value"
+        },
+        {
+          "info": {
+            "name": "List extractions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/extractions",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "2020-10-10T00:00:00.000Z",
+                "type": "query",
+                "description": "Retrieves extractions with a `created` date that is equal to or later than this date-time. The default is the unix epoch. "
+              },
+              {
+                "name": "end_date",
+                "value": "2024-01-20T00:00:00.000Z",
+                "type": "query",
+                "description": "Retrieves extractions with a `created` date that is equal to or earlier than this date-time. The default is the current date-time."
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Use the limit to define the number of items you recieve on each page of the paginated response. The default is 20."
+              },
+              {
+                "name": "continuation_token",
+                "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1",
+                "type": "query",
+                "description": "Get the next page of results by making a new request and passing the opaque `continuation_token` parameter  that Sensible returns in the current page of responses. Sensible returns a null `continuation_token` in the response to indicate the last page."
+              },
+              {
+                "name": "configuration_ids",
+                "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de",
+                "type": "query",
+                "description": "Comma-delimited list of configurations by which to filter the retrieved extractions."
+              },
+              {
+                "name": "document_type_ids",
+                "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836",
+                "type": "query",
+                "description": "Comma-delimited list of document types by which to filter the retrieved extractions."
+              },
+              {
+                "name": "environments",
+                "value": "PRODUCTION,DEVELOPMENT",
+                "type": "query",
+                "description": "Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions."
+              },
+              {
+                "name": "statuses",
+                "value": "COMPLETE,WAITING",
+                "type": "query",
+                "description": "Comma-delimited list of statuses (WAITING, PROCESSING, FAILED, COMPLETE) by which to filter the retrieved extractions."
+              },
+              {
+                "name": "min_coverage",
+                "value": "0.8",
+                "type": "query",
+                "description": "Minimum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics)."
+              },
+              {
+                "name": "max_coverage",
+                "value": "1",
+                "type": "query",
+                "description": "Maximum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics)."
+              },
+              {
+                "name": "review_statuses",
+                "value": "APPROVED,NEEDS_REVIEW",
+                "type": "query",
+                "description": "Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](https://docs.sensible.so/docs/human-review). Sensible returns [portfolio](https://docs.sensible.so/docs/portfolio) extractions if at least one document in the portfolio meets the specified status criteria. "
+              }
+            ]
+          },
+          "docs": "Use this endpoint to get a filtered list of past extractions.\nThis endpoint returns a summary for each extraction, listed in reverse chronological order. \nTo get details about an extraction, use the [Retrieve extraction by ID](https://docs.sensible.so/reference/retrieving-results) endpoint.\nThis endpoint uses keyset pagination to retrieve the next page of results.\nBy default it returns a first page of 20 extractions and an opaque `continuation_token` that you can pass in the next request to get "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,841 @@
+{
+  "info": {
+    "_postman_id": "dfa11e17-4936-46af-923f-7e05a7341fa5",
+    "name": "Sensible Classification API",
+    "description": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:16:45.000Z",
+    "updatedAt": "2026-06-05T15:16:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dfa11e17-4936-46af-923f-7e05a7341fa5"
+  },
+  "item": [
+    {
+      "name": "classify",
+      "item": [
+        {
+          "name": "async",
+          "item": [
+            {
+              "name": "Classify document by type",
+              "id": "201e81b2-771a-4580-9d8f-d01d0dadd327",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify/async?document_types=<string>&document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\nTo retrieve document's classification, poll the `download_link` in this endpoint's response until it returns a non-error response.\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n"
+              },
+              "response": [
+                {
+                  "id": "fddbe4a8-ae02-4927-a274-c557ffbf15ca",
+                  "name": "Download link for the classification response. Poll the link until it returns a non-error response.\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"content_type\": \"<string>\",\n  \"download_link\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-fddbe4a8-ae02-4927-a274-c557ffbf15ca"
+                },
+                {
+                  "id": "463ee293-954c-4b88-ba01-668922f08f7a",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-463ee293-954c-4b88-ba01-668922f08f7a"
+                },
+                {
+                  "id": "586ad299-6006-4397-9ba1-c9d30646eb74",
+                  "name": "Not authorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-586ad299-6006-4397-9ba1-c9d30646eb74"
+                },
+                {
+                  "id": "a975681a-4b55-4904-96a8-9d702c302f0d",
+                  "name": "Unsupported Media Type",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unsupported Media Type",
+                  "code": 415,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-a975681a-4b55-4904-96a8-9d702c302f0d"
+                },
+                {
+                  "id": "659604bc-317e-4f35-a5af-10fcd0ae521f",
+                  "name": "Too Many Requests",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-659604bc-317e-4f35-a5af-10fcd0ae521f"
+                },
+                {
+                  "id": "d4fe0a52-821f-437d-bb29-11a336c1b9cd",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/pdf"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/classify/async?document_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "classify",
+                        "async"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                          "key": "document_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:16:45.000Z",
+                  "updatedAt": "2026-06-05T15:16:45.000Z",
+                  "uid": "35240-d4fe0a52-821f-437d-bb29-11a336c1b9cd"
+                }
+              ],
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-201e81b2-771a-4580-9d8f-d01d0dadd327"
+            }
+          ],
+          "id": "eb76340c-7877-4e5e-8cb5-1047efce84ed",
+          "createdAt": "2026-06-05T15:16:45.000Z",
+          "updatedAt": "2026-06-05T15:16:45.000Z",
+          "uid": "35240-eb76340c-7877-4e5e-8cb5-1047efce84ed"
+        },
+        {
+          "name": "Classify document by type (sync)",
+          "id": "b901a2b5-b55f-48c7-9004-af92870e5b7b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "file",
+              "file": {}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/classify?document_types=<string>&document_types=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classify"
+              ],
+              "query": [
+                {
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                  "key": "document_types",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                  "key": "document_types",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "\n**Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.\n\nClassify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n    \n"
+          },
+          "response": [
+            {
+              "id": "38cb152d-bf30-44c9-b8c4-f5d17f809db0",
+              "name": "The document type in your Sensible account that's most similar to this document.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"document_type\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"score\": \"<number>\"\n  },\n  \"reference_documents\": {\n    \"nond\": -15498698.825822383\n  },\n  \"classification_summary\": {\n    \"dolore_12\": 84749789.52397168,\n    \"Uta\": -53630401\n  }\n}",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-38cb152d-bf30-44c9-b8c4-f5d17f809db0"
+            },
+            {
+              "id": "9048e9ad-1071-41e7-9f40-3892016a9ca5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<string>",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-9048e9ad-1071-41e7-9f40-3892016a9ca5"
+            },
+            {
+              "id": "2da5a233-9202-47fe-b237-fd41a36b02da",
+              "name": "Not authorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<string>",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-2da5a233-9202-47fe-b237-fd41a36b02da"
+            },
+            {
+              "id": "e7ff5413-2b4f-47f8-a9af-ce57afb9b887",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<string>",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-e7ff5413-2b4f-47f8-a9af-ce57afb9b887"
+            },
+            {
+              "id": "1cf78f43-2751-4bfc-9606-085da01727d2",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<string>",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-1cf78f43-2751-4bfc-9606-085da01727d2"
+            },
+            {
+              "id": "55c3bbfe-2303-472d-af81-0c108a3b87f0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/pdf"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify?document_types=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<string>",
+              "createdAt": "2026-06-05T15:16:45.000Z",
+              "updatedAt": "2026-06-05T15:16:45.000Z",
+              "uid": "35240-55c3bbfe-2303-472d-af81-0c108a3b87f0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:16:45.000Z",
+          "updatedAt": "2026-06-05T15:16:45.000Z",
+          "uid": "35240-b901a2b5-b55f-48c7-9004-af92870e5b7b"
+        }
+      ],
+      "id": "a29c64d4-0f32-4b66-8b19-fcc35fe72084",
+      "createdAt": "2026-06-05T15:16:45.000Z",
+      "updatedAt": "2026-06-05T15:16:45.000Z",
+      "uid": "35240-a29c64d4-0f32-4b66-8b19-fcc35fe72084"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sensible.so/v0"
+    }
+  ]
+}

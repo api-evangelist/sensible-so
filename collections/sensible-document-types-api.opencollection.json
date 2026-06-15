@@ -1,0 +1,304 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sensible Document Types and Configurations API",
+    "version": "v0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List configurations in a document type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              }
+            ]
+          },
+          "docs": "List configurations in a document type."
+        },
+        {
+          "info": {
+            "name": "Create configuration in a document type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pass the configuration as stringified JSON."
+        },
+        {
+          "info": {
+            "name": "Get configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              }
+            ]
+          },
+          "docs": "Get a configuration as stringified JSON."
+        },
+        {
+          "info": {
+            "name": "Update configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a published or draft version of the configuration."
+        },
+        {
+          "info": {
+            "name": "Delete configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              }
+            ]
+          },
+          "docs": "Delete a configuration and its versions."
+        },
+        {
+          "info": {
+            "name": "Get configuration by version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name/:version",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a configuration version."
+              }
+            ]
+          },
+          "docs": "Get a configuration as stringified JSON by version id."
+        },
+        {
+          "info": {
+            "name": "Delete draft or unpublish configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name/:version",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a configuration version."
+              }
+            ]
+          },
+          "docs": "To delete a draft, specify a version name in the `version` parameter. To unpublish a configuration, enter the publication environment name in the `version` parameter, for example, `development`."
+        },
+        {
+          "info": {
+            "name": "List versions for a configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types/:type-id/configurations/:config-name/versions",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              },
+              {
+                "name": "config-name",
+                "value": "anyco_auto_insurance_quote",
+                "type": "path",
+                "description": "Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+              }
+            ]
+          },
+          "docs": "Get the version ids for a configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document type",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List document types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types"
+          },
+          "docs": "Lists all document types in your Sensible account."
+        },
+        {
+          "info": {
+            "name": "Create document type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/document_types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a document type."
+        },
+        {
+          "info": {
+            "name": "Get document type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/document_types/:type-id",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              }
+            ]
+          },
+          "docs": "Find the document type id using the `/document_types` endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete document type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sensible.so/v0/document_types/:type-id",
+            "params": [
+              {
+                "name": "type-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+              }
+            ]
+          },
+          "docs": "Delete a document type and everything it contains, for example configurations and reference PDfs,\nbut not its extraction history displayed in the Sensible app.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

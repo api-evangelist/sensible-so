@@ -1,0 +1,2856 @@
+{
+  "info": {
+    "_postman_id": "dbc8304d-d581-4ef0-a256-94caf60c04c0",
+    "name": "Sensible Reference Documents API",
+    "description": "Manage reference PDFs associated with document types. Create, list, fetch, update, and delete reference documents; associate or unassociate them with configurations; extract all text (lines) from a reference document.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:05.000Z",
+    "updatedAt": "2026-06-05T15:17:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dbc8304d-d581-4ef0-a256-94caf60c04c0"
+  },
+  "item": [
+    {
+      "name": "document_types",
+      "item": [
+        {
+          "name": "{type-id}",
+          "item": [
+            {
+              "name": "goldens",
+              "item": [
+                {
+                  "name": "{document-name}",
+                  "item": [
+                    {
+                      "name": "configuration",
+                      "item": [
+                        {
+                          "name": "Unassociate reference document from configuration",
+                          "id": "6535278e-edc7-4571-86f6-df3788535a07",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name",
+                                "configuration"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "751c9dd6-b337-4778-85b3-ffb42b547c19",
+                                  "key": "type-id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                                },
+                                {
+                                  "id": "c99ca210-878a-48d4-ab58-9e6127b72500",
+                                  "key": "document-name",
+                                  "value": "piat",
+                                  "description": "(Required) Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens` endpoint."
+                                }
+                              ]
+                            },
+                            "description": "Break the association between a reference document and its configuration."
+                          },
+                          "response": [
+                            {
+                              "id": "4f840314-c498-4491-b529-09f2b4c16785",
+                              "name": "No content",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-4f840314-c498-4491-b529-09f2b4c16785"
+                            },
+                            {
+                              "id": "e8cd5574-77fa-47c1-acc2-47d42459b8f3",
+                              "name": "Bad Request",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-e8cd5574-77fa-47c1-acc2-47d42459b8f3"
+                            },
+                            {
+                              "id": "8c98951c-18ed-4c66-9131-c194873a38b5",
+                              "name": "Not authorized",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-8c98951c-18ed-4c66-9131-c194873a38b5"
+                            },
+                            {
+                              "id": "5d23c1fb-5e9d-4d71-8c83-96f444c456e2",
+                              "name": "Not Found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-5d23c1fb-5e9d-4d71-8c83-96f444c456e2"
+                            },
+                            {
+                              "id": "236e0d22-21f2-45c4-8f28-62463a976729",
+                              "name": "Unsupported Media Type",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unsupported Media Type",
+                              "code": 415,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-236e0d22-21f2-45c4-8f28-62463a976729"
+                            },
+                            {
+                              "id": "15d9b437-7577-4c4d-b0b3-14a71c3efb62",
+                              "name": "Internal Server Error",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/plain"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name/configuration",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "document_types",
+                                    ":type-id",
+                                    "goldens",
+                                    ":document-name",
+                                    "configuration"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "type-id"
+                                    },
+                                    {
+                                      "key": "document-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/plain"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-06-05T15:17:06.000Z",
+                              "updatedAt": "2026-06-05T15:17:06.000Z",
+                              "uid": "35240-15d9b437-7577-4c4d-b0b3-14a71c3efb62"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-6535278e-edc7-4571-86f6-df3788535a07"
+                        }
+                      ],
+                      "id": "2c8cf8d4-ea4c-4f9f-a7a7-1ab873e1dcba",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-2c8cf8d4-ea4c-4f9f-a7a7-1ab873e1dcba"
+                    },
+                    {
+                      "name": "Update metadata for a reference document",
+                      "id": "e9be4a4e-52f9-46e3-bdc7-a8a764d9fff5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens",
+                            ":document-name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "2774ec71-e386-42fc-b5dd-dde266c15252",
+                              "key": "type-id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                            },
+                            {
+                              "id": "b8ec4d6a-4ae9-42c3-8cf8-22bf1823d024",
+                              "key": "document-name",
+                              "value": "piat",
+                              "description": "(Required) Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens` endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Update metadata for a reference document"
+                      },
+                      "response": [
+                        {
+                          "id": "3898287e-c144-4891-ac95-b258e55c1523",
+                          "name": "The updated reference document",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"configuration\": \"arv\",\n  \"error\": \"<string>\",\n  \"upload_url\": \"<string>\",\n  \"download_url\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-3898287e-c144-4891-ac95-b258e55c1523"
+                        },
+                        {
+                          "id": "ce51350d-259a-45bf-bcfc-c00ca6005ab7",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-ce51350d-259a-45bf-bcfc-c00ca6005ab7"
+                        },
+                        {
+                          "id": "d81fe983-f1e0-4c07-b1ff-0a513a350a6b",
+                          "name": "Not authorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-d81fe983-f1e0-4c07-b1ff-0a513a350a6b"
+                        },
+                        {
+                          "id": "318fdc5e-7c5f-4033-874a-4fdb6cb8c3d3",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-318fdc5e-7c5f-4033-874a-4fdb6cb8c3d3"
+                        },
+                        {
+                          "id": "a9a8ed33-5f2c-4347-8910-912cfef0cd69",
+                          "name": "Unsupported Media Type",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-a9a8ed33-5f2c-4347-8910-912cfef0cd69"
+                        },
+                        {
+                          "id": "650fff49-5062-42b1-94aa-6a2b32600258",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"7fx5c\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-650fff49-5062-42b1-94aa-6a2b32600258"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-e9be4a4e-52f9-46e3-bdc7-a8a764d9fff5"
+                    },
+                    {
+                      "name": "Get reference document metadata",
+                      "id": "cf6b4b56-e09b-48ae-af52-4e870afc9475",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens",
+                            ":document-name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9014e6e9-3313-417c-a69c-b46e5c525143",
+                              "key": "type-id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                            },
+                            {
+                              "id": "f27d97f4-7721-4134-acf4-9688dcf5d29c",
+                              "key": "document-name",
+                              "value": "piat",
+                              "description": "(Required) Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens` endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Get download URL and other metadata for a reference document."
+                      },
+                      "response": [
+                        {
+                          "id": "0298769f-c56e-499d-bd34-d0f9c0df4338",
+                          "name": "The identified reference document",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"configuration\": \"arv\",\n  \"error\": \"<string>\",\n  \"upload_url\": \"<string>\",\n  \"download_url\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-0298769f-c56e-499d-bd34-d0f9c0df4338"
+                        },
+                        {
+                          "id": "55177b51-6933-4720-bdae-bac98b3f20ca",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-55177b51-6933-4720-bdae-bac98b3f20ca"
+                        },
+                        {
+                          "id": "fd40e717-fbb7-4215-bb9f-4f2afe691b2a",
+                          "name": "Not authorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-fd40e717-fbb7-4215-bb9f-4f2afe691b2a"
+                        },
+                        {
+                          "id": "26faeb9b-7b0d-43f7-90dc-950ef1fb1cbe",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-26faeb9b-7b0d-43f7-90dc-950ef1fb1cbe"
+                        },
+                        {
+                          "id": "ff494eb9-8105-48c3-894f-6182d10ce3f9",
+                          "name": "Unsupported Media Type",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-ff494eb9-8105-48c3-894f-6182d10ce3f9"
+                        },
+                        {
+                          "id": "44836340-86bf-4b44-a9ca-d702d7718774",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-44836340-86bf-4b44-a9ca-d702d7718774"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-cf6b4b56-e09b-48ae-af52-4e870afc9475"
+                    },
+                    {
+                      "name": "Delete reference document",
+                      "id": "c107e287-36d5-4911-879c-3db88bf54861",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens",
+                            ":document-name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "347a2fa4-0ba4-4a28-93df-de71b54a5b26",
+                              "key": "type-id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                            },
+                            {
+                              "id": "c613c9bc-b795-4ffe-99ec-4c7bd7b2eea7",
+                              "key": "document-name",
+                              "value": "piat",
+                              "description": "(Required) Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens` endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Delete a reference document and break associations to any configs."
+                      },
+                      "response": [
+                        {
+                          "id": "f2d6ac54-bddd-424b-923e-1964888f16dd",
+                          "name": "No content",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-f2d6ac54-bddd-424b-923e-1964888f16dd"
+                        },
+                        {
+                          "id": "b1622a80-5c12-47fd-a078-93ee898a315c",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-b1622a80-5c12-47fd-a078-93ee898a315c"
+                        },
+                        {
+                          "id": "63f26fce-6510-4d69-a76a-f022ce310223",
+                          "name": "Not authorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-63f26fce-6510-4d69-a76a-f022ce310223"
+                        },
+                        {
+                          "id": "6e10f451-b49a-41ef-a187-839d8996f8b9",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-6e10f451-b49a-41ef-a187-839d8996f8b9"
+                        },
+                        {
+                          "id": "f53ee17a-2247-4fa7-8b5a-f95dfb3f78d3",
+                          "name": "Unsupported Media Type",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unsupported Media Type",
+                          "code": 415,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-f53ee17a-2247-4fa7-8b5a-f95dfb3f78d3"
+                        },
+                        {
+                          "id": "d820953f-466c-49c7-baa7-c36023074591",
+                          "name": "Internal Server Error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/document_types/:type-id/goldens/:document-name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "document_types",
+                                ":type-id",
+                                "goldens",
+                                ":document-name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "type-id"
+                                },
+                                {
+                                  "key": "document-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:17:06.000Z",
+                          "updatedAt": "2026-06-05T15:17:06.000Z",
+                          "uid": "35240-d820953f-466c-49c7-baa7-c36023074591"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-c107e287-36d5-4911-879c-3db88bf54861"
+                    }
+                  ],
+                  "id": "a239433e-414f-426b-8596-8258922b062b",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-a239433e-414f-426b-8596-8258922b062b"
+                },
+                {
+                  "name": "Create reference document",
+                  "id": "01afce27-2b19-4974-b535-68a2c2a7529c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "document_types",
+                        ":type-id",
+                        "goldens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "626d07dd-676d-40bf-b308-2ba1365809c3",
+                          "key": "type-id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                        }
+                      ]
+                    },
+                    "description": "Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, for example with `curl -T ./sample.pdf`."
+                  },
+                  "response": [
+                    {
+                      "id": "e87961cd-4061-413a-ab2b-9fd9ffda194f",
+                      "name": "The created reference document",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"<string>\",\n  \"created\": \"<dateTime>\",\n  \"configuration\": \"arv\",\n  \"error\": \"<string>\",\n  \"upload_url\": \"<string>\",\n  \"download_url\": \"<string>\",\n  \"thumbnail_url\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-e87961cd-4061-413a-ab2b-9fd9ffda194f"
+                    },
+                    {
+                      "id": "539ff70d-abb7-4d1e-a3c7-2f70c73a137f",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-539ff70d-abb7-4d1e-a3c7-2f70c73a137f"
+                    },
+                    {
+                      "id": "0bfd6346-8ac7-41e7-b36a-1b8051ce924d",
+                      "name": "Not authorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-0bfd6346-8ac7-41e7-b36a-1b8051ce924d"
+                    },
+                    {
+                      "id": "dbc985ca-5bcd-4f9b-9efe-90cba345f062",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-dbc985ca-5bcd-4f9b-9efe-90cba345f062"
+                    },
+                    {
+                      "id": "e386d7fe-00aa-434f-a8fe-7d8cba70d382",
+                      "name": "Unsupported Media Type",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unsupported Media Type",
+                      "code": 415,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-e386d7fe-00aa-434f-a8fe-7d8cba70d382"
+                    },
+                    {
+                      "id": "91d548b2-5ffe-4c5d-a697-3dc7798d9938",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"qf62_\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-91d548b2-5ffe-4c5d-a697-3dc7798d9938"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-01afce27-2b19-4974-b535-68a2c2a7529c"
+                },
+                {
+                  "name": "List all reference documents in a document type",
+                  "id": "ae23c1a9-4c0f-4f28-bfd6-4cb1b3f814f2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "document_types",
+                        ":type-id",
+                        "goldens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "68eb87c9-0545-43f1-8c51-917da3c01be5",
+                          "key": "type-id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                        }
+                      ]
+                    },
+                    "description": "List all reference documents in a document type"
+                  },
+                  "response": [
+                    {
+                      "id": "4b2238bf-ef3d-4731-90f7-5ff45aed2188",
+                      "name": "List of reference documents for the current account",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"created\": \"<dateTime>\",\n    \"configuration\": \"5ppknjeu4p\",\n    \"error\": \"<string>\",\n    \"upload_url\": \"<string>\",\n    \"download_url\": \"<string>\",\n    \"thumbnail_url\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"created\": \"<dateTime>\",\n    \"configuration\": \"u8tb\",\n    \"error\": \"<string>\",\n    \"upload_url\": \"<string>\",\n    \"download_url\": \"<string>\",\n    \"thumbnail_url\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-4b2238bf-ef3d-4731-90f7-5ff45aed2188"
+                    },
+                    {
+                      "id": "e00d8b68-2a46-4061-8eb7-857dab1128d6",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-e00d8b68-2a46-4061-8eb7-857dab1128d6"
+                    },
+                    {
+                      "id": "113900ad-a893-48a6-8b2c-1e60162b56d3",
+                      "name": "Not authorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-113900ad-a893-48a6-8b2c-1e60162b56d3"
+                    },
+                    {
+                      "id": "c1dc7b9c-21b6-48c6-b2d2-de15ac34a068",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-c1dc7b9c-21b6-48c6-b2d2-de15ac34a068"
+                    },
+                    {
+                      "id": "d19d0f95-fd58-4131-a69d-9d16d04b8201",
+                      "name": "Unsupported Media Type",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unsupported Media Type",
+                      "code": 415,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-d19d0f95-fd58-4131-a69d-9d16d04b8201"
+                    },
+                    {
+                      "id": "275da825-1e64-4576-ac23-a12a4ad1d8d4",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/document_types/:type-id/goldens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "document_types",
+                            ":type-id",
+                            "goldens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "type-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:17:06.000Z",
+                      "updatedAt": "2026-06-05T15:17:06.000Z",
+                      "uid": "35240-275da825-1e64-4576-ac23-a12a4ad1d8d4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-ae23c1a9-4c0f-4f28-bfd6-4cb1b3f814f2"
+                }
+              ],
+              "id": "bef2db0d-eec5-4a1d-af22-278d78930557",
+              "createdAt": "2026-06-05T15:17:06.000Z",
+              "updatedAt": "2026-06-05T15:17:06.000Z",
+              "uid": "35240-bef2db0d-eec5-4a1d-af22-278d78930557"
+            }
+          ],
+          "id": "1a942a22-1047-4763-a40c-414d43f9f8bd",
+          "createdAt": "2026-06-05T15:17:06.000Z",
+          "updatedAt": "2026-06-05T15:17:06.000Z",
+          "uid": "35240-1a942a22-1047-4763-a40c-414d43f9f8bd"
+        }
+      ],
+      "id": "449bd522-993f-4faf-9902-55b6f13384c4",
+      "createdAt": "2026-06-05T15:17:06.000Z",
+      "updatedAt": "2026-06-05T15:17:06.000Z",
+      "uid": "35240-449bd522-993f-4faf-9902-55b6f13384c4"
+    },
+    {
+      "name": "extract_text_from_golden",
+      "item": [
+        {
+          "name": "{type-name}",
+          "item": [
+            {
+              "name": "Extract all text from reference document",
+              "id": "59483af5-a935-47fd-bdb1-5d691a58235f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "extract_text_from_golden",
+                    ":type-name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "426e5bf2-dced-4d39-88fe-4916bc1dbb66",
+                      "key": "type-name",
+                      "value": "<string>",
+                      "description": "(Required) User-friendly name for a document type"
+                    }
+                  ]
+                },
+                "description": "Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning. If you specify a configuration, Sensible uses preprocessors defined in the configuration to process the text."
+              },
+              "response": [
+                {
+                  "id": "1b53da9b-c208-460b-a22e-924be10f6e30",
+                  "name": "All the text in the document",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-1b53da9b-c208-460b-a22e-924be10f6e30"
+                },
+                {
+                  "id": "efc6eceb-9b9f-4de4-bd6b-42983dca7df3",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-efc6eceb-9b9f-4de4-bd6b-42983dca7df3"
+                },
+                {
+                  "id": "ab4ab277-0e0c-404c-ad83-ef0e57ada2c1",
+                  "name": "Not authorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-ab4ab277-0e0c-404c-ad83-ef0e57ada2c1"
+                },
+                {
+                  "id": "e3de74d7-72b7-4b17-a2df-6b3dbb0088c8",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-e3de74d7-72b7-4b17-a2df-6b3dbb0088c8"
+                },
+                {
+                  "id": "cec7e118-74b4-4079-b81a-2069efad32c8",
+                  "name": "Unsupported Media Type",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unsupported Media Type",
+                  "code": 415,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-cec7e118-74b4-4079-b81a-2069efad32c8"
+                },
+                {
+                  "id": "851e63be-7ec3-46ce-9035-f314e0a4a9cc",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"golden\": \"<string>\",\n  \"configuration\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/extract_text_from_golden/:type-name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "extract_text_from_golden",
+                        ":type-name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "type-name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-06-05T15:17:06.000Z",
+                  "updatedAt": "2026-06-05T15:17:06.000Z",
+                  "uid": "35240-851e63be-7ec3-46ce-9035-f314e0a4a9cc"
+                }
+              ],
+              "createdAt": "2026-06-05T15:17:06.000Z",
+              "updatedAt": "2026-06-05T15:17:06.000Z",
+              "uid": "35240-59483af5-a935-47fd-bdb1-5d691a58235f"
+            }
+          ],
+          "id": "dc8aa0ee-8d1a-4fc1-89d5-e5bb60e475e3",
+          "createdAt": "2026-06-05T15:17:06.000Z",
+          "updatedAt": "2026-06-05T15:17:06.000Z",
+          "uid": "35240-dc8aa0ee-8d1a-4fc1-89d5-e5bb60e475e3"
+        }
+      ],
+      "id": "d2846938-85d3-46aa-a4a5-b47bf4458916",
+      "createdAt": "2026-06-05T15:17:06.000Z",
+      "updatedAt": "2026-06-05T15:17:06.000Z",
+      "uid": "35240-d2846938-85d3-46aa-a4a5-b47bf4458916"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.sensible.so/v0"
+    }
+  ]
+}
