@@ -27,11 +27,11 @@ apis:
         type: JSONSchema
       - url: json-ld/sensible-so-context.jsonld
         type: JSONLD
-      - type: Example
+      - type: Examples
         url: examples/sensible-so-extract-sync-example.json
-      - type: Example
+      - type: Examples
         url: examples/sensible-so-extract-from-url-example.json
-      - type: Example
+      - type: Examples
         url: examples/sensible-so-list-extractions-example.json
     description: >-
       Extract structured data from documents synchronously or asynchronously. Supports sync `POST
@@ -55,7 +55,7 @@ apis:
         type: Documentation
       - url: openapi/sensible-classification-api-openapi.yml
         type: OpenAPI
-      - type: Example
+      - type: Examples
         url: examples/sensible-so-classify-async-example.json
     description: >-
       Classify a document into one of the document types defined in the account, either synchronously (testing) or
@@ -85,7 +85,7 @@ apis:
         type: OpenAPI
       - url: json-schema/sensible-so-document-type-schema.json
         type: JSONSchema
-      - type: Example
+      - type: Examples
         url: examples/sensible-so-create-document-type-example.json
     description: >-
       Manage Sensible document types and SenseML configurations. Create, list, fetch, update, and delete document types;
@@ -114,66 +114,51 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/sensible-so/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/sensible-so-classify-then-extract-workflow.yml
-        name: Sensible Classify Then Extract
-        summary: >-
-          Classify a document to discover its best-fit document type, then submit an asynchronous extraction against
-          that type.
-      - url: arazzo/sensible-so-config-versions-then-get-by-version-workflow.yml
-        name: Sensible Config Versions Then Get By Version
-        summary: List the version history of a configuration, then fetch one specific version of that configuration in full.
-      - url: arazzo/sensible-so-create-document-type-and-configuration-workflow.yml
-        name: Sensible Create Document Type And Configuration
-        summary: Create a new document type and then add a SenseML configuration to it in one pass.
-      - url: arazzo/sensible-so-create-reference-document-and-list-workflow.yml
-        name: Sensible Create Reference Document And List
-        summary: >-
-          Register a reference document in a document type, then list the type's reference documents to confirm
-          registration.
-      - url: arazzo/sensible-so-extract-from-url-and-poll-workflow.yml
-        name: Sensible Extract From URL And Poll
-        summary: >-
-          Kick off an asynchronous extraction from a document URL with a chosen config, poll until it completes, then
-          read the parsed results.
-      - url: arazzo/sensible-so-extract-from-url-poll-then-csv-workflow.yml
-        name: Sensible Extract From URL Poll Then CSV
-        summary: Asynchronously extract a document from a URL, poll until complete, then export the extraction as a CSV file.
-      - url: arazzo/sensible-so-extract-reference-text-then-list-workflow.yml
-        name: Sensible Extract Reference Text Then List
-        summary: Pull all standardized text from a reference document, then list the document type's reference documents.
-      - url: arazzo/sensible-so-get-document-type-then-list-configurations-workflow.yml
-        name: Sensible Get Document Type Then List Configurations
-        summary: Fetch a document type by id and then enumerate the configurations defined inside it.
-      - url: arazzo/sensible-so-list-configurations-then-get-workflow.yml
-        name: Sensible List Configurations Then Get
-        summary: List the configurations in a document type, then fetch the full stringified JSON of one named configuration.
-      - url: arazzo/sensible-so-list-document-types-then-extract-workflow.yml
-        name: Sensible List Document Types Then Extract
-        summary: Confirm a document type exists in the account before submitting an asynchronous extraction against it.
-      - url: arazzo/sensible-so-list-extractions-then-retrieve-workflow.yml
-        name: Sensible List Extractions Then Retrieve
-        summary: List recent extractions with filters, then retrieve the full result of the most recent matching extraction.
-      - url: arazzo/sensible-so-portfolio-extract-from-url-and-poll-workflow.yml
-        name: Sensible Portfolio Extract From URL And Poll
-        summary: >-
-          Segment and extract a multi-document portfolio at a URL, then poll until every sub-document extraction
-          completes.
-      - url: arazzo/sensible-so-portfolio-upload-url-and-poll-workflow.yml
-        name: Sensible Portfolio Upload URL And Poll
-        summary: >-
-          Generate a Sensible-signed upload URL for a multi-document portfolio, then poll the portfolio extraction to
-          completion.
-      - url: arazzo/sensible-so-sync-extract-then-spreadsheet-workflow.yml
-        name: Sensible Sync Extract Then Spreadsheet
-        summary: Synchronously extract a document, then convert that extraction to a downloadable Excel spreadsheet.
-      - url: arazzo/sensible-so-upload-url-extract-and-poll-workflow.yml
-        name: Sensible Upload URL Extract And Poll
-        summary: >-
-          Generate a Sensible-signed upload URL for a document type, then poll the extraction id until results are
-          ready.
+  - type: Arazzo
+    url: arazzo/sensible-so-classify-then-extract-workflow.yml
+    name: Sensible Classify Then Extract
+  - type: Arazzo
+    url: arazzo/sensible-so-config-versions-then-get-by-version-workflow.yml
+    name: Sensible Config Versions Then Get By Version
+  - type: Arazzo
+    url: arazzo/sensible-so-create-document-type-and-configuration-workflow.yml
+    name: Sensible Create Document Type And Configuration
+  - type: Arazzo
+    url: arazzo/sensible-so-create-reference-document-and-list-workflow.yml
+    name: Sensible Create Reference Document And List
+  - type: Arazzo
+    url: arazzo/sensible-so-extract-from-url-and-poll-workflow.yml
+    name: Sensible Extract From URL And Poll
+  - type: Arazzo
+    url: arazzo/sensible-so-extract-from-url-poll-then-csv-workflow.yml
+    name: Sensible Extract From URL Poll Then CSV
+  - type: Arazzo
+    url: arazzo/sensible-so-extract-reference-text-then-list-workflow.yml
+    name: Sensible Extract Reference Text Then List
+  - type: Arazzo
+    url: arazzo/sensible-so-get-document-type-then-list-configurations-workflow.yml
+    name: Sensible Get Document Type Then List Configurations
+  - type: Arazzo
+    url: arazzo/sensible-so-list-configurations-then-get-workflow.yml
+    name: Sensible List Configurations Then Get
+  - type: Arazzo
+    url: arazzo/sensible-so-list-document-types-then-extract-workflow.yml
+    name: Sensible List Document Types Then Extract
+  - type: Arazzo
+    url: arazzo/sensible-so-list-extractions-then-retrieve-workflow.yml
+    name: Sensible List Extractions Then Retrieve
+  - type: Arazzo
+    url: arazzo/sensible-so-portfolio-extract-from-url-and-poll-workflow.yml
+    name: Sensible Portfolio Extract From URL And Poll
+  - type: Arazzo
+    url: arazzo/sensible-so-portfolio-upload-url-and-poll-workflow.yml
+    name: Sensible Portfolio Upload URL And Poll
+  - type: Arazzo
+    url: arazzo/sensible-so-sync-extract-then-spreadsheet-workflow.yml
+    name: Sensible Sync Extract Then Spreadsheet
+  - type: Arazzo
+    url: arazzo/sensible-so-upload-url-extract-and-poll-workflow.yml
+    name: Sensible Upload URL Extract And Poll
   - url: https://www.sensible.so
     type: Portal
   - url: https://docs.sensible.so
@@ -194,7 +179,7 @@ common:
   - url: https://sensible.statuspage.io
     type: StatusPage
   - url: https://app.sensible.so/register
-    type: SignUp
+    type: Signup
   - url: https://app.sensible.so/account
     type: Account
   - url: https://www.sensible.so/pricing
@@ -210,13 +195,13 @@ common:
     type: GitHubOrganization
   - url: https://github.com/sensible-hq/sensible-api-py
     name: Python SDK
-    type: SDK
+    type: SDKs
   - url: https://github.com/sensible-hq/sensible-api-js
     name: JavaScript / TypeScript SDK
-    type: SDK
+    type: SDKs
   - url: https://github.com/sensible-hq/sensible-code-examples
     name: Code Examples
-    type: SDK
+    type: SDKs
   - url: https://github.com/sensible-hq/sensible-configuration-library
     name: SenseML Configuration Library (150+ document types)
     type: Samples
