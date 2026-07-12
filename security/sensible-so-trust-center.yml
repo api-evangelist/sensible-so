@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://www.sensible.so/security
+url: https://www.sensible.so/security
+certifications:
+- SOC 2
+- HIPAA
+evidence:
+- source: https://www.sensible.so/security
+  keywords:
+  - soc2
+  - hipaa

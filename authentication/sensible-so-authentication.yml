@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/sensible-classification-api-openapi.yml, openapi/sensible-document-types-api-openapi.yml,
+  openapi/sensible-extractions-api-openapi.yml, openapi/sensible-reference-documents-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.
+  sources:
+  - openapi/sensible-classification-api-openapi.yml
+  - openapi/sensible-document-types-api-openapi.yml
+  - openapi/sensible-extractions-api-openapi.yml
+  - openapi/sensible-reference-documents-api-openapi.yml

@@ -112,6 +112,14 @@ apis:
       metadata, update metadata, delete, associate or unassociate with a configuration, and extract all standardized
       text lines from a reference document for layout tuning.
 common:
+  - type: TrustCenter
+    url: security/sensible-so-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/sensible-so-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/sensible-so-domain-security.yml
+  - type: Authentication
+    url: authentication/sensible-so-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/sensible-so/overview
   - type: Arazzo
@@ -270,6 +278,8 @@ common:
       - https://www.sensible.so/pricing
       - https://github.com/sensible-hq
     updated: '2026-05-25'
+  - type: Blog
+    url: https://www.sensible.so/blog
 created: '2026-05-25T00:00:00.000Z'
 modified: '2026-05-25'
 position: Consuming
