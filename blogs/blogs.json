@@ -1,0 +1,14 @@
+{
+  "repo": "sensible-so",
+  "feeds": [
+    {
+      "source": "https://www.sensible.so/blog",
+      "feed_url": "https://www.sensible.so/blog",
+      "title": "Sensible Blog",
+      "saved": 0,
+      "error": "parse_failed"
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 5
+}
