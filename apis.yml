@@ -112,6 +112,8 @@ apis:
       metadata, update metadata, delete, associate or unassociate with a configuration, and extract all standardized
       text lines from a reference document for layout tuning.
 common:
+  - type: AgenticAccess
+    url: agentic-access/sensible-so-agentic-access.yml
   - type: TrustCenter
     url: security/sensible-so-trust-center.yml
   - type: VulnerabilityDisclosure
