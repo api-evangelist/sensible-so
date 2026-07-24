@@ -1,0 +1,459 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Configuration
+paths:
+  /document_types/{type-id}/configurations:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    post:
+      operationId: create-configuration
+      summary: Create configuration in a document type
+      description: Pass the configuration as stringified JSON.
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostConfiguration'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The created configuration
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      operationId: list-configurations
+      summary: List configurations in a document type
+      description: List configurations in a document type.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllConfigurations'
+          description: List of document types for the current account
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}/configurations/{config-name}:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    - $ref: '#/components/parameters/configurationName'
+    get:
+      operationId: get-configuration
+      summary: Get configuration
+      description: Get a configuration as stringified JSON.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The identified configuration
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      operationId: update-configuration
+      summary: Update configuration
+      description: Replace a published or draft version of the configuration.
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutConfiguration'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The created configuration
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      operationId: delete-configuration
+      summary: Delete configuration
+      description: Delete a configuration and its versions.
+      tags:
+      - Configuration
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}/configurations/{config-name}/{version}:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    - $ref: '#/components/parameters/configurationName'
+    - $ref: '#/components/parameters/versionIdentifier'
+    delete:
+      operationId: delete-configuration-by-version
+      summary: Delete draft or unpublish configuration
+      description: To delete a draft, specify a version name in the `version` parameter. To unpublish a configuration, enter the publication environment name in the `version` parameter, for example, `development`.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
+      - in: path
+        name: version
+        required: true
+        description: if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft.
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      operationId: get-configuration-by-version
+      summary: Get configuration by version
+      description: Get a configuration as stringified JSON by version id.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The identified configuration
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}/configurations/{config-name}/versions:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    - $ref: '#/components/parameters/configurationName'
+    get:
+      operationId: get-configuration-versions
+      summary: List versions for a configuration
+      description: Get the version ids for a configuration.
+      tags:
+      - Configuration
+      responses:
+        '200':
+          description: Version information for the identified configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationVersionsResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    ConfigurationVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationVersion'
+      required:
+      - versions
+      additionalProperties: false
+    UniqueId:
+      type: string
+      format: uuid
+      description: Unique identifier
+      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    Environment:
+      type: string
+      enum:
+      - production
+      - development
+      minLength: 3
+      maxLength: 128
+      example: development
+      description: Destination environment for publication, as a target for later extraction. If you specify an environment, the configuration must be valid. If you don't specify an environment, Sensible saves this version of the configuration as the current draft.
+    PostConfiguration:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/ConfigurationName'
+        configuration:
+          $ref: '#/components/schemas/StringifiedConfigurationRequest'
+          example: "{ \t\"fingerprint\": { \t\t\"tests\": [ \t\t\t\"anyco\", \t\t\t\"quoted coverage changes\" \t\t] \t}, \t\"preprocessors\": [{ \t\t\"type\": \"pageRange\", \t\t\"startPage\": 0, \t\t\"endPage\": 2 \t}], \t\"fields\": [{ \t\t\"id\": \"_driver_name_raw\", \t\t\"anchor\": \"name of driver\", \t\t\"method\": { \t\t\t\"id\": \"label\", \t\t\t\"position\": \"below\" \t\t} \t}], \t\"computed_fields\": [{ \t\t\t\"id\": \"driver_name_last\", \t\t\t\"method\": { \t\t\t\t\"id\": \"split\", \t\t\t\t\"source_id\": \"_driver_name_raw\", \t\t\t\t\"separator\": \", \", \t\t\t\t\"index\": 1 \t\t\t} \t\t}  \t] }\n"
+        publish_as:
+          $ref: '#/components/schemas/Environment'
+      required:
+      - name
+      - configuration
+      additionalProperties: false
+    Date:
+      type: string
+      format: date-time
+      description: ISO 8601 date-time.
+    StringifiedConfigurationRequest:
+      type: string
+      description: 'JSON-stringified configuration.
+
+        If you test this endpoint using the **Try It** button in this interactive API explorer,
+
+        the explorer stringifies the JSON for you when you paste the configuration into this parameter.
+
+        To support publishing drafts, this API doesn’t reject requests with configuration errors.
+
+        To validate, compare your configuration to the latest version of the configuration schema, published at https://schema.sensible.so/configuration.schema.json.
+
+        '
+    ConfigurationResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/ConfigurationName'
+        created:
+          $ref: '#/components/schemas/Date'
+        configuration:
+          type: string
+          description: Configuration returned as stringified JSON.
+          example: '"{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"
+
+            '
+        version_id:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationVersion'
+      required:
+      - name
+      - created
+      - configuration
+      - version_id
+      - versions
+      additionalProperties: false
+    PutConfiguration:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        configuration:
+          $ref: '#/components/schemas/StringifiedConfigurationRequest'
+          example: "{ \"fields\": [{ \t\t\"id\": \"updated_name_field\", \t\t\"anchor\": \"name of driver\", \t\t\"method\": { \t\t\t\"id\": \"label\", \t\t\t\"position\": \"below\" \t\t} \t}], \t\"computed_fields\": [{ \t\t\t\"id\": \"driver_name_last\", \t\t\t\"method\": { \t\t\t\t\"id\": \"split\", \t\t\t\t\"source_id\": \"_driver_name_raw\", \t\t\t\t\"separator\": \", \", \t\t\t\t\"index\": 1 \t\t\t} \t\t}  \t] }\n"
+        publish_as:
+          $ref: '#/components/schemas/Environment'
+        current_draft:
+          type: string
+          description: Version ID of the current draft of the configuration, if the current draft exists and is being replaced. if the configuration is currently in draft and this parameter is not supplied or does not match, the operation fails
+      additionalProperties: false
+    ConfigurationVersion:
+      type: object
+      properties:
+        version_id:
+          type: string
+          example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm
+        datetime:
+          $ref: '#/components/schemas/Date'
+          description: "The date and time Sensible created this version ID for the config. Sensible creates a new version ID for a config when you: 1. publish a config to an environment in the Sensible app 2. create or edit the configuration through the Sensible API. Publishing or unpublishing an\n   existing configuration version using the Sensible API doesn't trigger the creation of a new version ID."
+        environments:
+          type: array
+          items:
+            type: string
+          example:
+          - production
+          - development
+        draft:
+          type: boolean
+          example: false
+          description: The version list returned by this endpoint contains a single draft version ID that's used to manage the editor state in the Sensible app. This draft version ID is never published to the development or production environments.
+      required:
+      - version_id
+      - datetime
+      - draft
+      additionalProperties: false
+    Name:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: User-friendly name
+    ConfigurationName:
+      description: Unique user-friendly name for a configuration
+      example: anyco_auto_insurance_quote
+      type: string
+    GetAllConfigurations:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/ConfigurationName'
+          created:
+            $ref: '#/components/schemas/Date'
+          versions:
+            type: array
+            items:
+              $ref: '#/components/schemas/ConfigurationVersion'
+        required:
+        - name
+        - created
+        - versions
+        additionalProperties: false
+  responses:
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Messages related to the file format of the document to extract data from.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
+    '404':
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            title: Not Found
+            type: string
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+    '204':
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content
+  parameters:
+    configurationName:
+      name: config-name
+      required: true
+      in: path
+      description: Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint.
+      example: anyco_auto_insurance_quote
+      schema:
+        $ref: '#/components/schemas/Name'
+    documentTypeId:
+      name: type-id
+      required: true
+      in: path
+      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
+      schema:
+        $ref: '#/components/schemas/UniqueId'
+    versionIdentifier:
+      name: version
+      required: true
+      in: path
+      description: Unique identifier for a configuration version.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.

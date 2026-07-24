@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration Get Excel from documents API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Get Excel from documents
+  description: Convert extracted document data to spreadsheet
+paths:
+  /generate_csv/{ids}:
+    get:
+      operationId: get-csv-extraction
+      summary: Get CSV extraction
+      description: 'You can use this endpoint to get CSV files from documents, for example, from PDFs. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.
+
+        To compile multiple documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,
+
+        `/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
+
+        For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
+
+        For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+
+        For a list of document file types that Sensible can extract data from, see [Supported file types](https://docs.sensible.so/docs/file-types).
+
+        Call this endpoint after an extraction completes. For more information about checking extraction status,
+
+        see the `GET /documents/{id}` endpoint.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/ids'
+      tags:
+      - Get Excel from documents
+      responses:
+        '200':
+          description: 'Indicates the extraction successfully converted to an CSV file. This response contains the download URL for the CSV file. The link
+
+            expires after 15 minutes.
+
+            '
+          content:
+            application/json:
+              schema:
+                properties:
+                  url:
+                    type: string
+                    format: url
+                    description: The download URL for the CSV file
+                    example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.csv?REDACTED
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /generate_excel/{ids}:
+    get:
+      operationId: get-excel-extraction
+      summary: Get Excel extraction
+      description: 'You can use this endpoint to get Excel files from documents, for example from PDFs. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+
+        To compile multiple documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,
+
+        `/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
+
+        For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
+
+        For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+
+
+        For portfolio extractions, Sensible returns an Excel file containing fields for all the documents it finds in the PDF. For more information, see [Multi-document spreadsheet](https://docs.sensible.so/docs/excel-reference#multi-document-spreadsheet).
+
+
+        For a list of document file types that Sensible can extract data from, see [Supported file types](https://docs.sensible.so/docs/file-types).
+
+        Call this endpoint after an extraction completes. For more information about checking extraction status,
+
+        see the `GET /documents/{id}` endpoint.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/ids'
+      tags:
+      - Get Excel from documents
+      responses:
+        '200':
+          description: 'Indicates the extraction successfully converted to an Excel file. This response contains the download URL for the Excel file. The link
+
+            expires after 15 minutes.
+
+            '
+          content:
+            application/json:
+              schema:
+                properties:
+                  url:
+                    type: string
+                    format: url
+                    description: The download URL for the Excel file
+                    example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.xlsx?REDACTED
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  parameters:
+    ids:
+      name: ids
+      required: true
+      in: path
+      style: simple
+      description: Comma-delimited list of unique extraction IDs.
+      schema:
+        $ref: '#/components/schemas/ExtractionIds'
+  responses:
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+  schemas:
+    ExtractionIds:
+      type: array
+      description: Unique extraction IDs
+      items:
+        $ref: '#/components/schemas/ExtractionId'
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.

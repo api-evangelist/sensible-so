@@ -1,0 +1,313 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration Portfolio API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Portfolio
+  description: Extract data from multiple documents bundled into single PDF files
+paths:
+  /extract_from_url:
+    post:
+      operationId: provide-a-download-url-for-a-pdf-portfolio
+      summary: Extract portfolio at your URL
+      description: '
+
+        Use this endpoint with multiple documents that are packaged into one file (a "portfolio"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).
+
+        Segments a portfolio file at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)
+
+        and then runs extractions asynchronously for each document Sensible finds in the portfolio. Take the following steps.
+
+        1. Run this endpoint.
+
+        3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.
+
+        For more about extracting from portfolios, see [Multi-document extractions](https://docs.sensible.so/docs/portfolio).
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-internal-note: ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:62-68) but deliberately not documented publicly.
+              properties:
+                document_url:
+                  $ref: '#/components/schemas/DocumentUrl'
+                types:
+                  $ref: '#/components/schemas/DocumentTypeNames'
+                segment_documents_with:
+                  $ref: '#/components/schemas/SegmentDocumentsWith'
+                webhook:
+                  $ref: '#/components/schemas/Webhook'
+                extra_data:
+                  $ref: '#/components/schemas/ExtraDataRecord'
+              required:
+              - types
+              - document_url
+      tags:
+      - Portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlPortfolioResponse'
+          description: Returns the ID to use to retrieve the extraction.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /generate_upload_url:
+    post:
+      operationId: generate-an-upload-url-for-a-pdf-portfolio
+      summary: Extract portfolio at a Sensible URL
+      description: 'Use this endpoint with multiple documents that are packaged into one file (a "portfolio"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).
+
+        Segments a portfolio file into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions
+
+        asynchronously for each document Sensible finds in the portfolio.  Take the following steps -
+
+        1. Use this endpoint to generate a Sensible URL.
+
+        2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received
+
+        from this endpoint''s response. For more information about how to PUT the document, see the [generate_upload_url/{document_type}](https://docs.sensible.so/reference/generate-an-upload-url) endpoint.
+
+        3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.
+
+        For more about extracting from portfolios, see [Multi-document extractions](https://docs.sensible.so/docs/portfolio).
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-internal-note: ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:67-76) but deliberately not documented publicly.
+              properties:
+                webhook:
+                  $ref: '#/components/schemas/Webhook'
+                types:
+                  $ref: '#/components/schemas/DocumentTypeNames'
+                segment_documents_with:
+                  $ref: '#/components/schemas/SegmentDocumentsWith'
+                extra_data:
+                  $ref: '#/components/schemas/ExtraDataRecord'
+              required:
+              - types
+      tags:
+      - Portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPortfolioResponse'
+          description: Returns the upload_url at which to PUT the document for extraction
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  parameters:
+    environment:
+      name: environment
+      in: query
+      description: If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists.
+      schema:
+        type: string
+        enum:
+        - production
+        - development
+        default: production
+    document_name:
+      name: document_name
+      in: query
+      description: If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response.
+      schema:
+        type: string
+      example: test.pdf
+  schemas:
+    SegmentDocumentsWith:
+      type: string
+      enum:
+      - llm
+      - fingerprints
+      default: fingerprints
+      example: llm
+      description: Specifies how to segment the page ranges of the documents in the portfolio. For more information, see [Multi-document extraction](https://docs.sensible.so/docs/portfolio).
+    ExtraDataRecord:
+      type: object
+      description: "Extra data in the form of flat key/value pairs you attach to an asynchronous extraction endpoint request, for example, `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use this parameter to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it. For example, use it to validate extraction data against a dynamic external record. Has the following constraints: \n- Doesn't support synchronous extractions \n- Doesn't support nested objects and arrays \n- Values must be strings, numbers, booleans, or null \n- Extra data has a maximum size of 16 kB \n- Extra data isn't subject to custom data retention policies. Don't include sensitive information in it. \n\n Sensible persists the extra data and echoes it in responses and webhook deliveries. When you submit a [portfolio](https://docs.sensible.so/docs/portfolio) extraction with extra data, Sensible passes the same object to every document extracted from the portfolio. For more information, see the [Extra Data](https://docs.sensible.so/docs/extra-data) method."
+      additionalProperties:
+        oneOf:
+        - type: string
+          nullable: true
+        - type: number
+        - type: boolean
+      example:
+        applicant_id: A-123
+        tenant: acme
+        premium_member: true
+        year: 2025
+        prior_decision: null
+    ExtractionCreated:
+      type: string
+      format: date-time
+      example: '2022-10-31T16:27:53.433'
+      description: Date and time Sensible created the initial empty extraction and set its status to WAITING.
+    DocumentUrl:
+      type: string
+      format: url
+      description: URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.
+      example: https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf
+    DocumentTypeNames:
+      type: array
+      description: Specifies the document types contained in the PDF portfolio.
+      example:
+      - tax_returns
+      - bank_statements
+      - credit_reports
+      items:
+        type: string
+    Webhook:
+      type: object
+      description: "Pushes extraction results to the specified webhook under the following circumstances, so you don't have to poll for results status:\n  - When Sensible sets `\"status\": \"COMPLETE\"` or `\"status\": \"FAILED\"` \n  - When the value for `reviewStatus` (for portfolio extractions) or `reviewStatus` (for single-document extractions) changes."
+      properties:
+        url:
+          type: string
+          format: url
+          description: Webhook destination. Sensible will POST to this URL when the extraction is complete.
+          example: https://example.com/example_webhook_url
+        payload:
+          type: string
+          description: Information additional to the API response, for example a UUID for verification. Can be any of the following types - [string, number, boolean, array, object].
+          example: info extra to the default extraction payload
+    ExtractFromUrlPortfolioResponse:
+      allOf:
+      - $ref: '#/components/schemas/PortfolioBase'
+      - type: object
+        properties:
+          types:
+            $ref: '#/components/schemas/DocumentTypeNames'
+    PortfolioBase:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+    UploadPortfolioResponse:
+      allOf:
+      - $ref: '#/components/schemas/PortfolioBase'
+      - type: object
+        properties:
+          upload_url:
+            type: string
+            format: url
+            description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+            example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+    ExtractionStatus:
+      type: string
+      description: 'Status of the extraction:
+
+        - WAITING: Sensible created an initial empty extraction and is waiting for the document.
+
+        - PROCESSING: Sensible received the document and is extracting data.
+
+        - FAILED: The extraction failed.
+
+        - COMPLETE: The extraction is complete.
+
+        '
+      enum:
+      - WAITING
+      - PROCESSING
+      - COMPLETE
+      - FAILED
+      example: COMPLETE
+  responses:
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
+    '429':
+      description: Too Many Requests
+      content:
+        text/plain:
+          schema:
+            title: Too Many Requests
+            type: string
+            example: One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.

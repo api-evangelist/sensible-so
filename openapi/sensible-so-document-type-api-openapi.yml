@@ -1,0 +1,325 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration Document type API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Document type
+paths:
+  /document_types:
+    post:
+      operationId: create-document-type
+      summary: Create document type
+      description: Create a document type.
+      tags:
+      - Document type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDocumentType'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentType'
+          description: List of document types for the current account
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      operationId: list-document-types
+      summary: List document types
+      description: Lists all document types in your Sensible account.
+      tags:
+      - Document type
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllDocumentTypes'
+          description: List of document types for the current account
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    get:
+      operationId: get-document-type
+      summary: Get document type
+      description: Find the document type id using the `/document_types` endpoint.
+      tags:
+      - Document type
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentType'
+          description: Identified document type
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      operationId: delete-document-type
+      summary: Delete document type
+      description: 'Delete a document type and everything it contains, for example configurations and reference PDfs,
+
+        but not its extraction history displayed in the Sensible app.
+
+        '
+      tags:
+      - Document type
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    Validation:
+      type: object
+      additionalProperties: false
+      description: See https://docs.sensible.so/docs/validate-extractions.
+      properties:
+        description:
+          type: string
+          description: User-friendly description for the test
+          example: Broker's email is in string@string format
+        condition:
+          description: The test for validating the field, written in JsonLogic.
+          example:
+            match:
+            - var: broker\.email.value
+            - ^\S+\@\S+$
+          type: object
+          additionalProperties: true
+        fields:
+          type: array
+          description: Skip this test unless prerequisite fields are non-null.
+          example:
+          - broker\.email
+          items:
+            type: string
+        severity:
+          type: string
+          description: Severity of the failing test
+          enum:
+          - warning
+          - error
+        scope:
+          type: array
+          description: If the field to validate is in sections, the list of parent sections.
+          example:
+          - parent_section
+          - child_section
+      required:
+      - description
+      - condition
+    UniqueId:
+      type: string
+      format: uuid
+      description: Unique identifier
+      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    Date:
+      type: string
+      format: date-time
+      description: ISO 8601 date-time.
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+    PostDocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+        schema:
+          $ref: '#/components/schemas/DocumentTypeOutput'
+      required:
+      - name
+      - schema
+      additionalProperties: false
+    GetAllDocumentTypes:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/DocumentTypeName'
+          id:
+            $ref: '#/components/schemas/UniqueId'
+          created:
+            $ref: '#/components/schemas/Date'
+          schema:
+            $ref: '#/components/schemas/DocumentTypeOutput'
+        required:
+        - name
+        - id
+        additionalProperties: false
+    DocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+        id:
+          $ref: '#/components/schemas/UniqueId'
+        created:
+          $ref: '#/components/schemas/Date'
+        schema:
+          $ref: '#/components/schemas/DocumentTypeOutput'
+      required:
+      - name
+      - id
+      - created
+      - schema
+      additionalProperties: false
+    DocumentTypeOutput:
+      type: object
+      additionalProperties: false
+      properties:
+        fingerprint_mode:
+          enum:
+          - fallback_to_all
+          - strict
+          type: string
+          description: The Sensible app defaults to `fallback_to_all`.
+        ocr_engine:
+          enum:
+          - microsoft
+          - amazon
+          - google
+          - lazarus
+          type: string
+          description: 'For information about each OCR engine, see [OCR engine](https://docs.sensible.so/docs/ocr-engine).
+
+            '
+        prevent_default_merge_lines:
+          type: boolean
+          description: 'Prevents the built-in line merging that occurs before  the
+
+            [Merge Lines](https://docs.sensible.so/docs/merge-lines) preprocessor.
+
+            '
+        ocr_level:
+          enum:
+          - 0
+          - 2
+          - 4
+          - 5
+          type: number
+          description: 'See [OCR level](https://docs.sensible.so/docs/ocr-level).
+
+            '
+        validations:
+          description: Array of validations. See [Validating extractions](https://docs.sensible.so/docs/validate-extractions).
+          items:
+            $ref: '#/components/schemas/Validation'
+          type: array
+        review_triggers:
+          description: 'Array of criteria for flagging an extraction for [human review](https://docs.sensible.so/docs/human-review). Criteria include `coverage_threshold`, `validation_warnings_threshold`, and `validation_errors_threshold`. If the review criteria includes specific validations, this parameter contains `"selected_validations": true` and each selected validation includes a `"review_trigger":true` parameter.'
+          type: array
+          items:
+            type: string
+  responses:
+    '204':
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Messages related to the file format of the document to extract data from.
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '404':
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            title: Not Found
+            type: string
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+  parameters:
+    documentTypeId:
+      name: type-id
+      required: true
+      in: path
+      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
+      schema:
+        $ref: '#/components/schemas/UniqueId'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.

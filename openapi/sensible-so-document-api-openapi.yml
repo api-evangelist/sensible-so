@@ -1,0 +1,915 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration Document API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Document
+  description: Classify documents by type
+paths:
+  /classify:
+    post:
+      operationId: classify-document-sync
+      summary: Classify document by type (sync)
+      description: "\n**Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.\n\nClassify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n    \n"
+      parameters:
+      - $ref: '#/components/parameters/document_types'
+      requestBody:
+        $ref: '#/components/requestBodies/SupportedFileTypes'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifySingleResponse'
+          description: 'The document type in your Sensible account that''s most similar to this document.
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /classify/async:
+    post:
+      operationId: classify-document
+      summary: Classify document by type
+      description: "Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\nTo retrieve document's classification, poll the `download_link` in this endpoint's response until it returns a non-error response.\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n"
+      parameters:
+      - $ref: '#/components/parameters/document_types'
+      requestBody:
+        $ref: '#/components/requestBodies/SupportedFileTypes'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifyAsyncSingleResponse'
+          description: 'Download link for the classification response. Poll the link until it returns a non-error response.
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /extract/{document_type}/{config_name}:
+    post:
+      operationId: extract-data-from-a-document-with-config
+      summary: Extract data from a document using specified config
+      description: 'This endpoint''s behavior identical to the [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) endpoint''s behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/document_type'
+      - $ref: '#/components/parameters/config_name'
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      requestBody:
+        $ref: '#/components/requestBodies/SupportedFileTypes_2'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionSyncResponse'
+          description: 'The structured data extracted from the document.
+
+            '
+        '400':
+          $ref: '#/components/responses/400_2'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415_2'
+        '429':
+          $ref: '#/components/responses/429_2'
+        '500':
+          $ref: '#/components/responses/500'
+  /extract/{document_type}:
+    post:
+      operationId: extract-data-from-a-document
+      summary: Extract data from a document (sync)
+      description: "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](https://docs.sensible.so/docs/quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](https://docs.sensible.so/docs/api-tutorial-sync).\n- Run this endpoint in the Sensible Postman collection.\n  [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)\n\nThere are two options for posting the document bytes.\n  1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n     See the following for supported file formats.\n  2. Base64 encode the document bytes, specify them in a body \"document\" field, and specify application/json for the `Content-Type` header.\n\nFor a list of  supported document file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n"
+      parameters:
+      - $ref: '#/components/parameters/document_type'
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      requestBody:
+        $ref: '#/components/requestBodies/SupportedFileTypes_2'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionSyncResponse'
+          description: 'The structured data extracted from the document.
+
+            '
+        '400':
+          $ref: '#/components/responses/400_2'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415_2'
+        '429':
+          $ref: '#/components/responses/429_2'
+        '500':
+          $ref: '#/components/responses/500'
+  /generate_upload_url/{document_type}/{config_name}:
+    post:
+      operationId: generate-an-upload-url-with-config
+      summary: Extract doc at a Sensible URL using specified config
+      description: 'This endpoint''s behavior is identical to the [Extract doc at a Sensible URL](https://docs.sensible.so/reference/generate-an-upload-url) endpoint''s behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/document_type'
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      - $ref: '#/components/parameters/config_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateUrlRequest'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+          description: Returns the upload_url at which to PUT the document for extraction
+        '400':
+          $ref: '#/components/responses/400_2'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415_2'
+        '429':
+          $ref: '#/components/responses/429_2'
+        '500':
+          $ref: '#/components/responses/500'
+  /extract_from_url/{document_type}/{config_name}:
+    post:
+      operationId: provide-a-download-url-with-config
+      summary: Extract doc at your URL using config
+      description: 'This endpoint''s behavior is identical to the [Extract doc at your URL](https://docs.sensible.so/reference/extract-from-url) endpoint''s behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/document_type'
+      - $ref: '#/components/parameters/environment'
+      - $ref: '#/components/parameters/document_name'
+      - $ref: '#/components/parameters/config_name'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtractFromUrlRequest'
+      tags:
+      - Document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlResponse'
+          description: Returns the ID to use to retrieve the extraction
+        '400':
+          $ref: '#/components/responses/400_2'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415_2'
+        '429':
+          $ref: '#/components/responses/429_2'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    ReviewStatus:
+      type: string
+      enum:
+      - NEEDS_REVIEW
+      - APPROVED
+      - REJECTED
+      example: NEEDS_REVIEW
+      description: The extraction's review status. For more information, see [Human review](https://docs.sensible.so/docs/human-review). Specify a webhook in the extraction request so that you can get a push notification when  review status changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`. Sensible omits this property from the extraction response  if the extraction doesn't need review.
+    ContentTypeParameter:
+      type: string
+      enum:
+      - application/pdf
+      - image/jpeg
+      - image/png
+      - image/tiff
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv
+      description: Content type of the document being presented for extraction. Required for the CSV file type.
+    Score:
+      type: object
+      description: The score for the extraction, used to help choose the best extraction.
+      properties:
+        value:
+          type: number
+          example: 17
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+        fields_present:
+          type: integer
+          example: 17
+          description: Number of non-null fields Sensible extracted from the document using this config
+        penalties:
+          type: number
+          example: 1.5
+          description: Errors are 1 penalty point and warnings are 0.5 points. See the validation_summary for a breakdown.
+    Charged:
+      type: integer
+      example: 1
+      description: The number of extractions charged to your account for this extraction ID.
+    EnvironmentResponse:
+      description: Name of the environment to which the configuration used by this extraction was published.
+      example: DEVELOPMENT
+      type: string
+    Classification:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        fingerprints_present:
+          type: integer
+          example: 1
+          description: The number of this config's fingerprints that Sensible found in the document.
+        fingerprints:
+          type: integer
+          example: 1
+          description: The number of fingerprints defined in this config.
+        score:
+          $ref: '#/components/schemas/Score'
+    UploadResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        upload_url:
+          type: string
+          format: url
+          description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+          example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+    ContentTypeResponse:
+      type: string
+      description: 'The content type of the document.
+
+        '
+      example: image/png
+    GenerateUrlRequest:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeParameter'
+        extra_data:
+          $ref: '#/components/schemas/ExtraDataRecord'
+    ExtractionCreated:
+      type: string
+      format: date-time
+      example: '2022-10-31T16:27:53.433'
+      description: Date and time Sensible created the initial empty extraction and set its status to WAITING.
+    ClassifySingleResponse:
+      type: object
+      properties:
+        document_type:
+          type: object
+          description: The document type defined in your Sensible account that this document is most similar to.
+          properties:
+            id:
+              type: string
+              description: Unique ID for the document type.
+            name:
+              type: string
+              description: User-friendly name for the document type.
+            score:
+              type: number
+              description: Deprecated. Similarity score comparing the document to the document type, where a score of 1 indicates a match.
+        reference_documents:
+          type: object
+          description: Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification.
+          additionalProperties: true
+        classification_summary:
+          type: object
+          additionalProperties: true
+          description: "Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification. \n"
+      example:
+        document_type:
+          id: 77c2ab88-3389-4ea8-93c7-912c2bfd373a
+          name: 1040s
+          score: 1
+        reference_documents: []
+        classification_summary: []
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+    ValidationsSummary:
+      type: object
+      description: Summary of the extracted fields that fail validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified in the SenseML config to extract from the document
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the document
+          example: 4
+        errors:
+          type: number
+          description: Number of validation errors in the extraction
+          example: 0
+        warnings:
+          type: number
+          description: Number of validation warnings in the extraction
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped in the extraction because a prerequisite field was null
+          example: 1
+    ExtractionSyncResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        configuration_version:
+          $ref: '#/components/schemas/ConfigurationVersion'
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeResponse'
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        reviewStatus:
+          $ref: '#/components/schemas/ReviewStatus'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        postprocessorOutput:
+          $ref: '#/components/schemas/PostprocessorOutput'
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+    Errors:
+      type: array
+      description: Extraction error messages.
+      items:
+        $ref: '#/components/schemas/ExtractionError'
+    ExtractFromUrlResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeResponse'
+        extra_data:
+          $ref: '#/components/schemas/ExtraDataRecord'
+    ExtraDataRecord:
+      type: object
+      description: "Extra data in the form of flat key/value pairs you attach to an asynchronous extraction endpoint request, for example, `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use this parameter to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it. For example, use it to validate extraction data against a dynamic external record. Has the following constraints: \n- Doesn't support synchronous extractions \n- Doesn't support nested objects and arrays \n- Values must be strings, numbers, booleans, or null \n- Extra data has a maximum size of 16 kB \n- Extra data isn't subject to custom data retention policies. Don't include sensitive information in it. \n\n Sensible persists the extra data and echoes it in responses and webhook deliveries. When you submit a [portfolio](https://docs.sensible.so/docs/portfolio) extraction with extra data, Sensible passes the same object to every document extracted from the portfolio. For more information, see the [Extra Data](https://docs.sensible.so/docs/extra-data) method."
+      additionalProperties:
+        oneOf:
+        - type: string
+          nullable: true
+        - type: number
+        - type: boolean
+      example:
+        applicant_id: A-123
+        tenant: acme
+        premium_member: true
+        year: 2025
+        prior_decision: null
+    DocName:
+      type: string
+      description: If you specify the filename of the document using the `document_name` parameter, then  Sensible displays the name in extraction history in the Sensible app  and returns the name in the extraction response.
+      example: example.pdf
+    Validations:
+      description: Which extracted fields failed validation rules you write in the Sensible app
+      type: array
+      items:
+        $ref: '#/components/schemas/Validation'
+      example:
+      - description: Policy number must be 11 digits
+        severity: error
+      - description: Company email must be in format string@string
+        severity: skipped
+        message: Missing prerequisites - company_email
+    ExtractionError:
+      type: object
+      description: Extraction error message
+      properties:
+        field_id:
+          type: string
+          description: ID of the extracted field.
+          example: phone_number
+        message:
+          type: string
+          description: Description of the error
+          example: 'ConfigurationError: width <=0'
+        type:
+          type: string
+          description: Error type
+          example: configuration
+    Coverage:
+      type: number
+      description: The coverage score measures how fully an extraction captured all your target data in the document.  It's a percentage comparing non-null, [validated](https://docs.sensible.so/docs/validate-extractions) fields to total fields  returned by a config for a document. For example, a coverage score of 70% for an extraction with no  validation errors means that 30% of fields were null. For more information about scoring,  see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).
+      example: 0.75
+    FileMetadata:
+      type: object
+      description: Metadata about the PDF file, for example author, authoring tool, and modified date.
+      properties:
+        metadata:
+          type: object
+          description: Raw metadata embedded in the PDF. Returned if available, without data normalization.
+        error:
+          type: string
+          description: Errors Sensible encountered when attempting to retrieve metadata
+          example: 'Error retrieving PDF metadata: Invalid PDF structure'
+        info:
+          type: object
+          description: Normalized metadata about the PDF, returned if available.
+          properties:
+            author:
+              type: string
+              description: The name of the person who created the document.
+              example: Jay S. Schiller
+            title:
+              type: string
+              description: Title assigned to the PDF by the PDF producer.
+              example: file123
+            creator:
+              type: string
+              description: If the document was converted to PDF from another format, the name of the application that created the original document from which it was converted.
+              example: macOS Version 11.2 (Build 20D64) Quartz PDFContext
+            producer:
+              type: string
+              description: If the document was converted to PDF from another format, the name of the application that converted it to PDF
+              example: Preview
+            creation_date:
+              type: string
+              description: File creation date
+              example: '2022-08-02T18:09:31.000+00:00'
+            modification_date:
+              type: string
+              description: File modification date
+              example: '2022-08-03T15:09:23.000+00:00'
+            error:
+              type: string
+              description: Errors Sensible encountered when attempting to retrieve metadata.
+    ExtractFromUrlRequest:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        document_url:
+          $ref: '#/components/schemas/DocumentUrl'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeParameter'
+        extra_data:
+          $ref: '#/components/schemas/ExtraDataRecord'
+      required:
+      - document_url
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the validation
+          example: Dollar amount should be more than $100
+        severity:
+          type: string
+          enum:
+          - error
+          - warning
+          - skipped
+          example: warning
+          description: Severity of the failing validation (error, warning, skipped)
+        message:
+          type: string
+          description: Messages about why the validation failed
+          example: 'Missing prerequisites: broker.email'
+    PostprocessorOutput:
+      type: object
+      additionalProperties: true
+      description: A custom schema that you define using a [postprocessor](https://docs.sensible.so/docs/postprocessor). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema.
+    ConfigurationVersion:
+      type: string
+      description: Version number for the configuration.
+      example: N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I
+    ClassifyAsyncSingleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID for this classification response.
+        content_type:
+          type: string
+          description: File format of the document for which you requested classification.
+        download_link:
+          description: 'Poll until the download URL returns a non-error response. Links to a JSON download that contains the same response as from the synchronous Classify endpoint request.
+
+            '
+          type: string
+          format: url
+      example:
+        id: 49f844ba-4429-4974-919d-2f1bdfa95f7c
+        content_type: application/pdf
+        download_link: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/c024cd1c-5f33-4a82-b2ea-2c807e44988b/CLASSIFICATION/49f844ba-4429-4974-919d-2f1bdfa95f7c.json?AWSAccessKeyId=REST_REDACTED
+    ConfigurationName:
+      type: string
+      description: Name of the "configuration", a collection of SenseML queries for extracting document data.
+      example: config_for_x_company
+    DocumentUrl:
+      type: string
+      format: url
+      description: URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.
+      example: https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf
+    Webhook:
+      type: object
+      description: "Pushes extraction results to the specified webhook under the following circumstances, so you don't have to poll for results status:\n  - When Sensible sets `\"status\": \"COMPLETE\"` or `\"status\": \"FAILED\"` \n  - When the value for `reviewStatus` (for portfolio extractions) or `reviewStatus` (for single-document extractions) changes."
+      properties:
+        url:
+          type: string
+          format: url
+          description: Webhook destination. Sensible will POST to this URL when the extraction is complete.
+          example: https://example.com/example_webhook_url
+        payload:
+          type: string
+          description: Information additional to the API response, for example a UUID for verification. Can be any of the following types - [string, number, boolean, array, object].
+          example: info extra to the default extraction payload
+    ExtractionCompleted:
+      type: string
+      format: date-time
+      example: '2022-10-31T16:27:53.741Z'
+      description: Date and time Sensible set the extraction's status to COMPLETED
+    ParsedDocument:
+      description: 'Data extracted from the document, structured as an array of fields.
+
+        Configure the verbosity parameter in the SenseML configuration to return
+
+        extraction metadata, such as:
+
+        - page numbers
+
+        - the bounding polygons that
+
+        define line coordinates
+
+        - for text that Sensible OCR''d, confidence scores.
+
+        For more information, see [Verbosity](https://docs.sensible.so/docs/verbosity).
+
+        '
+      type: object
+      example:
+        policy_number:
+          type: number
+          value: 123456789
+          lines:
+          - text: '123456789'
+            page: 0
+            boundingPolygon:
+            - x: 6.458
+              y: 2.601
+            - x: 7.354
+              y: 2.601
+            - x: 7.354
+              y: 2.767
+            - x: 6.458
+              y: 2.767
+        name_insured:
+          type: string
+          value: Petar Petrov
+          lines:
+          - text: Petar Petrov
+            page: 0
+            boundingPolygon:
+            - x: 1
+              y: 5.515
+            - x: 1.935
+              y: 5.515
+            - x: 1.935
+              y: 5.674
+            - x: 1
+              y: 5.674
+    ExtractionStatus:
+      type: string
+      description: 'Status of the extraction:
+
+        - WAITING: Sensible created an initial empty extraction and is waiting for the document.
+
+        - PROCESSING: Sensible received the document and is extracting data.
+
+        - FAILED: The extraction failed.
+
+        - COMPLETE: The extraction is complete.
+
+        '
+      enum:
+      - WAITING
+      - PROCESSING
+      - COMPLETE
+      - FAILED
+      example: COMPLETE
+    ClassificationSummary:
+      type: array
+      description: Metadata about how Sensible scores configs against the document to extract from. By default, Sensible compares all configs in the document type, then chooses the best extraction using fingerprints, scores, or a combination of the two. When two extractions tie by score and fingerprints, Sensible chooses the first configuration in alphabetic order. For more information, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes).
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+      - configuration: config_for_x_company
+        fingerprints: 2
+        fingerprints_present: 2
+        score:
+          value: 3
+          fields_present: 4
+          penalities: 0.5
+      - configuration: acme_co
+        fingerprints: 2
+        fingerprints_present: 2
+        score:
+          value: 0
+          fields_present: 2
+          penalities: 1.5
+  requestBodies:
+    SupportedFileTypes:
+      description: Supported [file types](https://docs.sensible.so/docs/file-types).
+      required: true
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        image/jpeg:
+          schema:
+            type: string
+            format: binary
+        image/png:
+          schema:
+            type: string
+            format: binary
+        image/tiff:
+          schema:
+            type: string
+            format: binary
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        application/msword:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        text/csv:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+    SupportedFileTypes_2:
+      description: 'See endpoint description for request body options.  '
+      required: true
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        image/jpeg:
+          schema:
+            type: string
+            format: binary
+        image/png:
+          schema:
+            type: string
+            format: binary
+        image/tiff:
+          schema:
+            type: string
+            format: binary
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        application/msword:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+        text/csv:
+          schema:
+            type: string
+            format: binary
+            description: non-encoded document bytes as the entire request body
+  responses:
+    '429':
+      description: Too Many Requests
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
+    '415_2':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Messages related to the file format of the document.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Messages related to the file content type, to reading or OCRing the file, or to classifying the document.
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+    '400_2':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
+    '429_2':
+      description: Too Many Requests
+      content:
+        text/plain:
+          schema:
+            title: Too Many Requests
+            type: string
+            example: One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
+  parameters:
+    document_types:
+      name: document_types
+      in: query
+      description: Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.
+      schema:
+        type: array
+        items:
+          type: string
+      example: 1040s, pay_stubs, bank_statements
+    config_name:
+      name: config_name
+      required: true
+      in: path
+      description: User-friendly name of the config to use to extract data from the document.
+      schema:
+        type: string
+      example: anyco_insurance_auto_declarations
+    environment:
+      name: environment
+      in: query
+      description: If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists.
+      schema:
+        type: string
+        enum:
+        - production
+        - development
+        default: production
+    document_type:
+      name: document_type
+      required: true
+      in: path
+      description: Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request.
+      schema:
+        type: string
+      example: senseml_basics
+    document_name:
+      name: document_name
+      in: query
+      description: If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response.
+      schema:
+        type: string
+      example: test.pdf
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.

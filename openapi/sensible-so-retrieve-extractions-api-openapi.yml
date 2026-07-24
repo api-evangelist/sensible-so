@@ -1,0 +1,935 @@
+openapi: 3.0.3
+info:
+  title: Sensible Classification Configuration Retrieve extractions API
+  version: v0
+  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags:
+- name: Retrieve extractions
+  description: Retrieve data extracted asynchronously from documents
+paths:
+  /extractions/statistics:
+    get:
+      operationId: statistics
+      summary: Get extraction statistics
+      tags:
+      - Retrieve extractions
+      description: Returns daily extraction coverage statistics as a `coverage_histogram` per config.  Sensible returns coverage for each config that was used for at least one extraction performed in the specified environments  in the specified time period. For more information about coverage, see [Monitoring extractions](https://docs.sensible.so/docs/metrics). For more information about the returned `coverage_histogram`, see the response model.
+      parameters:
+      - $ref: '#/components/parameters/start_date_config'
+      - $ref: '#/components/parameters/end_date_config'
+      - $ref: '#/components/parameters/environments_statistics'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsResponse'
+          description: Returns daily statistics for configs in the specified time period.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /documents/{id}:
+    get:
+      operationId: retrieving-results
+      summary: Retrieve extraction by ID
+      description: 'Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results.
+
+        You can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.
+
+        To poll extraction status, check the `status` field in this endpoint''s response.
+
+        When the extraction completes, the returned status is `COMPLETE` and the response includes results in the
+
+        `parsed_document` field.  For fields in the extraction for which Sensible couldn''t find a value, Sensible returns null.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/id'
+      tags:
+      - Retrieve extractions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ExtractionSingleRetrievalResponse'
+                - $ref: '#/components/schemas/ExtractionPortfolioRetrievalResponse'
+          description: Returns the extraction.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /extractions:
+    get:
+      operationId: list-extractions
+      summary: List extractions
+      tags:
+      - Retrieve extractions
+      description: "Use this endpoint to get a filtered list of past extractions.\nThis endpoint returns a summary for each extraction, listed in reverse chronological order. \nTo get details about an extraction, use the [Retrieve extraction by ID](https://docs.sensible.so/reference/retrieving-results) endpoint.\nThis endpoint uses keyset pagination to retrieve the next page of results.\nBy default it returns a first page of 20 extractions and an opaque `continuation_token` that you can pass in the next request to get the next page of results, until the endpoint returns `continuation_token` to indicate the last page. \nUse the `limit` parameter to configure page size. \n"
+      parameters:
+      - $ref: '#/components/parameters/start_date'
+      - $ref: '#/components/parameters/end_date'
+      - $ref: '#/components/parameters/page_limit'
+      - $ref: '#/components/parameters/continuation_token'
+      - $ref: '#/components/parameters/configuration_ids'
+      - $ref: '#/components/parameters/document_type_ids'
+      - $ref: '#/components/parameters/environments'
+      - $ref: '#/components/parameters/statuses'
+      - $ref: '#/components/parameters/min_coverage'
+      - $ref: '#/components/parameters/max_coverage'
+      - $ref: '#/components/parameters/review_statuses'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionsResponseFiltered'
+          description: Returns list of summarized extractions.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    ExtractionsResponseFiltered:
+      type: object
+      properties:
+        extractions:
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/SingleExtractionSummaryResponse'
+            - $ref: '#/components/schemas/MultiExtractionSummaryResponse'
+        cutoff_date:
+          type: string
+          format: date-time
+          example: null
+          description: 'DEPRECATED. The `continuation_token` and `limit` parameters replace this parameter.  DESCRIPTION: Pass the cutoff_date parameter in the next request as the `end_date` parameter to retrieve the next page of extractions. Note that since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent  the date-time of an extraction that Sensible retrieved using the date range filter, and then removed using other filters.'
+    ReviewStatus:
+      type: string
+      enum:
+      - NEEDS_REVIEW
+      - APPROVED
+      - REJECTED
+      example: NEEDS_REVIEW
+      description: The extraction's review status. For more information, see [Human review](https://docs.sensible.so/docs/human-review). Specify a webhook in the extraction request so that you can get a push notification when  review status changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`. Sensible omits this property from the extraction response  if the extraction doesn't need review.
+    Score:
+      type: object
+      description: The score for the extraction, used to help choose the best extraction.
+      properties:
+        value:
+          type: number
+          example: 17
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+        fields_present:
+          type: integer
+          example: 17
+          description: Number of non-null fields Sensible extracted from the document using this config
+        penalties:
+          type: number
+          example: 1.5
+          description: Errors are 1 penalty point and warnings are 0.5 points. See the validation_summary for a breakdown.
+    MultiExtractionSummaryDocument:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:
+          type: object
+          properties:
+            errors:
+              $ref: '#/components/schemas/Errors'
+            validations:
+              $ref: '#/components/schemas/Validations'
+    Charged:
+      type: integer
+      example: 1
+      description: The number of extractions charged to your account for this extraction ID.
+    EnvironmentResponse:
+      description: Name of the environment to which the configuration used by this extraction was published.
+      example: DEVELOPMENT
+      type: string
+    ConfigurationId:
+      type: string
+      format: uuid
+      description: ID of the "configuration", a collection of SenseML queries for extracting document data.
+      example: 24d82783-c12b-4e70-b0ae-ca1ce35a98
+    Classification:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        fingerprints_present:
+          type: integer
+          example: 1
+          description: The number of this config's fingerprints that Sensible found in the document.
+        fingerprints:
+          type: integer
+          example: 1
+          description: The number of fingerprints defined in this config.
+        score:
+          $ref: '#/components/schemas/Score'
+    SingleExtractionSummaryResponse:
+      allOf:
+      - $ref: '#/components/schemas/ExtractionSummaryBase'
+      properties:
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        validations:
+          $ref: '#/components/schemas/Validations'
+    CoveragePortfolio:
+      type: number
+      description: The overall coverage score for the portfolio is the weighted average of the coverage scores of its subdocuments.  For example, if subdocA has 1 non-null field out of 2 specified, and subdocB has 0 non-null fields out of 4 specified, the average is (1/2 + 0/4)/2 = 0.25 For more information about scoring,  see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).
+      example: 0.6
+    ContentTypeResponse:
+      type: string
+      description: 'The content type of the document.
+
+        '
+      example: image/png
+    ClassificationSummaryPortfolio:
+      type: array
+      description: Metadata about how Sensible chose the config to use for this extraction. The summary doesn't return fingerprints information for portfolio extractions.
+      items:
+        $ref: '#/components/schemas/ClassificationPortfolio'
+      example:
+      - configuration: config_for_x_company
+        score:
+          value: 3
+          fields_present: 4
+          penalities: 0.5
+      - configuration: acme_co
+        score:
+          value: 0
+          fields_present: 2
+          penalities: 1.5
+    DocumentTypeId:
+      description: Unique user-friendly name for a document type
+      type: string
+      format: uuid
+      example: 11c82772-a12c-1e71-c0a1-1f1ce35bc7
+    ConfigStats:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: The day for which Sensible gets statistics for this config.
+        configuration_id:
+          $ref: '#/components/schemas/ConfigurationId'
+        configuration_name:
+          $ref: '#/components/schemas/ConfigurationName'
+        document_type_id:
+          $ref: '#/components/schemas/DocumentTypeId'
+        document_type_name:
+          $ref: '#/components/schemas/DocumentTypeName'
+        coverage_histogram:
+          description: "Array of numbers that describe the number of extractions that fell into each coverage bucket for the `date` for this config.\nThe buckets are as follows:\n\n- [0, 10)\n- [10, 20)\n- [20, 30)\n- [30, 40)\n- [40, 50)\n- [50, 60)\n- [60, 70)\n- [70, 80)\n- [80, 90)\n- [90, 95)\n- [95, 100)\n- [100]\n\n`[` denotes inclusive and `)` denotes exclusive.\nFor example, when this endpoint returns `\"coverage_histogram\":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array show that on specified date for the specified config, 7 extractions scored in the lowest bucket of 0-10%, and 15 scored in the highest bucket of 100%.\n For more information about extraction coverage scores, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).\n From the payload returned by this endpoint, you can calculate other metrics, for example:\n  - total number of extractions in a time period\n  - doc type and config usage\n"
+          type: array
+          example:
+          - 1
+          - 3
+          - 5
+          - 4
+          - 6
+          - 5
+          - 3
+          - 7
+          - 8
+          - 2
+          - 4
+          - 9
+          items:
+            type: integer
+            maxItems: 12
+            minItems: 12
+    DocumentTypeNames:
+      type: array
+      description: Specifies the document types contained in the PDF portfolio.
+      example:
+      - tax_returns
+      - bank_statements
+      - credit_reports
+      items:
+        type: string
+    ExtractionCreated:
+      type: string
+      format: date-time
+      example: '2022-10-31T16:27:53.433'
+      description: Date and time Sensible created the initial empty extraction and set its status to WAITING.
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+    ValidationsSummary:
+      type: object
+      description: Summary of the extracted fields that fail validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified in the SenseML config to extract from the document
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the document
+          example: 4
+        errors:
+          type: number
+          description: Number of validation errors in the extraction
+          example: 0
+        warnings:
+          type: number
+          description: Number of validation warnings in the extraction
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped in the extraction because a prerequisite field was null
+          example: 1
+    ExtractionSyncResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        configuration_version:
+          $ref: '#/components/schemas/ConfigurationVersion'
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeResponse'
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        reviewStatus:
+          $ref: '#/components/schemas/ReviewStatus'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        postprocessorOutput:
+          $ref: '#/components/schemas/PostprocessorOutput'
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+    StatisticsResponse:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigStats'
+    ClassificationPortfolio:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        score:
+          $ref: '#/components/schemas/Score'
+    ReviewStatuses:
+      type: string
+      nullable: true
+      enum:
+      - NEEDS_REVIEW
+      - APPROVED
+      - null
+      - REJECTED
+      example: NEEDS_REVIEW
+      description: The review status for each document in the portfolio, in order of their page ranges in the portfolio.  For more information, see [Human review](https://docs.sensible.so/docs/human-review). Specify a webhook in the extraction request so that you can get a push notification when  a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`.
+    Errors:
+      type: array
+      description: Extraction error messages.
+      items:
+        $ref: '#/components/schemas/ExtractionError'
+    DocumentInPortfolio:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        configuration_version:
+          $ref: '#/components/schemas/ConfigurationVersion'
+        output:
+          type: object
+          properties:
+            parsed_document:
+              $ref: '#/components/schemas/ParsedDocument'
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            validations:
+              $ref: '#/components/schemas/Validations'
+            coverage:
+              $ref: '#/components/schemas/Coverage'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+            errors:
+              $ref: '#/components/schemas/Errors'
+            classificationSummary:
+              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+            postprocessorOutput:
+              $ref: '#/components/schemas/PostprocessorOutput'
+            validation_summary:
+              $ref: '#/components/schemas/ValidationsSummary'
+    ExtraDataRecord:
+      type: object
+      description: "Extra data in the form of flat key/value pairs you attach to an asynchronous extraction endpoint request, for example, `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use this parameter to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it. For example, use it to validate extraction data against a dynamic external record. Has the following constraints: \n- Doesn't support synchronous extractions \n- Doesn't support nested objects and arrays \n- Values must be strings, numbers, booleans, or null \n- Extra data has a maximum size of 16 kB \n- Extra data isn't subject to custom data retention policies. Don't include sensitive information in it. \n\n Sensible persists the extra data and echoes it in responses and webhook deliveries. When you submit a [portfolio](https://docs.sensible.so/docs/portfolio) extraction with extra data, Sensible passes the same object to every document extracted from the portfolio. For more information, see the [Extra Data](https://docs.sensible.so/docs/extra-data) method."
+      additionalProperties:
+        oneOf:
+        - type: string
+          nullable: true
+        - type: number
+        - type: boolean
+      example:
+        applicant_id: A-123
+        tenant: acme
+        premium_member: true
+        year: 2025
+        prior_decision: null
+    MultiExtractionSummaryResponse:
+      allOf:
+      - $ref: '#/components/schemas/ExtractionSummaryBase'
+      properties:
+        types:
+          $ref: '#/components/schemas/DocumentTypeNames'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/MultiExtractionSummaryDocument'
+    DocName:
+      type: string
+      description: If you specify the filename of the document using the `document_name` parameter, then  Sensible displays the name in extraction history in the Sensible app  and returns the name in the extraction response.
+      example: example.pdf
+    Validations:
+      description: Which extracted fields failed validation rules you write in the Sensible app
+      type: array
+      items:
+        $ref: '#/components/schemas/Validation'
+      example:
+      - description: Policy number must be 11 digits
+        severity: error
+      - description: Company email must be in format string@string
+        severity: skipped
+        message: Missing prerequisites - company_email
+    ClassificationSummary:
+      type: array
+      description: Metadata about how Sensible scores configs against the document to extract from. By default, Sensible compares all configs in the document type, then chooses the best extraction using fingerprints, scores, or a combination of the two. When two extractions tie by score and fingerprints, Sensible chooses the first configuration in alphabetic order. For more information, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes).
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+      - configuration: config_for_x_company
+        fingerprints: 2
+        fingerprints_present: 2
+        score:
+          value: 3
+          fields_present: 4
+          penalities: 0.5
+      - configuration: acme_co
+        fingerprints: 2
+        fingerprints_present: 2
+        score:
+          value: 0
+          fields_present: 2
+          penalities: 1.5
+    ExtractionSummaryBase:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        coverage:
+          $ref: '#/components/schemas/Coverage'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        reviewStatuses:
+          $ref: '#/components/schemas/ReviewStatuses'
+    ExtractionPortfolioRetrievalResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        types:
+          $ref: '#/components/schemas/DocumentTypeNames'
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        page_count:
+          $ref: '#/components/schemas/PageCountPortfolio'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationSummaryPortfolio'
+        download_url:
+          $ref: '#/components/schemas/DownloadUrlDocument'
+        content_type:
+          $ref: '#/components/schemas/ContentTypeResponse'
+        coverage:
+          $ref: '#/components/schemas/CoveragePortfolio'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        reviewStatuses:
+          $ref: '#/components/schemas/ReviewStatuses'
+        extra_data:
+          $ref: '#/components/schemas/ExtraDataRecord'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentInPortfolio'
+    ExtractionError:
+      type: object
+      description: Extraction error message
+      properties:
+        field_id:
+          type: string
+          description: ID of the extracted field.
+          example: phone_number
+        message:
+          type: string
+          description: Description of the error
+          example: 'ConfigurationError: width <=0'
+        type:
+          type: string
+          description: Error type
+          example: configuration
+    Coverage:
+      type: number
+      description: The coverage score measures how fully an extraction captured all your target data in the document.  It's a percentage comparing non-null, [validated](https://docs.sensible.so/docs/validate-extractions) fields to total fields  returned by a config for a document. For example, a coverage score of 70% for an extraction with no  validation errors means that 30% of fields were null. For more information about scoring,  see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).
+      example: 0.75
+    FileMetadata:
+      type: object
+      description: Metadata about the PDF file, for example author, authoring tool, and modified date.
+      properties:
+        metadata:
+          type: object
+          description: Raw metadata embedded in the PDF. Returned if available, without data normalization.
+        error:
+          type: string
+          description: Errors Sensible encountered when attempting to retrieve metadata
+          example: 'Error retrieving PDF metadata: Invalid PDF structure'
+        info:
+          type: object
+          description: Normalized metadata about the PDF, returned if available.
+          properties:
+            author:
+              type: string
+              description: The name of the person who created the document.
+              example: Jay S. Schiller
+            title:
+              type: string
+              description: Title assigned to the PDF by the PDF producer.
+              example: file123
+            creator:
+              type: string
+              description: If the document was converted to PDF from another format, the name of the application that created the original document from which it was converted.
+              example: macOS Version 11.2 (Build 20D64) Quartz PDFContext
+            producer:
+              type: string
+              description: If the document was converted to PDF from another format, the name of the application that converted it to PDF
+              example: Preview
+            creation_date:
+              type: string
+              description: File creation date
+              example: '2022-08-02T18:09:31.000+00:00'
+            modification_date:
+              type: string
+              description: File modification date
+              example: '2022-08-03T15:09:23.000+00:00'
+            error:
+              type: string
+              description: Errors Sensible encountered when attempting to retrieve metadata.
+    PostprocessorOutput:
+      type: object
+      additionalProperties: true
+      description: A custom schema that you define using a [postprocessor](https://docs.sensible.so/docs/postprocessor). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema.
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the validation
+          example: Dollar amount should be more than $100
+        severity:
+          type: string
+          enum:
+          - error
+          - warning
+          - skipped
+          example: warning
+          description: Severity of the failing validation (error, warning, skipped)
+        message:
+          type: string
+          description: Messages about why the validation failed
+          example: 'Missing prerequisites: broker.email'
+    DownloadUrlDocument:
+      type: string
+      description: URL of the document extraction
+      example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
+    ConfigurationVersion:
+      type: string
+      description: Version number for the configuration.
+      example: N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I
+    ValidationSummaryPortfolio:
+      type: object
+      description: Summary for the whole portfolio file of the extracted fields that fail validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified to extract from all documents in the portfolio
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the portfolio file
+          example: 4
+        errors:
+          type: number
+          description: Number of validation errors for all extractions in the portfolio
+          example: 0
+        warnings:
+          type: number
+          description: Number of validation warnings for all extractions in the portfolio
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped for all extractions in the portfolio because a prerequisite field was null
+          example: 1
+    ConfigurationName:
+      type: string
+      description: Name of the "configuration", a collection of SenseML queries for extracting document data.
+      example: config_for_x_company
+    ExtractionCompleted:
+      type: string
+      format: date-time
+      example: '2022-10-31T16:27:53.741Z'
+      description: Date and time Sensible set the extraction's status to COMPLETED
+    PageCountPortfolio:
+      type: integer
+      example: 100
+      description: Total number of pages in the portfolio.
+    ParsedDocument:
+      description: 'Data extracted from the document, structured as an array of fields.
+
+        Configure the verbosity parameter in the SenseML configuration to return
+
+        extraction metadata, such as:
+
+        - page numbers
+
+        - the bounding polygons that
+
+        define line coordinates
+
+        - for text that Sensible OCR''d, confidence scores.
+
+        For more information, see [Verbosity](https://docs.sensible.so/docs/verbosity).
+
+        '
+      type: object
+      example:
+        policy_number:
+          type: number
+          value: 123456789
+          lines:
+          - text: '123456789'
+            page: 0
+            boundingPolygon:
+            - x: 6.458
+              y: 2.601
+            - x: 7.354
+              y: 2.601
+            - x: 7.354
+              y: 2.767
+            - x: 6.458
+              y: 2.767
+        name_insured:
+          type: string
+          value: Petar Petrov
+          lines:
+          - text: Petar Petrov
+            page: 0
+            boundingPolygon:
+            - x: 1
+              y: 5.515
+            - x: 1.935
+              y: 5.515
+            - x: 1.935
+              y: 5.674
+            - x: 1
+              y: 5.674
+    ExtractionStatus:
+      type: string
+      description: 'Status of the extraction:
+
+        - WAITING: Sensible created an initial empty extraction and is waiting for the document.
+
+        - PROCESSING: Sensible received the document and is extracting data.
+
+        - FAILED: The extraction failed.
+
+        - COMPLETE: The extraction is complete.
+
+        '
+      enum:
+      - WAITING
+      - PROCESSING
+      - COMPLETE
+      - FAILED
+      example: COMPLETE
+    ExtractionSingleRetrievalResponse:
+      allOf:
+      - $ref: '#/components/schemas/ExtractionSyncResponse'
+      - type: object
+        properties:
+          download_url:
+            $ref: '#/components/schemas/DownloadUrlDocument'
+          extra_data:
+            $ref: '#/components/schemas/ExtraDataRecord'
+  parameters:
+    statuses:
+      name: statuses
+      in: query
+      description: Comma-delimited list of statuses (WAITING, PROCESSING, FAILED, COMPLETE) by which to filter the retrieved extractions.
+      schema:
+        type: string
+      example: COMPLETE,WAITING
+    end_date_config:
+      name: end_date
+      in: query
+      required: true
+      description: Retrieves daily statistics for configs used on this day and earlier.
+      schema:
+        type: string
+        format: date-time
+      example: '2020-10-20T00:00:00.000Z'
+    continuation_token:
+      name: continuation_token
+      in: query
+      required: false
+      description: Get the next page of results by making a new request and passing the opaque `continuation_token` parameter  that Sensible returns in the current page of responses. Sensible returns a null `continuation_token` in the response to indicate the last page.
+      schema:
+        type: string
+      example: eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1
+    environments:
+      name: environments
+      in: query
+      description: Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.
+      schema:
+        type: string
+      example: PRODUCTION,DEVELOPMENT
+    page_limit:
+      name: limit
+      in: query
+      required: false
+      description: Use the limit to define the number of items you recieve on each page of the paginated response. The default is 20.
+      schema:
+        type: number
+        default: 20
+      example: 100
+    document_type_ids:
+      name: document_type_ids
+      in: query
+      description: Comma-delimited list of document types by which to filter the retrieved extractions.
+      schema:
+        type: string
+      example: 4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836
+    review_statuses:
+      name: review_statuses
+      in: query
+      description: 'Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](https://docs.sensible.so/docs/human-review). Sensible returns [portfolio](https://docs.sensible.so/docs/portfolio) extractions if at least one document in the portfolio meets the specified status criteria. '
+      schema:
+        type: string
+      example: APPROVED,NEEDS_REVIEW
+    max_coverage:
+      name: max_coverage
+      in: query
+      description: Maximum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).
+      schema:
+        type: number
+      example: 1
+    start_date:
+      name: start_date
+      in: query
+      required: false
+      description: 'Retrieves extractions with a `created` date that is equal to or later than this date-time. The default is the unix epoch. '
+      schema:
+        type: string
+        format: date-time
+        default: '1970-01-01T00:00:00Z'
+      example: '2020-10-10T00:00:00.000Z'
+    start_date_config:
+      name: start_date
+      in: query
+      required: true
+      description: Retrieves statistics for configs used on this day and later. Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time.
+      schema:
+        type: string
+        format: date-time
+      example: '2020-10-10T00:00:00.000Z'
+    min_coverage:
+      name: min_coverage
+      in: query
+      description: Minimum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics).
+      schema:
+        type: number
+      example: 0.8
+    id:
+      name: id
+      required: true
+      in: path
+      description: Unique ID for the extraction, used to retrieve the extraction.
+      schema:
+        $ref: '#/components/schemas/ExtractionId'
+    environments_statistics:
+      name: environments
+      in: query
+      required: false
+      description: Specifies the comma-delimited list of environments for which to retrieve statistics, for example, `production`. If unspecified, returns statistics for all environments.
+      schema:
+        type: string
+      example: development
+    end_date:
+      name: end_date
+      in: query
+      required: false
+      description: Retrieves extractions with a `created` date that is equal to or earlier than this date-time. The default is the current date-time.
+      schema:
+        type: string
+        format: date-time
+      example: '2024-01-20T00:00:00.000Z'
+    configuration_ids:
+      name: configuration_ids
+      in: query
+      description: Comma-delimited list of configurations by which to filter the retrieved extractions.
+      schema:
+        type: string
+      example: 1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de
+  responses:
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.
