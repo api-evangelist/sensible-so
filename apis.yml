@@ -1,116 +1,419 @@
 aid: sensible-so
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sensible-so.png
 url: https://raw.githubusercontent.com/api-evangelist/sensible-so/refs/heads/main/apis.yml
 apis:
-  - aid: sensible-so:sensible-extractions-api
-    name: Sensible Extractions API
-    tags:
-      - Document Extraction
-      - IDP
-      - Extractions
-      - Async
-      - Webhooks
-    humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
-    properties:
-      - url: https://docs.sensible.so/reference/extract-data-from-a-document
-        type: Documentation
-      - url: https://docs.sensible.so/reference/extract-from-url
-        type: Documentation
-      - url: https://docs.sensible.so/reference/generate-an-upload-url
-        type: Documentation
-      - url: https://docs.sensible.so/reference/retrieving-results
-        type: Documentation
-      - url: https://docs.sensible.so/docs/api-tutorial-webhook
-        type: Documentation
-      - url: openapi/sensible-extractions-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/sensible-so-extraction-schema.json
-        type: JSONSchema
-      - url: json-ld/sensible-so-context.jsonld
-        type: JSONLD
-      - type: Examples
-        url: examples/sensible-so-extract-sync-example.json
-      - type: Examples
-        url: examples/sensible-so-extract-from-url-example.json
-      - type: Examples
-        url: examples/sensible-so-list-extractions-example.json
-    description: >-
-      Extract structured data from documents synchronously or asynchronously. Supports sync `POST
-      /extract/{document_type}`, async `POST /extract_from_url`, async via Sensible-signed `POST /generate_upload_url`,
-      portfolio (multi-document) extractions, CSV and Excel output, `/extractions` listing and `/documents/{id}`
-      retrieval, daily coverage statistics, and review auth-token issuance for human-in-the-loop workflows. All
-      endpoints are bearer-auth and webhook-capable.
-  - aid: sensible-so:sensible-classification-api
-    name: Sensible Classification API
-    tags:
-      - Document Extraction
-      - Classification
-      - Routing
-    humanURL: https://docs.sensible.so/reference/classify-document
-    properties:
-      - url: https://docs.sensible.so/reference/classify-document
-        type: Documentation
-      - url: https://docs.sensible.so/reference/classify-document-sync
-        type: Documentation
-      - url: https://docs.sensible.so/docs/classify
-        type: Documentation
-      - url: openapi/sensible-classification-api-openapi.yml
-        type: OpenAPI
-      - type: Examples
-        url: examples/sensible-so-classify-async-example.json
-    description: >-
-      Classify a document into one of the document types defined in the account, either synchronously (testing) or
-      asynchronously (production). Useful both as a routing step in an extraction workflow and as a standalone labeling
-      service.
-  - aid: sensible-so:sensible-document-types-api
-    name: Sensible Document Types and Configurations API
-    tags:
-      - Document Extraction
-      - Document Types
-      - Configurations
-      - SenseML
-      - Versioning
-    humanURL: https://docs.sensible.so/reference/list-document-types
-    properties:
-      - url: https://docs.sensible.so/reference/list-document-types
-        type: Documentation
-      - url: https://docs.sensible.so/reference/create-configuration
-        type: Documentation
-      - url: https://docs.sensible.so/reference/publish-configuration-by-version
-        type: Documentation
-      - url: https://docs.sensible.so/docs/senseml-reference-introduction
-        type: Documentation
-      - url: https://schema.sensible.so/configuration.schema.json
-        type: JSONSchema
-      - url: openapi/sensible-document-types-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/sensible-so-document-type-schema.json
-        type: JSONSchema
-      - type: Examples
-        url: examples/sensible-so-create-document-type-example.json
-    description: >-
-      Manage Sensible document types and SenseML configurations. Create, list, fetch, update, and delete document types;
-      create, list, fetch, update, publish, version, and delete SenseML configurations; list versions for a
-      configuration; promote drafts through development and production environments.
-  - aid: sensible-so:sensible-reference-documents-api
-    name: Sensible Reference Documents API
-    tags:
-      - Document Extraction
-      - Reference Documents
-      - Goldens
-    humanURL: https://docs.sensible.so/reference/list-reference-documents
-    properties:
-      - url: https://docs.sensible.so/reference/list-reference-documents
-        type: Documentation
-      - url: https://docs.sensible.so/reference/create-reference-document
-        type: Documentation
-      - url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
-        type: Documentation
-      - url: openapi/sensible-reference-documents-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage reference PDFs ("goldens") associated with document types. Create with a pre-signed upload URL, list, get
-      metadata, update metadata, delete, associate or unassociate with a configuration, and extract all standardized
-      text lines from a reference document for layout tuning.
+- aid: sensible-so:sensible-so-configuration-api
+  name: sensible-so Configuration API
+  description: The Configuration API from sensible-so — 4 operation(s) for configuration.
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-document-api
+  name: sensible-so Document API
+  description: Classify documents by type
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Document
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-document-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-document-type-api
+  name: sensible-so Document type API
+  description: The Document type API from sensible-so — 2 operation(s) for document type.
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Document type
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-document-type-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-get-excel-from-documents-api
+  name: sensible-so Get Excel from documents API
+  description: Convert extracted document data to spreadsheet
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Get Excel from documents
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-get-excel-from-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-portfolio-api
+  name: sensible-so Portfolio API
+  description: Extract data from multiple documents bundled into single PDF files
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Portfolio
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-portfolio-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-reference-document-api
+  name: sensible-so Reference document API
+  description: The Reference document API from sensible-so — 4 operation(s) for reference document.
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Reference document
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-reference-document-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
+- aid: sensible-so:sensible-so-retrieve-extractions-api
+  name: sensible-so Retrieve extractions API
+  description: Retrieve data extracted asynchronously from documents
+  humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  tags:
+  - Retrieve extractions
+  properties:
+  - type: OpenAPI
+    url: openapi/sensible-so-retrieve-extractions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-data-from-a-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-from-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/generate-an-upload-url
+  - type: Documentation
+    url: https://docs.sensible.so/reference/retrieving-results
+  - type: Documentation
+    url: https://docs.sensible.so/docs/api-tutorial-webhook
+  - type: JSONSchema
+    url: json-schema/sensible-so-extraction-schema.json
+  - type: JSONLD
+    url: json-ld/sensible-so-context.jsonld
+  - type: Examples
+    url: examples/sensible-so-extract-sync-example.json
+  - type: Examples
+    url: examples/sensible-so-extract-from-url-example.json
+  - type: Examples
+    url: examples/sensible-so-list-extractions-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/classify-document-sync
+  - type: Documentation
+    url: https://docs.sensible.so/docs/classify
+  - type: Examples
+    url: examples/sensible-so-classify-async-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-document-types
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-configuration
+  - type: Documentation
+    url: https://docs.sensible.so/reference/publish-configuration-by-version
+  - type: Documentation
+    url: https://docs.sensible.so/docs/senseml-reference-introduction
+  - type: JSONSchema
+    url: https://schema.sensible.so/configuration.schema.json
+  - type: JSONSchema
+    url: json-schema/sensible-so-document-type-schema.json
+  - type: Examples
+    url: examples/sensible-so-create-document-type-example.json
+  - type: Documentation
+    url: https://docs.sensible.so/reference/list-reference-documents
+  - type: Documentation
+    url: https://docs.sensible.so/reference/create-reference-document
+  - type: Documentation
+    url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
 common:
   - type: AgenticAccess
     url: agentic-access/sensible-so-agentic-access.yml
