@@ -1,0 +1,437 @@
+openapi: 3.0.3
+info:
+  title: Sensible Reference Documents API
+  version: v0
+  description: Manage reference PDFs associated with document types. Create, list, fetch, update, and delete reference documents;
+    associate or unassociate them with configurations; extract all text (lines) from a reference document.
+  contact:
+    name: Sensible
+    url: https://www.sensible.so
+    email: support@sensible.so
+  license:
+    name: Proprietary
+    url: https://www.sensible.so/terms
+servers:
+- url: https://api.sensible.so/v0
+  description: Production server
+security:
+- bearerAuth: []
+tags: []
+paths:
+  /document_types/{type-id}/goldens:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    post:
+      operationId: create-reference-document
+      summary: Create reference document
+      description: Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, for example
+        with `curl -T ./sample.pdf`.
+      tags:
+      - Reference document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGolden'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The created reference document
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      operationId: list-reference-documents
+      summary: List all reference documents in a document type
+      description: List all reference documents in a document type
+      tags:
+      - Reference document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllGoldens'
+          description: List of reference documents for the current account
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /extract_text_from_golden/{type-name}:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeName'
+    post:
+      operationId: extract-all-text-from-reference-document
+      summary: Extract all text from reference document
+      description: Get all the text (lines) for a reference document as standardized output. The output is an array of pages
+        with metadata such as text positioning. If you specify a configuration, Sensible uses preprocessors defined in the
+        configuration to process the text.
+      tags:
+      - Reference document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStandardText'
+          description: All the text in the document
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}/goldens/{document-name}:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    - $ref: '#/components/parameters/documentName'
+    put:
+      operationId: update-reference-document
+      summary: Update metadata for a reference document
+      description: Update metadata for a reference document
+      tags:
+      - Reference document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutGolden'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The updated reference document
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      operationId: get-reference-document
+      summary: Get reference document metadata
+      description: Get download URL and other metadata for a reference document.
+      tags:
+      - Reference document
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The identified reference document
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      operationId: delete-reference-document
+      summary: Delete reference document
+      description: Delete a reference document and break associations to any configs.
+      tags:
+      - Reference document
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /document_types/{type-id}/goldens/{document-name}/configuration:
+    parameters:
+    - $ref: '#/components/parameters/documentTypeId'
+    - $ref: '#/components/parameters/documentName'
+    delete:
+      operationId: delete-reference-document-association
+      summary: Unassociate reference document from configuration
+      description: Break the association between a reference document and its configuration.
+      tags:
+      - Reference document
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.
+  schemas:
+    UniqueId:
+      type: string
+      format: uuid
+      description: Unique identifier
+      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    DocumentName:
+      description: Unique user-friendly name for a document
+      example: best_scan_form_num_1234
+      type: string
+    Date:
+      type: string
+      format: date-time
+      description: ISO 8601 date-time.
+    GoldenResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentName'
+        created:
+          $ref: '#/components/schemas/Date'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+        error:
+          type: string
+          description: Any errors that occurred processing the reference document
+        upload_url:
+          type: string
+          description: If present, the URL to which a reference document can be PUT
+        download_url:
+          type: string
+          description: If present, the URL to GET to retrieve the reference document
+        thumbnail_url:
+          type: string
+          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
+      required:
+      - name
+      - created
+      additionalProperties: false
+    PostGolden:
+      type: object
+      description: Upload url for putting the document
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentName'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+      required:
+      - name
+      additionalProperties: false
+    AssociatedConfigurationName:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: User-friendly name of the configuration to associate to the reference document
+      example: anyco_auto_insurance_quote
+    GetAllGoldens:
+      type: array
+      items:
+        $ref: '#/components/schemas/GoldenResponse'
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+    PostGoldenExtraction:
+      type: object
+      properties:
+        golden:
+          type: string
+          description: user-friendly name for the reference document
+          example: best_scan_doc_num_1234
+        configuration:
+          type: object
+          description: 'SenseML configuration as a JSON object, not stringified JSON, for example, `"configuration": {"fields":[]}`.
+            If you leave out this parameter, then Sensible returns the best-scoring extraction from the configurations in
+            the document type.  If you specify it, Sensible ignores the `environment` parameter.'
+          example:
+            fields: []
+    ResponseStandardText:
+      description: all the text in the document, standardized as an array of pages with lines and their metadata, including
+        positioning
+      type: object
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236
+    Name:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: User-friendly name
+    PutGolden:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentName'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+      additionalProperties: false
+  parameters:
+    documentTypeId:
+      name: type-id
+      required: true
+      in: path
+      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
+      schema:
+        $ref: '#/components/schemas/UniqueId'
+    documentTypeName:
+      name: type-name
+      required: true
+      in: path
+      description: User-friendly name for a document type
+      schema:
+        $ref: '#/components/schemas/DocumentTypeName'
+    documentName:
+      name: document-name
+      required: true
+      in: path
+      description: Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens`
+        endpoint.
+      example: best_scan_form_no_1234
+      schema:
+        $ref: '#/components/schemas/Name'
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples
+              - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified
+              document type does not exist Specified document type ${named type} does not exist No published configurations
+              found for environment ${environment} Specified golden does not exist Specified configuration/version does not
+              exist Specified configuration/version is not valid Must provide the Content-Type header when request body is
+              present Content-Type must be application/json Missing request body or body.document Could not determine the
+              content type of the document Could not determine the content type of the document. Please check that the document
+              was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please
+              check that the encoding is correct This PDF is password protected. Please resubmit with password protection
+              disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds
+              the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content
+              type of ${found} does not match declared type of ${expected} Document is not present
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+    '404':
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            title: Not Found
+            type: string
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Messages related to the file format of the document to extract data from.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '204':
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content

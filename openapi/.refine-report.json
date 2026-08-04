@@ -1,0 +1,26 @@
+{
+  "provider": "sensible-so",
+  "sources": [
+    "sensible-so-configuration-api-openapi.yml",
+    "sensible-so-document-api-openapi.yml",
+    "sensible-so-document-type-api-openapi.yml",
+    "sensible-so-get-excel-from-documents-api-openapi.yml",
+    "sensible-so-portfolio-api-openapi.yml",
+    "sensible-so-reference-document-api-openapi.yml",
+    "sensible-so-retrieve-extractions-api-openapi.yml"
+  ],
+  "outputs": [
+    "sensible-so-configuration-api-openapi.yml",
+    "sensible-so-document-api-openapi.yml",
+    "sensible-so-document-type-api-openapi.yml",
+    "sensible-so-get-excel-from-documents-api-openapi.yml",
+    "sensible-so-portfolio-api-openapi.yml",
+    "sensible-so-reference-document-api-openapi.yml",
+    "sensible-so-retrieve-extractions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
