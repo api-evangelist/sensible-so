@@ -1,0 +1,3522 @@
+{
+  "item": [
+    {
+      "id": "52705c5e-3f80-4d6d-801e-3fc12e4864ad",
+      "name": "Configuration",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0d55ab9-f26e-4ff0-99b2-a7ba331fc58f",
+          "name": "Create configuration in a document type",
+          "request": {
+            "name": "Create configuration in a document type",
+            "description": {
+              "content": "Pass the configuration as stringified JSON.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"<string>\",\n  \"publish_as\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6794c69c-7fb5-4bc3-8e6f-817a6ad3beb7",
+              "name": "The created configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"created\": \"1961-07-22T17:19:58.191Z\",\n  \"configuration\": \"\\\"{\\\\r\\\\n\\\\t\\\\\\\"fingerprint\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\\\\"tests\\\\\\\": [\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"anyco\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"quoted coverage changes\\\\\\\"\\\\r\\\\n\\\\t\\\\t]\\\\r\\\\n\\\\t},\\\\r\\\\n\\\\t\\\\\\\"preprocessors\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"type\\\\\\\": \\\\\\\"pageRange\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"startPage\\\\\\\": 0,\\\\r\\\\n\\\\t\\\\t\\\\\\\"endPage\\\\\\\": 2\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"anchor\\\\\\\": \\\\\\\"name of driver\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"label\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"position\\\\\\\": \\\\\\\"below\\\\\\\"\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"computed_fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"driver_name_last\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"split\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"source_id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"separator\\\\\\\": \\\\\\\", \\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"index\\\\\\\": 1\\\\r\\\\n\\\\t\\\\t\\\\t}\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\r\\\\n\\\\t]\\\\r\\\\n}\\\"\\n\",\n  \"version_id\": \"string\",\n  \"versions\": [\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1971-01-04T06:28:34.208Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    },\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1995-02-14T19:19:34.641Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0bad7dd-bf24-443a-9b97-1727273595ec",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "60190a0a-2928-40b6-9b28-f087472c6b7c",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b966cf5d-1a9d-436c-91fb-6cc03730c847",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "844a250b-a880-4650-a029-305822023cec",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d3ce3f7-234d-4ad9-ba5e-fa3d63c4fd20",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e431fa0-d243-45b8-9891-09540ee3897a",
+          "name": "List configurations in a document type",
+          "request": {
+            "name": "List configurations in a document type",
+            "description": {
+              "content": "List configurations in a document type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60c2aa41-f9b8-45c9-823a-d30493a536ac",
+              "name": "List of document types for the current account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"anyco_auto_insurance_quote\",\n    \"created\": \"1961-12-10T02:18:59.127Z\",\n    \"versions\": [\n      {\n        \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n        \"datetime\": \"2020-03-24T08:39:55.928Z\",\n        \"draft\": false,\n        \"environments\": [\n          \"production\",\n          \"development\"\n        ]\n      },\n      {\n        \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n        \"datetime\": \"1994-08-31T05:40:11.697Z\",\n        \"draft\": false,\n        \"environments\": [\n          \"production\",\n          \"development\"\n        ]\n      }\n    ]\n  },\n  {\n    \"name\": \"anyco_auto_insurance_quote\",\n    \"created\": \"2024-04-25T10:55:52.433Z\",\n    \"versions\": [\n      {\n        \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n        \"datetime\": \"2009-04-07T09:43:24.983Z\",\n        \"draft\": false,\n        \"environments\": [\n          \"production\",\n          \"development\"\n        ]\n      },\n      {\n        \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n        \"datetime\": \"2019-03-23T01:45:58.817Z\",\n        \"draft\": false,\n        \"environments\": [\n          \"production\",\n          \"development\"\n        ]\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "885b714b-bc03-40fb-a713-11e5b3c1237e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef32eae7-91e8-44d2-ac05-75a419d6b239",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19db9aac-2e48-430c-b74e-701a4a505d99",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0db23d5b-cefe-4ebb-85ab-1975625bb523",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c949e10-033d-49be-8652-b278df9af273",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d35659fd-84b6-4ef6-aa52-ecffabeb8e56",
+          "name": "Get configuration",
+          "request": {
+            "name": "Get configuration",
+            "description": {
+              "content": "Get a configuration as stringified JSON.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f51e63e-e789-47e0-aa14-daee14bbe3d9",
+              "name": "The identified configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"created\": \"1993-04-03T00:53:32.667Z\",\n  \"configuration\": \"\\\"{\\\\r\\\\n\\\\t\\\\\\\"fingerprint\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\\\\"tests\\\\\\\": [\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"anyco\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"quoted coverage changes\\\\\\\"\\\\r\\\\n\\\\t\\\\t]\\\\r\\\\n\\\\t},\\\\r\\\\n\\\\t\\\\\\\"preprocessors\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"type\\\\\\\": \\\\\\\"pageRange\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"startPage\\\\\\\": 0,\\\\r\\\\n\\\\t\\\\t\\\\\\\"endPage\\\\\\\": 2\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"anchor\\\\\\\": \\\\\\\"name of driver\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"label\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"position\\\\\\\": \\\\\\\"below\\\\\\\"\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"computed_fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"driver_name_last\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"split\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"source_id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"separator\\\\\\\": \\\\\\\", \\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"index\\\\\\\": 1\\\\r\\\\n\\\\t\\\\t\\\\t}\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\r\\\\n\\\\t]\\\\r\\\\n}\\\"\\n\",\n  \"version_id\": \"string\",\n  \"versions\": [\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1998-06-04T02:55:56.602Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    },\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1963-06-14T05:12:39.767Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32806071-eab7-4761-99eb-7951ac2acec5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "832ad9c2-c715-44c5-a195-418ea0f2e130",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef6f0f89-6ad7-4bee-a8c3-67d1dfa7f1ae",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "078159d9-0909-4aab-b65e-97ab7b9c8530",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1df96bc4-22d2-44ac-a6d4-0b9fe1c44f74",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dccf7cd3-8bde-425e-bc14-14cd4e7c0a62",
+          "name": "Update configuration",
+          "request": {
+            "name": "Update configuration",
+            "description": {
+              "content": "Replace a published or draft version of the configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"configuration\": \"<string>\",\n  \"publish_as\": \"<string>\",\n  \"current_draft\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c504cd7-280c-457a-a9ac-f255a8b890e0",
+              "name": "The created configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"created\": \"1993-04-03T00:53:32.667Z\",\n  \"configuration\": \"\\\"{\\\\r\\\\n\\\\t\\\\\\\"fingerprint\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\\\\"tests\\\\\\\": [\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"anyco\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"quoted coverage changes\\\\\\\"\\\\r\\\\n\\\\t\\\\t]\\\\r\\\\n\\\\t},\\\\r\\\\n\\\\t\\\\\\\"preprocessors\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"type\\\\\\\": \\\\\\\"pageRange\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"startPage\\\\\\\": 0,\\\\r\\\\n\\\\t\\\\t\\\\\\\"endPage\\\\\\\": 2\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"anchor\\\\\\\": \\\\\\\"name of driver\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"label\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"position\\\\\\\": \\\\\\\"below\\\\\\\"\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"computed_fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"driver_name_last\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"split\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"source_id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"separator\\\\\\\": \\\\\\\", \\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"index\\\\\\\": 1\\\\r\\\\n\\\\t\\\\t\\\\t}\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\r\\\\n\\\\t]\\\\r\\\\n}\\\"\\n\",\n  \"version_id\": \"string\",\n  \"versions\": [\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1998-06-04T02:55:56.602Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    },\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1963-06-14T05:12:39.767Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52f2bde7-d19d-4b6d-ba7f-caeb902ba5c9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bccede4f-b21e-4435-9058-7b59eeff5029",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e978b98-a744-45be-8ca2-0e8bd02a6545",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "300dffc4-d3c9-496a-81c4-54c20bf976a0",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cee0d8ce-936c-4a30-baaa-35a7b609272c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"configuration\": \"{ \\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"updated_name_field\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\",\n  \"publish_as\": \"development\",\n  \"current_draft\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "649edbf1-f887-4f7e-b2ac-eb31eee68575",
+          "name": "Delete configuration",
+          "request": {
+            "name": "Delete configuration",
+            "description": {
+              "content": "Delete a configuration and its versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9134dcf0-530e-4c7a-8f43-254ddd2f33a3",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "No Content",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5981f4a7-ae99-46d9-99a8-a4d8ee0f0734",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ef99d83-9f0e-4670-bd50-3c1ce0f18e2d",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8ae139b0-8c12-4db1-8885-f966276e895a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0e96ec76-1c08-423e-bbfb-252f5b7169d0",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f0f13da8-8d1b-4ef0-9f7a-6aa45657886e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d009307d-757d-4c06-9706-345565f10078",
+          "name": "Delete draft or unpublish configuration",
+          "request": {
+            "name": "Delete draft or unpublish configuration",
+            "description": {
+              "content": "To delete a draft, specify a version name in the `version` parameter. To unpublish a configuration, enter the publication environment name in the `version` parameter, for example, `development`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b1c8120-0de0-493a-9882-2974856e1d37",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "No Content",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "351c4ace-ee46-4540-8f72-09d629d422a1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66dd4a34-e6be-47fc-bb92-f030ca71a9b9",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27912ca1-06fc-4800-9814-cf5ed6e22459",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d47fa35c-bb7d-4ea7-8f67-147cb58e6ad8",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d6d3c90-326b-47fa-853b-5aec9fa590f0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.) If deleting the current draft, the version number of the current draft."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17cbf639-3db4-41d0-8ed9-91ccd2cea5c8",
+          "name": "Get configuration by version",
+          "request": {
+            "name": "Get configuration by version",
+            "description": {
+              "content": "Get a configuration as stringified JSON by version id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Unique identifier for a configuration version."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40132d55-ce0a-4b98-8761-a451004d88f8",
+              "name": "The identified configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"anyco_auto_insurance_quote\",\n  \"created\": \"1993-04-03T00:53:32.667Z\",\n  \"configuration\": \"\\\"{\\\\r\\\\n\\\\t\\\\\\\"fingerprint\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\\\\"tests\\\\\\\": [\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"anyco\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"quoted coverage changes\\\\\\\"\\\\r\\\\n\\\\t\\\\t]\\\\r\\\\n\\\\t},\\\\r\\\\n\\\\t\\\\\\\"preprocessors\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"type\\\\\\\": \\\\\\\"pageRange\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"startPage\\\\\\\": 0,\\\\r\\\\n\\\\t\\\\t\\\\\\\"endPage\\\\\\\": 2\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"anchor\\\\\\\": \\\\\\\"name of driver\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"label\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"position\\\\\\\": \\\\\\\"below\\\\\\\"\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\t}],\\\\r\\\\n\\\\t\\\\\\\"computed_fields\\\\\\\": [{\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"driver_name_last\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\\\\"method\\\\\\\": {\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"id\\\\\\\": \\\\\\\"split\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"source_id\\\\\\\": \\\\\\\"_driver_name_raw\\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"separator\\\\\\\": \\\\\\\", \\\\\\\",\\\\r\\\\n\\\\t\\\\t\\\\t\\\\t\\\\\\\"index\\\\\\\": 1\\\\r\\\\n\\\\t\\\\t\\\\t}\\\\r\\\\n\\\\t\\\\t}\\\\r\\\\n\\\\r\\\\n\\\\t]\\\\r\\\\n}\\\"\\n\",\n  \"version_id\": \"string\",\n  \"versions\": [\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1998-06-04T02:55:56.602Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    },\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1963-06-14T05:12:39.767Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9936a746-41bb-435f-b66a-01ffbd96e177",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c55cdacf-6eee-4d62-9cd9-08649b07a26a",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aace5f0c-def4-47dc-b4fd-bdef4dbfce5e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cba4927a-638f-49cd-9327-16137c58634f",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c477abdb-1065-41ee-8b08-70910d76a5be",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Unique identifier for a configuration version."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "445d7d6c-c876-499a-988c-86587fbd3058",
+          "name": "List versions for a configuration",
+          "request": {
+            "name": "List versions for a configuration",
+            "description": {
+              "content": "Get the version ids for a configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id",
+                "configurations",
+                ":config-name",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config-name",
+                  "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0721d5d9-1675-41b7-9420-62b342aa4e5d",
+              "name": "Version information for the identified configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1974-08-06T22:29:31.199Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    },\n    {\n      \"version_id\": \"fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm\",\n      \"datetime\": \"1990-07-31T14:52:31.326Z\",\n      \"draft\": false,\n      \"environments\": [\n        \"production\",\n        \"development\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "210abe69-b6e3-4e1a-a15c-bf4d417168b1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b67deb5-0cf1-459c-aa3d-38d44f0ba50d",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ebe547ea-062e-4875-9abb-dc53f26a3113",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "55f47025-c1e2-40aa-b227-62826fcabee9",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7eae2359-e3d5-439c-a9a2-ddf11d833edc",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id",
+                    "configurations",
+                    ":config-name",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config-name",
+                      "description": "(Required) Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sensible.so/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "642669ff-8871-4afb-9b7c-0d107ba21658",
+    "name": "Sensible Classification Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+      "type": "text/plain"
+    }
+  }
+}

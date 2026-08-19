@@ -1,0 +1,883 @@
+{
+  "item": [
+    {
+      "id": "0c3c55f0-2025-4f04-8381-e2af6e165d4f",
+      "name": "Portfolio",
+      "description": {
+        "content": "Extract data from multiple documents bundled into single PDF files",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92a322f0-20ee-4a92-af6e-a72a9b5ba1a3",
+          "name": "Extract portfolio at your URL",
+          "request": {
+            "name": "Extract portfolio at your URL",
+            "description": {
+              "content": "\nUse this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)\nand then runs extractions asynchronously for each document Sensible finds in the portfolio. Take the following steps.\n1. Run this endpoint.\n3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.\nFor more about extracting from portfolios, see [Multi-document extractions](https://docs.sensible.so/docs/portfolio).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extract_from_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"document_url\": \"<url>\",\n  \"segment_documents_with\": \"fingerprints\",\n  \"webhook\": {\n    \"url\": \"<url>\",\n    \"payload\": \"<string>\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07d0f1df-d8c4-41d9-9cbe-0293577d02f0",
+              "name": "Returns the ID to use to retrieve the extraction.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"status\": \"COMPLETE\",\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "150d9bbf-2645-4fbf-b792-536918e11787",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "321e90bd-399b-45b6-9f7d-cd488a8b29d1",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7058c9f6-5261-4fa0-a08f-7d4c72532fc9",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e70c74fb-b92d-4767-806d-0ee7b30991a8",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "50609e7a-d1f5-4696-aaac-fd8f4116c0a2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"segment_documents_with\": \"llm\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f7572f8-6773-47fa-9115-6c4d9a7a0dee",
+          "name": "Extract portfolio at a Sensible URL",
+          "request": {
+            "name": "Extract portfolio at a Sensible URL",
+            "description": {
+              "content": "Use this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions\nasynchronously for each document Sensible finds in the portfolio.  Take the following steps -\n1. Use this endpoint to generate a Sensible URL.\n2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received\nfrom this endpoint's response. For more information about how to PUT the document, see the [generate_upload_url/{document_type}](https://docs.sensible.so/reference/generate-an-upload-url) endpoint.\n3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.\nFor more about extracting from portfolios, see [Multi-document extractions](https://docs.sensible.so/docs/portfolio).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate_upload_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"webhook\": {\n    \"url\": \"<url>\",\n    \"payload\": \"<string>\"\n  },\n  \"segment_documents_with\": \"fingerprints\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e914ee0-c9e4-4cfb-9861-7b55457efab9",
+              "name": "Returns the upload_url at which to PUT the document for extraction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"status\": \"COMPLETE\",\n  \"upload_url\": \"https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14065ece-ae7c-4799-a42b-ea84ef64ce60",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "761cfdb4-9724-4482-88d3-af8ee39df0ab",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "586f9ac2-b2ab-4d99-b7f0-74bf9e6c4977",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be8c0fe3-728c-44bf-80d7-51f615f6793e",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8b1648a-28fe-44f8-8232-145f7d51a0ae",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"types\": [\n    \"tax_returns\",\n    \"bank_statements\",\n    \"credit_reports\"\n  ],\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"segment_documents_with\": \"llm\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sensible.so/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1ebc6568-12a8-444a-ad45-27731c805910",
+    "name": "Sensible Classification Configuration Portfolio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+      "type": "text/plain"
+    }
+  }
+}

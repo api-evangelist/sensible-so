@@ -1,0 +1,1306 @@
+{
+  "item": [
+    {
+      "id": "c0a15483-0f1b-42c3-a8fc-6f40c8a5f4ab",
+      "name": "Document type",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "729afd0a-19e7-4128-aad3-3b47935ae2ce",
+          "name": "Create document type",
+          "request": {
+            "name": "Create document type",
+            "description": {
+              "content": "Create a document type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"<string>\",\n        \"condition\": {\n          \"key_0\": 8991.810743380196\n        },\n        \"fields\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": \"<array>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"condition\": {\n          \"key_0\": 2691\n        },\n        \"fields\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": \"<array>\"\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6717fec-ecc5-416d-bd1f-fd685a70590f",
+              "name": "List of document types for the current account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"created\": \"1988-10-04T11:14:22.584Z\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "582cc609-17c2-48d6-8d3d-27e807f7ff44",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5870b9d-34ec-430d-ba06-ffdd63b8299b",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7cc08192-d375-4190-88dc-efac73e5c5b5",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3dd8f54-cb18-459b-b560-4ed5636284a4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9a4acfc-3480-4194-8f13-f669e7605818",
+          "name": "List document types",
+          "request": {
+            "name": "List document types",
+            "description": {
+              "content": "Lists all document types in your Sensible account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65af0a33-19b2-47d3-8a4b-0265d374067e",
+              "name": "List of document types for the current account",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"auto_insurance_quotes_all_carriers\",\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"created\": \"1967-09-09T21:09:24.988Z\",\n    \"schema\": {\n      \"fingerprint_mode\": \"<string>\",\n      \"ocr_engine\": \"<string>\",\n      \"prevent_default_merge_lines\": \"<boolean>\",\n      \"ocr_level\": \"<number>\",\n      \"validations\": [\n        {\n          \"description\": \"Broker's email is in string@string format\",\n          \"condition\": {\n            \"match\": [\n              {\n                \"var\": \"broker\\\\.email.value\"\n              },\n              \"^\\\\S+\\\\@\\\\S+$\"\n            ]\n          },\n          \"fields\": [\n            \"broker\\\\.email\"\n          ],\n          \"severity\": \"<string>\",\n          \"scope\": [\n            \"parent_section\",\n            \"child_section\"\n          ]\n        },\n        {\n          \"description\": \"Broker's email is in string@string format\",\n          \"condition\": {\n            \"match\": [\n              {\n                \"var\": \"broker\\\\.email.value\"\n              },\n              \"^\\\\S+\\\\@\\\\S+$\"\n            ]\n          },\n          \"fields\": [\n            \"broker\\\\.email\"\n          ],\n          \"severity\": \"<string>\",\n          \"scope\": [\n            \"parent_section\",\n            \"child_section\"\n          ]\n        }\n      ],\n      \"review_triggers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  {\n    \"name\": \"auto_insurance_quotes_all_carriers\",\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"created\": \"1972-04-29T07:24:10.545Z\",\n    \"schema\": {\n      \"fingerprint_mode\": \"<string>\",\n      \"ocr_engine\": \"<string>\",\n      \"prevent_default_merge_lines\": \"<boolean>\",\n      \"ocr_level\": \"<number>\",\n      \"validations\": [\n        {\n          \"description\": \"Broker's email is in string@string format\",\n          \"condition\": {\n            \"match\": [\n              {\n                \"var\": \"broker\\\\.email.value\"\n              },\n              \"^\\\\S+\\\\@\\\\S+$\"\n            ]\n          },\n          \"fields\": [\n            \"broker\\\\.email\"\n          ],\n          \"severity\": \"<string>\",\n          \"scope\": [\n            \"parent_section\",\n            \"child_section\"\n          ]\n        },\n        {\n          \"description\": \"Broker's email is in string@string format\",\n          \"condition\": {\n            \"match\": [\n              {\n                \"var\": \"broker\\\\.email.value\"\n              },\n              \"^\\\\S+\\\\@\\\\S+$\"\n            ]\n          },\n          \"fields\": [\n            \"broker\\\\.email\"\n          ],\n          \"severity\": \"<string>\",\n          \"scope\": [\n            \"parent_section\",\n            \"child_section\"\n          ]\n        }\n      ],\n      \"review_triggers\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d61cc9a-678c-4ce3-ba2d-d03dda88feaa",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "430529a3-2604-4463-92f0-ff7504d1fff1",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee302fa7-d465-4bca-bb4e-33fe3b2ebb8e",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7c3abc23-15eb-44bb-816d-20b0ad66e843",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9656b372-c15d-4958-9a76-1261f1e2df85",
+          "name": "Get document type",
+          "request": {
+            "name": "Get document type",
+            "description": {
+              "content": "Find the document type id using the `/document_types` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d73f3a95-d993-44a2-849a-7605cc4fc79b",
+              "name": "Identified document type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"auto_insurance_quotes_all_carriers\",\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"created\": \"2006-11-08T22:51:34.484Z\",\n  \"schema\": {\n    \"fingerprint_mode\": \"<string>\",\n    \"ocr_engine\": \"<string>\",\n    \"prevent_default_merge_lines\": \"<boolean>\",\n    \"ocr_level\": \"<number>\",\n    \"validations\": [\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      },\n      {\n        \"description\": \"Broker's email is in string@string format\",\n        \"condition\": {\n          \"match\": [\n            {\n              \"var\": \"broker\\\\.email.value\"\n            },\n            \"^\\\\S+\\\\@\\\\S+$\"\n          ]\n        },\n        \"fields\": [\n          \"broker\\\\.email\"\n        ],\n        \"severity\": \"<string>\",\n        \"scope\": [\n          \"parent_section\",\n          \"child_section\"\n        ]\n      }\n    ],\n    \"review_triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34060782-4d0c-4018-86f1-ad11a9a6bfab",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2313d07-57b5-403b-af39-c3d158008ac9",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e40c85b7-8f6d-4905-b639-e5acd6e2ce76",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87d86a39-aa14-4e10-92b1-03b15ffd89df",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "946bc090-2173-4aac-a635-56740127dfbd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c89ed5a-03b7-43f5-899c-e862dcceb21c",
+          "name": "Delete document type",
+          "request": {
+            "name": "Delete document type",
+            "description": {
+              "content": "Delete a document type and everything it contains, for example configurations and reference PDfs,\nbut not its extraction history displayed in the Sensible app.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_types",
+                ":type-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "type-id",
+                  "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f5c849b-f7ec-4835-ab73-3445d1d82150",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "No Content",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4bda7f7-de40-4215-aecb-c8dc94d177da",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68839727-4d44-4a21-a9a8-1b5e4bf117da",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "47a2dee4-2b87-4035-8d08-20f7cf43ff8e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "786b3019-92ee-4adc-903c-401a8cb6702d",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document to extract data from.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac423b98-8cd1-46d6-b07e-f92165beea56",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_types",
+                    ":type-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "type-id",
+                      "description": "(Required) The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sensible.so/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7d0e2879-d6cc-41a2-bd23-3eba5b9a6dd8",
+    "name": "Sensible Classification Configuration Document type API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+      "type": "text/plain"
+    }
+  }
+}

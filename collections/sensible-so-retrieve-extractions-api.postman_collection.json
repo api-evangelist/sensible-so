@@ -1,0 +1,1227 @@
+{
+  "item": [
+    {
+      "id": "624e4d80-e69e-40dc-9655-3a630264d09e",
+      "name": "Retrieve extractions",
+      "description": {
+        "content": "Retrieve data extracted asynchronously from documents",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5593dbd6-b62e-4d8a-8ac6-7a024f756a62",
+          "name": "Get extraction statistics",
+          "request": {
+            "name": "Get extraction statistics",
+            "description": {
+              "content": "Returns daily extraction coverage statistics as a `coverage_histogram` per config.  Sensible returns coverage for each config that was used for at least one extraction performed in the specified environments  in the specified time period. For more information about coverage, see [Monitoring extractions](https://docs.sensible.so/docs/metrics). For more information about the returned `coverage_histogram`, see the response model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extractions",
+                "statistics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<dateTime>",
+                  "description": "(Required) Retrieves statistics for configs used on this day and later. Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "(Required) Retrieves daily statistics for configs used on this day and earlier."
+                },
+                {
+                  "disabled": false,
+                  "key": "environments",
+                  "value": "<string>",
+                  "description": "Specifies the comma-delimited list of environments for which to retrieve statistics, for example, `production`. If unspecified, returns statistics for all environments."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f10a07f8-8b1f-4456-9b10-37294e3272ed",
+              "name": "Returns daily statistics for configs in the specified time period.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-10-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "development"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statistics\": [\n    {\n      \"date\": \"1969-03-18\",\n      \"configuration_id\": \"77c557e2-9281-1317-3799-71d1a143fd09\",\n      \"configuration_name\": \"config_for_x_company\",\n      \"document_type_id\": \"2bc98a21-50e8-8354-0237-2b92c5547aeb\",\n      \"document_type_name\": \"auto_insurance_quotes_all_carriers\",\n      \"coverage_histogram\": [\n        1,\n        3,\n        5,\n        4,\n        6,\n        5,\n        3,\n        7,\n        8,\n        2,\n        4,\n        9\n      ]\n    },\n    {\n      \"date\": \"1969-10-13\",\n      \"configuration_id\": \"7697ba5a-c4ae-ca77-0e68-4762b18859f2\",\n      \"configuration_name\": \"config_for_x_company\",\n      \"document_type_id\": \"220a8450-4c79-1b90-fc86-f6d17a6e804a\",\n      \"document_type_name\": \"auto_insurance_quotes_all_carriers\",\n      \"coverage_histogram\": [\n        1,\n        3,\n        5,\n        4,\n        6,\n        5,\n        3,\n        7,\n        8,\n        2,\n        4,\n        9\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b073a1f3-af0e-45d9-93b5-7914faf8a1fa",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-10-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "development"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "633573dc-0d28-45f8-a99e-fa531a4e7345",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-10-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "development"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ffb699e-2081-46eb-8007-692ee9288536",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-10-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "development"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c5061ec-66d3-4de2-bec1-5423d9ae5623",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-10-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "development"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2391c147-3533-4f8a-976c-6247d4fddd46",
+          "name": "Retrieve extraction by ID",
+          "request": {
+            "name": "Retrieve extraction by ID",
+            "description": {
+              "content": "Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results.\nYou can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.\nTo poll extraction status, check the `status` field in this endpoint's response.\nWhen the extraction completes, the returned status is `COMPLETE` and the response includes results in the\n`parsed_document` field.  For fields in the extraction for which Sensible couldn't find a value, Sensible returns null.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f221c568-c353-4566-a38d-93b9aaacd125",
+              "name": "Returns the extraction.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"type\": \"auto_insurance_quotes_all_carriers\",\n  \"status\": \"COMPLETE\",\n  \"completed\": \"2022-10-31T16:27:53.741Z\",\n  \"configuration\": \"config_for_x_company\",\n  \"configuration_version\": \"N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I\",\n  \"parsed_document\": {\n    \"policy_number\": {\n      \"type\": \"number\",\n      \"value\": 123456789,\n      \"lines\": [\n        {\n          \"text\": \"123456789\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 6.458,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.767\n            },\n            {\n              \"x\": 6.458,\n              \"y\": 2.767\n            }\n          ]\n        }\n      ]\n    },\n    \"name_insured\": {\n      \"type\": \"string\",\n      \"value\": \"Petar Petrov\",\n      \"lines\": [\n        {\n          \"text\": \"Petar Petrov\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 1,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.674\n            },\n            {\n              \"x\": 1,\n              \"y\": 5.674\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"validations\": [\n    {\n      \"description\": \"Policy number must be 11 digits\",\n      \"severity\": \"error\"\n    },\n    {\n      \"description\": \"Company email must be in format string@string\",\n      \"severity\": \"skipped\",\n      \"message\": \"Missing prerequisites - company_email\"\n    }\n  ],\n  \"file_metadata\": {\n    \"metadata\": {},\n    \"error\": \"Error retrieving PDF metadata: Invalid PDF structure\",\n    \"info\": {\n      \"author\": \"Jay S. Schiller\",\n      \"title\": \"file123\",\n      \"creator\": \"macOS Version 11.2 (Build 20D64) Quartz PDFContext\",\n      \"producer\": \"Preview\",\n      \"creation_date\": \"2022-08-02T18:09:31.000+00:00\",\n      \"modification_date\": \"2022-08-03T15:09:23.000+00:00\",\n      \"error\": \"string\"\n    }\n  },\n  \"validation_summary\": {\n    \"fields\": 6,\n    \"fields_present\": 4,\n    \"errors\": 0,\n    \"warnings\": 1,\n    \"skipped\": 1\n  },\n  \"errors\": [\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    },\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    }\n  ],\n  \"classification_summary\": [\n    {\n      \"configuration\": \"config_for_x_company\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 3,\n        \"fields_present\": 4,\n        \"penalities\": 0.5\n      }\n    },\n    {\n      \"configuration\": \"acme_co\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 0,\n        \"fields_present\": 2,\n        \"penalities\": 1.5\n      }\n    }\n  ],\n  \"page_count\": 100,\n  \"environment\": \"DEVELOPMENT\",\n  \"document_name\": \"example.pdf\",\n  \"content_type\": \"image/png\",\n  \"coverage\": 0.75,\n  \"reviewStatus\": \"NEEDS_REVIEW\",\n  \"charged\": 1,\n  \"postprocessorOutput\": {\n    \"key_0\": 2106,\n    \"key_1\": false\n  },\n  \"download_url\": \"https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED\",\n  \"extra_data\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fccdbacc-470b-45c5-82cd-54b8eeba2c70",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "961392c6-b325-4d3e-903b-67e146b3409f",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58ef4e3a-5586-432e-8dca-6aeecb454862",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b104c2a1-6f92-497f-beae-3516af53e022",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique ID for the extraction, used to retrieve the extraction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "293a5778-04a9-4c77-97e2-f2da8978d41d",
+          "name": "List extractions",
+          "request": {
+            "name": "List extractions",
+            "description": {
+              "content": "Use this endpoint to get a filtered list of past extractions.\nThis endpoint returns a summary for each extraction, listed in reverse chronological order. \nTo get details about an extraction, use the [Retrieve extraction by ID](https://docs.sensible.so/reference/retrieving-results) endpoint.\nThis endpoint uses keyset pagination to retrieve the next page of results.\nBy default it returns a first page of 20 extractions and an opaque `continuation_token` that you can pass in the next request to get the next page of results, until the endpoint returns `continuation_token` to indicate the last page. \nUse the `limit` parameter to configure page size. \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extractions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "1970-01-01T00:00:00Z",
+                  "description": "Retrieves extractions with a `created` date that is equal to or later than this date-time. The default is the unix epoch. "
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "Retrieves extractions with a `created` date that is equal to or earlier than this date-time. The default is the current date-time."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Use the limit to define the number of items you recieve on each page of the paginated response. The default is 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "continuation_token",
+                  "value": "<string>",
+                  "description": "Get the next page of results by making a new request and passing the opaque `continuation_token` parameter  that Sensible returns in the current page of responses. Sensible returns a null `continuation_token` in the response to indicate the last page."
+                },
+                {
+                  "disabled": false,
+                  "key": "configuration_ids",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of configurations by which to filter the retrieved extractions."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_type_ids",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of document types by which to filter the retrieved extractions."
+                },
+                {
+                  "disabled": false,
+                  "key": "environments",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of statuses (WAITING, PROCESSING, FAILED, COMPLETE) by which to filter the retrieved extractions."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_coverage",
+                  "value": "<number>",
+                  "description": "Minimum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics)."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_coverage",
+                  "value": "<number>",
+                  "description": "Maximum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics)."
+                },
+                {
+                  "disabled": false,
+                  "key": "review_statuses",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](https://docs.sensible.so/docs/human-review). Sensible returns [portfolio](https://docs.sensible.so/docs/portfolio) extractions if at least one document in the portfolio meets the specified status criteria. "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca1e02d2-fc3f-4039-acf7-7e1604181e86",
+              "name": "Returns list of summarized extractions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2024-01-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1"
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de"
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "PRODUCTION,DEVELOPMENT"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "COMPLETE,WAITING"
+                    },
+                    {
+                      "key": "min_coverage",
+                      "value": "0.8"
+                    },
+                    {
+                      "key": "max_coverage",
+                      "value": "1"
+                    },
+                    {
+                      "key": "review_statuses",
+                      "value": "APPROVED,NEEDS_REVIEW"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"extractions\": [\n    {\n      \"type\": \"auto_insurance_quotes_all_carriers\",\n      \"configuration\": \"config_for_x_company\",\n      \"errors\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"validations\": [\n        {\n          \"description\": \"Policy number must be 11 digits\",\n          \"severity\": \"error\"\n        },\n        {\n          \"description\": \"Company email must be in format string@string\",\n          \"severity\": \"skipped\",\n          \"message\": \"Missing prerequisites - company_email\"\n        }\n      ],\n      \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n      \"created\": \"2022-10-31T16:27:53.433\",\n      \"completed\": \"2022-10-31T16:27:53.741Z\",\n      \"status\": \"COMPLETE\",\n      \"validation_summary\": {\n        \"fields\": 6,\n        \"fields_present\": 4,\n        \"errors\": 0,\n        \"warnings\": 1,\n        \"skipped\": 1\n      },\n      \"page_count\": 100,\n      \"document_name\": \"example.pdf\",\n      \"environment\": \"DEVELOPMENT\",\n      \"coverage\": 0.75,\n      \"charged\": 1,\n      \"reviewStatuses\": \"NEEDS_REVIEW\"\n    },\n    {\n      \"type\": \"auto_insurance_quotes_all_carriers\",\n      \"configuration\": \"config_for_x_company\",\n      \"errors\": [\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"field_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"message\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"validations\": [\n        {\n          \"description\": \"Policy number must be 11 digits\",\n          \"severity\": \"error\"\n        },\n        {\n          \"description\": \"Company email must be in format string@string\",\n          \"severity\": \"skipped\",\n          \"message\": \"Missing prerequisites - company_email\"\n        }\n      ],\n      \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n      \"created\": \"2022-10-31T16:27:53.433\",\n      \"completed\": \"2022-10-31T16:27:53.741Z\",\n      \"status\": \"COMPLETE\",\n      \"validation_summary\": {\n        \"fields\": 6,\n        \"fields_present\": 4,\n        \"errors\": 0,\n        \"warnings\": 1,\n        \"skipped\": 1\n      },\n      \"page_count\": 100,\n      \"document_name\": \"example.pdf\",\n      \"environment\": \"DEVELOPMENT\",\n      \"coverage\": 0.75,\n      \"charged\": 1,\n      \"reviewStatuses\": \"NEEDS_REVIEW\"\n    }\n  ],\n  \"cutoff_date\": \"1978-02-26T08:20:18.820Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2da8ca1a-a134-4186-bf75-f733dd9d0e65",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2024-01-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1"
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de"
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "PRODUCTION,DEVELOPMENT"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "COMPLETE,WAITING"
+                    },
+                    {
+                      "key": "min_coverage",
+                      "value": "0.8"
+                    },
+                    {
+                      "key": "max_coverage",
+                      "value": "1"
+                    },
+                    {
+                      "key": "review_statuses",
+                      "value": "APPROVED,NEEDS_REVIEW"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0096d680-e02b-41dd-bff2-b23bf87cd2b4",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2024-01-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1"
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de"
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "PRODUCTION,DEVELOPMENT"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "COMPLETE,WAITING"
+                    },
+                    {
+                      "key": "min_coverage",
+                      "value": "0.8"
+                    },
+                    {
+                      "key": "max_coverage",
+                      "value": "1"
+                    },
+                    {
+                      "key": "review_statuses",
+                      "value": "APPROVED,NEEDS_REVIEW"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b306a0b-9571-4a0b-b7fa-7336e4d2b128",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2024-01-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1"
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de"
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "PRODUCTION,DEVELOPMENT"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "COMPLETE,WAITING"
+                    },
+                    {
+                      "key": "min_coverage",
+                      "value": "0.8"
+                    },
+                    {
+                      "key": "max_coverage",
+                      "value": "1"
+                    },
+                    {
+                      "key": "review_statuses",
+                      "value": "APPROVED,NEEDS_REVIEW"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "92ebe6ec-d91b-44a0-9399-e72fdffc48fe",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extractions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2024-01-20T00:00:00.000Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1"
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": "1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de"
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": "4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836"
+                    },
+                    {
+                      "key": "environments",
+                      "value": "PRODUCTION,DEVELOPMENT"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "COMPLETE,WAITING"
+                    },
+                    {
+                      "key": "min_coverage",
+                      "value": "0.8"
+                    },
+                    {
+                      "key": "max_coverage",
+                      "value": "1"
+                    },
+                    {
+                      "key": "review_statuses",
+                      "value": "APPROVED,NEEDS_REVIEW"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sensible.so/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2deb2a9b-af43-44ce-85ff-d4ec81bdc043",
+    "name": "Sensible Classification Configuration Retrieve extractions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+      "type": "text/plain"
+    }
+  }
+}

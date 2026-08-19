@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sensible Classification Configuration Portfolio API",
+    "version": "v0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract portfolio at your URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/extract_from_url",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nUse this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)\nand then runs extractions asynchronously for each document Sensible finds in the portfolio. Take the following steps.\n1. Run this endpoint.\n3. To retrieve the extract"
+        },
+        {
+          "info": {
+            "name": "Extract portfolio at a Sensible URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sensible.so/v0/generate_upload_url",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query",
+                "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+              },
+              {
+                "name": "document_name",
+                "value": "test.pdf",
+                "type": "query",
+                "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint with multiple documents that are packaged into one file (a \"portfolio\"). For a list of supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\nSegments a portfolio file into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions\nasynchronously for each document Sensible finds in the portfolio.  Take the following steps -\n1. Use this endpoint to generate a Sensible URL.\n2. PUT the document you want t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

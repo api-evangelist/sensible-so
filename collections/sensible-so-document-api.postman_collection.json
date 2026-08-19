@@ -1,0 +1,2778 @@
+{
+  "item": [
+    {
+      "id": "2417afb4-f049-45cb-a471-818bf8ce4673",
+      "name": "Document",
+      "description": {
+        "content": "Classify documents by type",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04bcc5c0-5f23-4277-9b33-8ade9ffeaca3",
+          "name": "Classify document by type (sync)",
+          "request": {
+            "name": "Classify document by type (sync)",
+            "description": {
+              "content": "\n**Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.\n\nClassify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n    \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "classify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "document_types",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_types",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "a6b482a9-c9fd-4465-a285-155a8d9bf9c9",
+              "name": "The document type in your Sensible account that's most similar to this document.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_type\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"score\": 5375.221149821491\n  },\n  \"reference_documents\": {\n    \"key_0\": 8480.38895319893,\n    \"key_1\": 9915\n  },\n  \"classification_summary\": {\n    \"key_0\": 9388,\n    \"key_1\": 5723\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "676da05f-5f0d-4d38-a97f-ac24ef364bd2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file content type, to reading or OCRing the file, or to classifying the document.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42defb4b-d7af-4549-b028-12d5561bb9ab",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1f1a034a-a7d9-4659-a047-d3c329e5f258",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "059f4b0f-3441-477d-a594-6a27d6c58d2b",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2dfc973-83df-4178-8bf5-6a19c8237bd1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1380477c-1139-4eea-bcca-80b1d526e2dc",
+          "name": "Classify document by type",
+          "request": {
+            "name": "Classify document by type",
+            "description": {
+              "content": "Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).\nTo retrieve document's classification, poll the `download_link` in this endpoint's response until it returns a non-error response.\n\nUse this endpoint:\n\n - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.\n - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.\n\nTo post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n\nFor supported file size and types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "classify",
+                "async"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "document_types",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_types",
+                  "value": "<string>",
+                  "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "9ccc8a3b-0296-4a65-86ff-167d14a879c4",
+              "name": "Download link for the classification response. Poll the link until it returns a non-error response.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content_type\": \"application/pdf\",\n  \"download_link\": \"https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/c024cd1c-5f33-4a82-b2ea-2c807e44988b/CLASSIFICATION/49f844ba-4429-4974-919d-2f1bdfa95f7c.json?AWSAccessKeyId=REST_REDACTED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9535534-e36d-47bb-9264-8ecb06c8aac4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file content type, to reading or OCRing the file, or to classifying the document.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a328ec5-f8d1-4aec-a36b-4120ed6d990d",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c863e582-9c52-40bf-bb61-c02523d9a1ee",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Messages related to the file format of the document.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aeb77ed0-bd02-475e-a5a1-4b1da28b0a8f",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "718dd765-9bd7-4050-930e-34241612b6a0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classify",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_types",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85951c6d-907b-46f7-ac63-617b238dde22",
+          "name": "Extract data from a document using specified config",
+          "request": {
+            "name": "Extract data from a document using specified config",
+            "description": {
+              "content": "This endpoint's behavior identical to the [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extract",
+                ":document_type",
+                ":config_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_type",
+                  "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config_name",
+                  "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "5922bde5-67b1-4f4a-a430-d16b97207fde",
+              "name": "The structured data extracted from the document.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"type\": \"auto_insurance_quotes_all_carriers\",\n  \"status\": \"COMPLETE\",\n  \"completed\": \"2022-10-31T16:27:53.741Z\",\n  \"configuration\": \"config_for_x_company\",\n  \"configuration_version\": \"N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I\",\n  \"parsed_document\": {\n    \"policy_number\": {\n      \"type\": \"number\",\n      \"value\": 123456789,\n      \"lines\": [\n        {\n          \"text\": \"123456789\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 6.458,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.767\n            },\n            {\n              \"x\": 6.458,\n              \"y\": 2.767\n            }\n          ]\n        }\n      ]\n    },\n    \"name_insured\": {\n      \"type\": \"string\",\n      \"value\": \"Petar Petrov\",\n      \"lines\": [\n        {\n          \"text\": \"Petar Petrov\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 1,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.674\n            },\n            {\n              \"x\": 1,\n              \"y\": 5.674\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"validations\": [\n    {\n      \"description\": \"Policy number must be 11 digits\",\n      \"severity\": \"error\"\n    },\n    {\n      \"description\": \"Company email must be in format string@string\",\n      \"severity\": \"skipped\",\n      \"message\": \"Missing prerequisites - company_email\"\n    }\n  ],\n  \"file_metadata\": {\n    \"metadata\": {},\n    \"error\": \"Error retrieving PDF metadata: Invalid PDF structure\",\n    \"info\": {\n      \"author\": \"Jay S. Schiller\",\n      \"title\": \"file123\",\n      \"creator\": \"macOS Version 11.2 (Build 20D64) Quartz PDFContext\",\n      \"producer\": \"Preview\",\n      \"creation_date\": \"2022-08-02T18:09:31.000+00:00\",\n      \"modification_date\": \"2022-08-03T15:09:23.000+00:00\",\n      \"error\": \"string\"\n    }\n  },\n  \"validation_summary\": {\n    \"fields\": 6,\n    \"fields_present\": 4,\n    \"errors\": 0,\n    \"warnings\": 1,\n    \"skipped\": 1\n  },\n  \"errors\": [\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    },\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    }\n  ],\n  \"classification_summary\": [\n    {\n      \"configuration\": \"config_for_x_company\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 3,\n        \"fields_present\": 4,\n        \"penalities\": 0.5\n      }\n    },\n    {\n      \"configuration\": \"acme_co\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 0,\n        \"fields_present\": 2,\n        \"penalities\": 1.5\n      }\n    }\n  ],\n  \"page_count\": 100,\n  \"environment\": \"DEVELOPMENT\",\n  \"document_name\": \"example.pdf\",\n  \"content_type\": \"image/png\",\n  \"coverage\": 0.75,\n  \"reviewStatus\": \"NEEDS_REVIEW\",\n  \"charged\": 1,\n  \"postprocessorOutput\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": 1181,\n    \"key_3\": 9201,\n    \"key_4\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6c7fbef-03c0-451b-844b-955f041b204b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "16e72003-5e69-4d7c-93ee-03f0e996c258",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e74f299-7a40-4519-8599-03f73320d7db",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f01e4463-7358-41f6-9c02-8ed137367fec",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88a6ef60-080d-488a-893d-ca28395ddf3c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fede056-2a77-474a-bee3-d5866f422139",
+          "name": "Extract data from a document (sync)",
+          "request": {
+            "name": "Extract data from a document (sync)",
+            "description": {
+              "content": "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](https://docs.sensible.so/docs/quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](https://docs.sensible.so/docs/api-tutorial-sync).\n- Run this endpoint in the Sensible Postman collection.\n  [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)\n\nThere are two options for posting the document bytes.\n  1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n     See the following for supported file formats.\n  2. Base64 encode the document bytes, specify them in a body \"document\" field, and specify application/json for the `Content-Type` header.\n\nFor a list of  supported document file types, see [Supported file types](https://docs.sensible.so/docs/file-types).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extract",
+                ":document_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_type",
+                  "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "31c539f6-43fd-4dbf-affb-b570053d87b7",
+              "name": "The structured data extracted from the document.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"type\": \"auto_insurance_quotes_all_carriers\",\n  \"status\": \"COMPLETE\",\n  \"completed\": \"2022-10-31T16:27:53.741Z\",\n  \"configuration\": \"config_for_x_company\",\n  \"configuration_version\": \"N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I\",\n  \"parsed_document\": {\n    \"policy_number\": {\n      \"type\": \"number\",\n      \"value\": 123456789,\n      \"lines\": [\n        {\n          \"text\": \"123456789\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 6.458,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.601\n            },\n            {\n              \"x\": 7.354,\n              \"y\": 2.767\n            },\n            {\n              \"x\": 6.458,\n              \"y\": 2.767\n            }\n          ]\n        }\n      ]\n    },\n    \"name_insured\": {\n      \"type\": \"string\",\n      \"value\": \"Petar Petrov\",\n      \"lines\": [\n        {\n          \"text\": \"Petar Petrov\",\n          \"page\": 0,\n          \"boundingPolygon\": [\n            {\n              \"x\": 1,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.515\n            },\n            {\n              \"x\": 1.935,\n              \"y\": 5.674\n            },\n            {\n              \"x\": 1,\n              \"y\": 5.674\n            }\n          ]\n        }\n      ]\n    }\n  },\n  \"validations\": [\n    {\n      \"description\": \"Policy number must be 11 digits\",\n      \"severity\": \"error\"\n    },\n    {\n      \"description\": \"Company email must be in format string@string\",\n      \"severity\": \"skipped\",\n      \"message\": \"Missing prerequisites - company_email\"\n    }\n  ],\n  \"file_metadata\": {\n    \"metadata\": {},\n    \"error\": \"Error retrieving PDF metadata: Invalid PDF structure\",\n    \"info\": {\n      \"author\": \"Jay S. Schiller\",\n      \"title\": \"file123\",\n      \"creator\": \"macOS Version 11.2 (Build 20D64) Quartz PDFContext\",\n      \"producer\": \"Preview\",\n      \"creation_date\": \"2022-08-02T18:09:31.000+00:00\",\n      \"modification_date\": \"2022-08-03T15:09:23.000+00:00\",\n      \"error\": \"string\"\n    }\n  },\n  \"validation_summary\": {\n    \"fields\": 6,\n    \"fields_present\": 4,\n    \"errors\": 0,\n    \"warnings\": 1,\n    \"skipped\": 1\n  },\n  \"errors\": [\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    },\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    }\n  ],\n  \"classification_summary\": [\n    {\n      \"configuration\": \"config_for_x_company\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 3,\n        \"fields_present\": 4,\n        \"penalities\": 0.5\n      }\n    },\n    {\n      \"configuration\": \"acme_co\",\n      \"fingerprints\": 2,\n      \"fingerprints_present\": 2,\n      \"score\": {\n        \"value\": 0,\n        \"fields_present\": 2,\n        \"penalities\": 1.5\n      }\n    }\n  ],\n  \"page_count\": 100,\n  \"environment\": \"DEVELOPMENT\",\n  \"document_name\": \"example.pdf\",\n  \"content_type\": \"image/png\",\n  \"coverage\": 0.75,\n  \"reviewStatus\": \"NEEDS_REVIEW\",\n  \"charged\": 1,\n  \"postprocessorOutput\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": \"string\",\n    \"key_3\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cbee3c6-0468-4a94-8495-3d86205a906b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce2711d3-50ef-4c04-a5a3-b7ead181f9a2",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b980fa79-338e-4abd-9cc4-2ad625471a1c",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1b19346-ff8f-4202-88c6-c99b32612281",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd7da899-7ddf-4160-9a1b-1513d2a2e509",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract",
+                    ":document_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70f1ce62-8df6-439d-8ae7-dbca09fdc46a",
+          "name": "Extract doc at a Sensible URL using specified config",
+          "request": {
+            "name": "Extract doc at a Sensible URL using specified config",
+            "description": {
+              "content": "This endpoint's behavior is identical to the [Extract doc at a Sensible URL](https://docs.sensible.so/reference/generate-an-upload-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate_upload_url",
+                ":document_type",
+                ":config_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_type",
+                  "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config_name",
+                  "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook\": {\n    \"url\": \"<url>\",\n    \"payload\": \"<string>\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdc540c8-88f5-4683-b031-3f042760fcb8",
+              "name": "Returns the upload_url at which to PUT the document for extraction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"type\": \"auto_insurance_quotes_all_carriers\",\n  \"status\": \"COMPLETE\",\n  \"upload_url\": \"https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9df537af-6d0e-4bbe-8bff-f833521ad73e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe2b5ff6-1c4e-4e51-9aab-60829f32fb15",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53df1fbd-1478-43c9-99ef-84d23415a097",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe5c1123-5b8e-418a-ae11-323389c7bd24",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "294b7ada-df8b-4870-a4f1-324fc5914896",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_upload_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "233d3969-f35f-4ae3-a78c-2b14948f1d57",
+          "name": "Extract doc at your URL using config",
+          "request": {
+            "name": "Extract doc at your URL using config",
+            "description": {
+              "content": "This endpoint's behavior is identical to the [Extract doc at your URL](https://docs.sensible.so/reference/extract-from-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "extract_from_url",
+                ":document_type",
+                ":config_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "production",
+                  "description": "If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_name",
+                  "value": "<string>",
+                  "description": "If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "document_type",
+                  "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "config_name",
+                  "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_url\": \"<url>\",\n  \"webhook\": {\n    \"url\": \"<url>\",\n    \"payload\": \"<string>\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7264deee-c14f-41a9-8b91-8d9582de7beb",
+              "name": "Returns the ID to use to retrieve the extraction",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"246a6f60-0e5b-11eb-b720-295a6fba723e\",\n  \"created\": \"2022-10-31T16:27:53.433\",\n  \"type\": \"auto_insurance_quotes_all_carriers\",\n  \"status\": \"COMPLETE\",\n  \"environment\": \"DEVELOPMENT\",\n  \"document_name\": \"example.pdf\",\n  \"errors\": [\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    },\n    {\n      \"field_id\": \"phone_number\",\n      \"message\": \"ConfigurationError: width <=0\",\n      \"type\": \"configuration\"\n    }\n  ],\n  \"content_type\": \"image/png\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c7a9de4-8dd6-432e-9b27-e199ff8318c4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "804af2fa-afc8-4519-83a7-225a72b39b76",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Unauthorized",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "231fcf4d-8047-4165-8385-81652f9395e7",
+              "name": "Unsupported Media Type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bcc136d2-1c73-4951-949a-44ab14e9696a",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fafe86dc-22f7-4be1-a286-b8540a96fbac",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "extract_from_url",
+                    ":document_type",
+                    ":config_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    },
+                    {
+                      "key": "document_name",
+                      "value": "test.pdf"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "document_type",
+                      "description": "(Required) Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "config_name",
+                      "description": "(Required) User-friendly name of the config to use to extract data from the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_url\": \"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf\",\n  \"webhook\": {\n    \"url\": \"https://example.com/example_webhook_url\",\n    \"payload\": \"info extra to the default extraction payload\"\n  },\n  \"content_type\": \"<string>\",\n  \"extra_data\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\",\n    \"key_4\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Sensible encountered an unknown error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.sensible.so/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "28121089-387b-4804-9b46-a28d909dcd7b",
+    "name": "Sensible Classification Configuration Document API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.\n\nContact Support:\n Name: Sensible\n Email: support@sensible.so",
+      "type": "text/plain"
+    }
+  }
+}

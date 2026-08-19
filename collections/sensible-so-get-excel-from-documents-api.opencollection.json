@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sensible Classification Configuration Get Excel from documents API",
+    "version": "v0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get Excel from documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get CSV extraction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/generate_csv/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "Comma-delimited list of unique extraction IDs."
+              }
+            ]
+          },
+          "docs": "You can use this endpoint to get CSV files from documents, for example, from PDFs. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.\nTo compile multiple documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,\n`/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.\nFor the best compiled spreadsheet results, configure your SenseML so that the document"
+        },
+        {
+          "info": {
+            "name": "Get Excel extraction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sensible.so/v0/generate_excel/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "path",
+                "description": "Comma-delimited list of unique extraction IDs."
+              }
+            ]
+          },
+          "docs": "You can use this endpoint to get Excel files from documents, for example from PDFs. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.\nTo compile multiple documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,\n`/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.\nFor the best compiled spreadsheet results, configure your SenseML so that the documen"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
