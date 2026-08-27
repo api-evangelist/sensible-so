@@ -1,4 +1,5 @@
 aid: sensible-so
+name: "Sensible"
 accessModel:
   pricing: freemium
   onboarding: self-serve
