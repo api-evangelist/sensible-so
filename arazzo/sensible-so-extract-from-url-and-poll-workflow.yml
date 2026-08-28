@@ -13,8 +13,11 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: extractionsApi
-  url: ../openapi/sensible-extractions-api-openapi.yml
+- name: documentApi
+  url: ../openapi/sensible-so-document-api-openapi.yml
+  type: openapi
+- name: retrieveExtractionsApi
+  url: ../openapi/sensible-so-retrieve-extractions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: extract-from-url-and-poll

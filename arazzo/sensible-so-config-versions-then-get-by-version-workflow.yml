@@ -11,8 +11,8 @@ info:
     authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: documentTypesApi
-  url: ../openapi/sensible-document-types-api-openapi.yml
+- name: configurationApi
+  url: ../openapi/sensible-so-configuration-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: config-versions-then-get-by-version

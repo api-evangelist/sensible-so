@@ -14,8 +14,11 @@ info:
     the Bearer authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: extractionsApi
-  url: ../openapi/sensible-extractions-api-openapi.yml
+- name: portfolioApi
+  url: ../openapi/sensible-so-portfolio-api-openapi.yml
+  type: openapi
+- name: retrieveExtractionsApi
+  url: ../openapi/sensible-so-retrieve-extractions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: portfolio-upload-url-and-poll

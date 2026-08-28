@@ -13,8 +13,8 @@ info:
     out its request inline, including the Bearer authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: referenceDocumentsApi
-  url: ../openapi/sensible-reference-documents-api-openapi.yml
+- name: referenceDocumentApi
+  url: ../openapi/sensible-so-reference-document-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-reference-document-and-list

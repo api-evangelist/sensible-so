@@ -13,11 +13,8 @@ info:
     authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: classificationApi
-  url: ../openapi/sensible-classification-api-openapi.yml
-  type: openapi
-- name: extractionsApi
-  url: ../openapi/sensible-extractions-api-openapi.yml
+- name: documentApi
+  url: ../openapi/sensible-so-document-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: classify-then-extract

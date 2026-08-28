@@ -12,11 +12,11 @@ info:
     Bearer authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: documentTypesApi
-  url: ../openapi/sensible-document-types-api-openapi.yml
+- name: documentApi
+  url: ../openapi/sensible-so-document-api-openapi.yml
   type: openapi
-- name: extractionsApi
-  url: ../openapi/sensible-extractions-api-openapi.yml
+- name: documentTypeApi
+  url: ../openapi/sensible-so-document-type-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: list-document-types-then-extract

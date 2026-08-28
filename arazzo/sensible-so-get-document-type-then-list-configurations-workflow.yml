@@ -11,8 +11,11 @@ info:
     its request inline, including the Bearer authorization.
   version: 1.0.0
 sourceDescriptions:
-- name: documentTypesApi
-  url: ../openapi/sensible-document-types-api-openapi.yml
+- name: configurationApi
+  url: ../openapi/sensible-so-configuration-api-openapi.yml
+  type: openapi
+- name: documentTypeApi
+  url: ../openapi/sensible-so-document-type-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: get-document-type-then-list-configurations
