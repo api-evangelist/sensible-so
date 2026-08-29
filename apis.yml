@@ -530,10 +530,10 @@ common:
     type: SDKs
   - url: https://github.com/sensible-hq/sensible-configuration-library
     name: SenseML Configuration Library (150+ document types)
-    type: Samples
+    type: Examples
   - url: https://github.com/sensible-hq/sensible-sample-documents
     name: Sample Documents
-    type: Samples
+    type: Examples
   - url: https://github.com/sensible-hq/sensible-salesforce-py
     name: Salesforce Integration Example
     type: Integrations
