@@ -429,6 +429,8 @@ apis:
   - type: Documentation
     url: https://docs.sensible.so/reference/extract-all-text-from-reference-document
 common:
+  - type: Website
+    url: https://www.sensible.so/
   - type: AgenticAccess
     url: agentic-access/sensible-so-agentic-access.yml
   - type: TrustCenter
