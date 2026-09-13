@@ -1,0 +1,37 @@
+generated: '2026-09-11'
+method: probed
+source: https://docs.sensible.so/mcp
+status: published
+server:
+  name: sensible-so
+  transport: http
+  url: https://docs.sensible.so/mcp
+deployment:
+  mode: remote
+  endpoint: https://docs.sensible.so/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: ptr_only reconciliation 2026-09-11 (apis.yml pointed here, no manifest existed)
+tools_count: 7
+tools:
+- name: list-endpoints
+  description: ''
+- name: get-endpoint
+  description: ''
+- name: search-endpoints
+  description: ''
+- name: list-specs
+  description: ''
+- name: execute-request
+  description: ''
+- name: search
+  description: ''
+- name: fetch
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
+authorship: platform
+authorship_note: 'PLATFORM-AUTHORED: this tool shape is shared with at least one other provider in the
+  catalog, so it is a platform default appearing under this provider''s domain rather than an interface
+  this provider designed. Shared shape: (''execute_request'', ''fetch'', ''get_endpoint'', ''list_*'',
+  ''list_specs'', ''search'', ''search_*'')'
