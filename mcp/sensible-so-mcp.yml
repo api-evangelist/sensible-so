@@ -1,4 +1,4 @@
-generated: '2026-09-11'
+generated: '2026-09-17'
 method: probed
 source: https://docs.sensible.so/mcp
 status: published
@@ -6,32 +6,67 @@ server:
   name: sensible-so
   transport: http
   url: https://docs.sensible.so/mcp
+  docs: https://docs.sensible.so/reference/mcp
 deployment:
   mode: remote
   endpoint: https://docs.sensible.so/mcp
+  auth: none
   verified: probed
   probe: live
-  checked: '2026-09-11'
-  source: ptr_only reconciliation 2026-09-11 (apis.yml pointed here, no manifest existed)
+  checked: '2026-09-17'
+  note: Anonymous POST of tools/list returned HTTP 200 text/event-stream with the full tool set
+    and input schemas — no OAuth challenge, no API key required to enumerate. Calling
+    execute-request against api.sensible.so still needs a Sensible bearer key.
+  source: live tools/list handshake 2026-09-17
 tools_count: 7
+tools_source: live tools/list, 2026-09-17 (verbatim response saved to mcp/sensible-so-tools-list.json)
 tools:
 - name: list-endpoints
-  description: ''
+  title: List API Endpoints
+  description: Lists all API paths and their HTTP methods with summaries, organized by path.
+    Results can be passed directly into 'get-endpoint'.
+  input_schema: {title: string (required)}
+  read_only: true
 - name: get-endpoint
-  description: ''
+  title: Get Endpoint Details
+  description: Gets detailed information about a specific API endpoint, including security schemes
+    and servers.
+  input_schema: {path: string (required), method: string (required), title: string (required)}
+  read_only: true
 - name: search-endpoints
-  description: ''
+  title: Search API Endpoints
+  description: Performs a deep search through paths, operations, and parameters to discover
+    relevant API endpoints.
+  input_schema: {pattern: string (required)}
+  read_only: true
 - name: list-specs
-  description: ''
+  title: List OpenAPI Specs
+  description: Lists all available OpenAPI specs. Use the title to select a spec.
+  input_schema: {}
+  read_only: true
 - name: execute-request
-  description: ''
+  title: Execute API Request
+  description: Executes an API request with a given HAR request object.
+  input_schema: {harRequest: object (required), title: string (required)}
+  read_only: false
+  destructive: true
+  open_world: true
 - name: search
-  description: ''
+  title: Search Documentation
+  description: Searches through documentation with the given search query, returning a list of
+    results with ID, title, and URL.
+  input_schema: {query: string (required)}
+  read_only: true
 - name: fetch
-  description: ''
-tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
+  title: Fetch Documentation Page
+  description: Gets detailed content for documentation by ID returned from the `search` tool.
+  input_schema: {id: string (required)}
+  read_only: true
 authorship: platform
-authorship_note: 'PLATFORM-AUTHORED: this tool shape is shared with at least one other provider in the
-  catalog, so it is a platform default appearing under this provider''s domain rather than an interface
-  this provider designed. Shared shape: (''execute_request'', ''fetch'', ''get_endpoint'', ''list_*'',
-  ''list_specs'', ''search'', ''search_*'')'
+authorship_note: 'PLATFORM-AUTHORED: this is the ReadMe documentation-platform MCP server shape
+  (list-endpoints / get-endpoint / search-endpoints / list-specs / execute-request / search /
+  fetch), shared with other ReadMe-hosted providers in the catalog. It is a docs-and-proxy
+  server, not a domain interface Sensible designed — none of the seven tools names a Sensible
+  concept (extraction, document type, configuration, reference document, portfolio). Sensible
+  business operations are reachable only indirectly, through execute-request against
+  https://api.sensible.so/v0 with the caller''s own bearer key.'

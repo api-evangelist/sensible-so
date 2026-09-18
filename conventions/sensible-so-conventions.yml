@@ -1,0 +1,155 @@
+generated: '2026-09-17'
+method: searched
+source: https://docs.sensible.so/reference/authentication, https://docs.sensible.so/docs/api-tutorial-webhook,
+  https://docs.sensible.so/docs/go-live, openapi/*.yml
+description: Cross-cutting runtime semantics for the Sensible v0 API, read from the docs and derived from
+  the seven published OpenAPI documents.
+auth:
+  style: bearer-api-key
+  header: 'Authorization: Bearer <API key>'
+  scheme: http bearer (securityScheme bearerAuth, applied globally in every spec)
+  key_management: https://app.sensible.so/account
+  docs: https://docs.sensible.so/reference/authentication
+  note: Sensible offers nonrecoverable keys and password-recoverable keys. No OAuth, no scopes, no per-key
+    permissions are documented.
+  see: authentication/sensible-so-authentication.yml
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  evidence: No Idempotency-Key (or equivalent) header appears in any of the seven published OpenAPI documents,
+    and no idempotency, replay-protection or safe-retry section exists in the documentation index at https://docs.sensible.so/llms.txt
+    (208 entries, fetched 2026-09-17).
+  note: 16 of the 32 published operations are mutating (POST/PUT/DELETE), including the billed extraction
+    endpoints. Nothing stops a retried POST /extract/{document_type} from producing - and billing - a
+    second extraction. The docs go-live checklist explicitly asks integrators to log which calls errored
+    "so that you can retry those documents", which is a retry instruction issued without any replay protection
+    behind it.
+  docs: null
+reversibility:
+  grade: documented
+  summary: Configuration publishing is reversible by a documented operation; every other destructive operation
+    - deleting a document type, a configuration, a configuration version, a reference document, or a reference-document
+    association - has no documented undo and no stated recovery window.
+  write_surfaces:
+  - surface: Publish a configuration version to an environment
+    operationId: update-configuration
+    reversal: delete-configuration-by-version
+    reversal_kind: unpublish
+    window: null
+    window_stated: false
+    docs: https://docs.sensible.so/reference/delete-configuration-by-version
+    note: A configuration version is published to an environment by setting publish_as (schema Environment,
+      enum production/development) on update-configuration. Passing the publication environment name (for
+      example "development") in the version parameter of delete-configuration-by-version unpublishes it.
+      No time window is stated and none is asserted here. Note the docs page is titled "Publish configuration
+      to an environment" but the published contract exposes no publish-configuration-by-version operationId
+      - the operation is update-configuration with publish_as.
+  - surface: Create/update a configuration
+    operationId: create-configuration, update-configuration
+    reversal: get-configuration-by-version + update-configuration
+    reversal_kind: roll-forward
+    window: null
+    window_stated: false
+    docs: https://docs.sensible.so/reference/get-configuration-versions
+    note: Versions are addressable (get-configuration-versions, get-configuration-by-version), so a previous
+      version can be re-applied. This is a roll-forward, not an undo, and the docs state no retention
+      period for old versions.
+  - surface: Delete a configuration
+    operationId: delete-configuration
+    reversal: null
+    window: null
+    window_stated: false
+    note: No restore, undelete or trash operation is published.
+  - surface: Delete a document type
+    operationId: delete-document-type
+    reversal: null
+    window: null
+    window_stated: false
+    note: No restore operation is published; deleting a document type removes the configurations addressed
+      beneath it.
+  - surface: Delete a reference document
+    operationId: delete-reference-document, delete-reference-document-association
+    reversal: null
+    window: null
+    window_stated: false
+    note: No restore operation is published; re-creating means re-uploading via create-reference-document.
+  - surface: Run an extraction
+    operationId: extract-data-from-a-document, extract-data-from-a-document-with-config, provide-a-download-url-with-config,
+      provide-a-download-url-for-a-pdf-portfolio, classify-document, classify-document-sync
+    reversal: null
+    window: null
+    window_stated: false
+    note: No cancel, void or refund operation exists. An extraction is metered against the plan quota
+      (see plans/), so an accidental retry is a billable event with no published reversal.
+  evidence: 32 published operations across openapi/*.yml; documentation index https://docs.sensible.so/llms.txt
+    fetched 2026-09-17 contains no delete-recovery, restore, undo or retention-window page.
+dry_run_mode:
+  supported: false
+  note: No dry-run, preview or validate-only parameter appears in any published operation. The nearest
+    published rehearsal surface is the app-side configuration editor and reference documents ("goldens"),
+    which are a build-time testing device rather than a request-time dry run.
+pagination:
+  style: cursor
+  operations:
+  - list-extractions
+  request_params:
+  - page_limit
+  - continuation_token
+  response_fields:
+  - continuation_token
+  filters:
+  - start_date
+  - end_date
+  - configuration_ids
+  - document_type_ids
+  - environments
+  - statuses
+  - min_coverage
+  - max_coverage
+  - review_statuses
+  note: Only GET /extractions paginates. The other list operations (list-document-types, list-configurations,
+    list-reference-documents, get-configuration-versions) return an unpaginated collection.
+field_expansion:
+  supported: false
+  note: No expand/fields/include parameter is published.
+metadata:
+  supported: true
+  mechanism: The extraction request body accepts a document_type / environment plus a webhook object whose
+    payload field is echoed back verbatim on the webhook delivery.
+  note: The webhook.payload field is the only caller-supplied metadata channel and it is scoped to the
+    webhook delivery, not stored on the extraction record.
+request_id_tracing:
+  supported: false
+  note: No X-Request-Id or correlation header is documented or returned. A live 401 on 2026-09-17 returned
+    only AWS API Gateway / CloudFront identifiers (x-amzn-requestid, x-amz-cf-id) - infrastructure trace
+    ids, not a Sensible-owned request id an agent can quote in a support ticket.
+versioning:
+  style: uri-path
+  current: v0
+  base_url: https://api.sensible.so/v0
+  note: Every published spec declares info.version "v0" and a single server https://api.sensible.so/v0.
+    No version header, no dated version, no second live version.
+  see: lifecycle/sensible-so-lifecycle.yml
+error_envelope:
+  format: text/plain
+  codes: false
+  see: errors/sensible-so-problem-types.yml
+rate_limit_signaling:
+  headers_documented: []
+  headers_observed: []
+  status_on_exhaustion: 429
+  note: No RateLimit-*, X-RateLimit-* or Retry-After header is documented, and none appeared on the live
+    response probed 2026-09-17. Limits are enforced per plan and surfaced only in the 429 prose body.
+  see: rate-limits/sensible-so-rate-limits.yml
+async_model:
+  styles:
+  - synchronous
+  - asynchronous-poll
+  - asynchronous-webhook
+  note: POST /extract is synchronous; /extract_from_url and /generate_upload_url are asynchronous and
+    return an extraction id to poll at GET /documents/{id} or to receive as a webhook push. The webhook
+    fires on extraction status change (COMPLETE) and on human-review status change (APPROVED).
+  docs: https://docs.sensible.so/docs/api-tutorial-webhook
+  see: asyncapi/sensible-so-webhooks.yml

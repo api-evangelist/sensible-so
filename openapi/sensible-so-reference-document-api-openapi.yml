@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sensible Classification Configuration Reference document API
+  title: Sensible Reference Documents Reference document API
   version: v0
-  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  description: Manage reference PDFs associated with document types. Create, list, fetch, update, and delete reference documents; associate or unassociate them with configurations; extract all text (lines) from a reference document.
   contact:
     name: Sensible
     url: https://www.sensible.so
@@ -53,7 +53,6 @@ paths:
     get:
       operationId: list-reference-documents
       summary: List all reference documents in a document type
-      description: List all reference documents in a document type
       tags:
       - Reference document
       responses:
@@ -112,7 +111,6 @@ paths:
     put:
       operationId: update-reference-document
       summary: Update metadata for a reference document
-      description: Update metadata for a reference document
       tags:
       - Reference document
       requestBody:
@@ -213,47 +211,10 @@ components:
         configuration:
           $ref: '#/components/schemas/AssociatedConfigurationName'
       additionalProperties: false
-    PostGolden:
-      type: object
-      description: Upload url for putting the document
-      properties:
-        name:
-          $ref: '#/components/schemas/DocumentName'
-        configuration:
-          $ref: '#/components/schemas/AssociatedConfigurationName'
-      required:
-      - name
-      additionalProperties: false
-    GoldenResponse:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DocumentName'
-        created:
-          $ref: '#/components/schemas/Date'
-        configuration:
-          $ref: '#/components/schemas/AssociatedConfigurationName'
-        error:
-          type: string
-          description: Any errors that occurred processing the reference document
-        upload_url:
-          type: string
-          description: If present, the URL to which a reference document can be PUT
-        download_url:
-          type: string
-          description: If present, the URL to GET to retrieve the reference document
-        thumbnail_url:
-          type: string
-          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
-      required:
-      - name
-      - created
-      additionalProperties: false
-    UniqueId:
+    DocumentName:
+      description: Unique user-friendly name for a document
+      example: best_scan_form_num_1234
       type: string
-      format: uuid
-      description: Unique identifier
-      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
     AssociatedConfigurationName:
       type: string
       pattern: ^[a-z0-9_]*$
@@ -261,6 +222,10 @@ components:
       maxLength: 128
       description: User-friendly name of the configuration to associate to the reference document
       example: anyco_auto_insurance_quote
+    GetAllGoldens:
+      type: array
+      items:
+        $ref: '#/components/schemas/GoldenResponse'
     ResponseStandardText:
       description: all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
       type: object
@@ -307,14 +272,61 @@ components:
               y: 2.236
             - x: 4.25
               y: 2.236
+    GoldenResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentName'
+        created:
+          $ref: '#/components/schemas/Date'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+        error:
+          type: string
+          description: Any errors that occurred processing the reference document
+        upload_url:
+          type: string
+          description: If present, the URL to which a reference document can be PUT
+        download_url:
+          type: string
+          description: If present, the URL to GET to retrieve the reference document
+        thumbnail_url:
+          type: string
+          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
+      required:
+      - name
+      - created
+      additionalProperties: false
+    Date:
+      type: string
+      format: date-time
+      description: ISO 8601 date-time.
+    PostGolden:
+      type: object
+      description: Upload url for putting the document
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentName'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+      required:
+      - name
+      additionalProperties: false
     DocumentTypeName:
       description: Unique user-friendly name for a document type
       example: auto_insurance_quotes_all_carriers
       type: string
-    GetAllGoldens:
-      type: array
-      items:
-        $ref: '#/components/schemas/GoldenResponse'
+    UniqueId:
+      type: string
+      format: uuid
+      description: Unique identifier
+      example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    Name:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: User-friendly name
     PostGoldenExtraction:
       type: object
       properties:
@@ -327,68 +339,6 @@ components:
           description: 'SenseML configuration as a JSON object, not stringified JSON, for example, `"configuration": {"fields":[]}`. If you leave out this parameter, then Sensible returns the best-scoring extraction from the configurations in the document type.  If you specify it, Sensible ignores the `environment` parameter.'
           example:
             fields: []
-    DocumentName:
-      description: Unique user-friendly name for a document
-      example: best_scan_form_num_1234
-      type: string
-    Date:
-      type: string
-      format: date-time
-      description: ISO 8601 date-time.
-    Name:
-      type: string
-      pattern: ^[a-z0-9_]*$
-      minLength: 3
-      maxLength: 128
-      description: User-friendly name
-  responses:
-    '500':
-      description: Internal Server Error
-      content:
-        text/plain:
-          schema:
-            title: Sensible encountered an unknown error
-            type: string
-            example: Sensible encountered an unknown error
-    '400':
-      description: Bad Request
-      content:
-        text/plain:
-          schema:
-            title: Bad Request
-            type: string
-            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
-    '415':
-      description: Unsupported Media Type
-      content:
-        text/plain:
-          schema:
-            title: Unsupported Media Type
-            type: string
-            example: Messages related to the file format of the document to extract data from.
-    '404':
-      description: Not Found
-      content:
-        text/plain:
-          schema:
-            title: Not Found
-            type: string
-    '401':
-      description: Not authorized
-      content:
-        text/plain:
-          schema:
-            title: Unauthorized
-            type: string
-            example: Unauthorized
-    '204':
-      description: No content
-      content:
-        text/plain:
-          schema:
-            title: No Content
-            type: string
-            example: No Content
   parameters:
     documentName:
       name: document-name
@@ -398,13 +348,6 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
-    documentTypeId:
-      name: type-id
-      required: true
-      in: path
-      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
-      schema:
-        $ref: '#/components/schemas/UniqueId'
     documentTypeName:
       name: type-name
       required: true
@@ -412,6 +355,61 @@ components:
       description: User-friendly name for a document type
       schema:
         $ref: '#/components/schemas/DocumentTypeName'
+    documentTypeId:
+      name: type-id
+      required: true
+      in: path
+      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
+      schema:
+        $ref: '#/components/schemas/UniqueId'
+  responses:
+    '415':
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Messages related to the file format of the document to extract data from.
+    '401':
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
+    '204':
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content
+    '404':
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            title: Not Found
+            type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,0 +1,86 @@
+generated: '2026-09-17'
+method: searched
+source: https://docs.sensible.so/changelog
+url: https://docs.sensible.so/changelog
+description: Sensible publishes a dated changelog on its ReadMe docs host, written as one dated digest
+  per calendar month. Recent window captured 2026-09-17.
+scheme: calendar-month digest (no semantic version numbers)
+current_api_version: v0
+cadence: monthly
+authoring: Entries are bylined "ReadMe API" or a named Sensible staff member (Frances Elliott).
+archive_depth: 10 entries listed on page 1 of 7, oldest listed December 2025.
+entries:
+- version: September 2026
+  date: '2026-09-01'
+  url: https://docs.sensible.so/changelog/september-2026
+  breaking: false
+  highlights:
+  - XML postprocessor - output extracted data as an XML string via a JsonLogic rule, returned in the postprocessorOutput
+    field of the API response.
+  - To Lower and To Upper string operators for JsonLogic.
+  - Malware scanning for document uploads.
+  - UX improvements.
+  additions:
+  - postprocessorOutput XML form
+- version: August 2026
+  date: '2026-08-01'
+  url: https://docs.sensible.so/changelog/august-2026
+  breaking: false
+  highlights:
+  - Account-free sandbox on sensible.so - try LLM-powered extraction without signing up.
+  - Async extraction responses now carry uploaded and processing_started timestamps, separating upload
+    latency from extraction processing time.
+  additions:
+  - uploaded
+  - processing_started
+- version: July 2026
+  date: '2026-07-01'
+  url: https://docs.sensible.so/changelog/july-2026
+  breaking: false
+  highlights:
+  - Gemini models for LLM-based methods updated from 2.x to 3.x.
+  - New Actor field on extraction responses showing which user or named API key initiated an extraction.
+  - Region method can return a document region as a PNG data URI (As Image).
+  - New extended JsonLogic operation; app UX improvements.
+  additions:
+  - Actor
+  - Region.asImage
+- version: June 2026
+  date: '2026-06-01'
+  url: https://docs.sensible.so/changelog/june-2026
+  breaking: false
+  highlights: []
+- version: May 2026
+  date: '2026-05-01'
+  url: https://docs.sensible.so/changelog/may-2026
+  breaking: false
+  highlights: []
+- version: April 2026
+  date: '2026-04-01'
+  url: https://docs.sensible.so/changelog/april-2026
+  breaking: false
+  highlights: []
+- version: March 2026
+  date: '2026-03-01'
+  url: https://docs.sensible.so/changelog/march-2026
+  breaking: false
+  highlights: []
+- version: February 2026
+  date: '2026-02-01'
+  url: https://docs.sensible.so/changelog/february-2026
+  breaking: false
+  highlights: []
+- version: January 2026
+  date: '2026-01-01'
+  url: https://docs.sensible.so/changelog/january-2026
+  breaking: false
+  highlights: []
+- version: December 2025
+  date: '2025-12-01'
+  url: https://docs.sensible.so/changelog/december-2025
+  breaking: false
+  highlights: []
+note: Entry dates are the calendar month the digest covers; ReadMe shows relative times ("3 days ago"
+  for September 2026) rather than an exact publication date, so day precision is not asserted. Highlights
+  were captured for the three most recent entries only; the earlier seven are listed for the archive depth
+  they evidence, with highlights left empty rather than guessed.

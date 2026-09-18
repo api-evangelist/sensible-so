@@ -1,26 +1,42 @@
 {
   "provider": "sensible-so",
   "sources": [
-    "sensible-so-configuration-api-openapi.yml",
-    "sensible-so-document-api-openapi.yml",
-    "sensible-so-document-type-api-openapi.yml",
-    "sensible-so-get-excel-from-documents-api-openapi.yml",
-    "sensible-so-portfolio-api-openapi.yml",
-    "sensible-so-reference-document-api-openapi.yml",
-    "sensible-so-retrieve-extractions-api-openapi.yml"
+    "_original/sensible-classification-api-openapi.yml",
+    "_original/sensible-document-types-api-openapi.yml",
+    "_original/sensible-extractions-api-openapi.yml",
+    "_original/sensible-reference-documents-api-openapi.yml"
   ],
   "outputs": [
-    "sensible-so-configuration-api-openapi.yml",
     "sensible-so-document-api-openapi.yml",
+    "sensible-so-configuration-api-openapi.yml",
     "sensible-so-document-type-api-openapi.yml",
     "sensible-so-get-excel-from-documents-api-openapi.yml",
     "sensible-so-portfolio-api-openapi.yml",
-    "sensible-so-reference-document-api-openapi.yml",
-    "sensible-so-retrieve-extractions-api-openapi.yml"
+    "sensible-so-retrieve-extractions-api-openapi.yml",
+    "sensible-so-reference-document-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sensible-classification-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sensible-document-types-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sensible-document-types-api-openapi.yml: declared missing tag: Configuration",
+    "sensible-document-types-api-openapi.yml: declared missing tag: Document type",
+    "sensible-extractions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sensible-reference-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sensible-reference-documents-api-openapi.yml: declared missing tag: Reference document",
+    "tag 'Document' spans 2 source specs (sensible-classification-api-openapi.yml, sensible-extractions-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "sensible-so-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-document-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-document-type-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-get-excel-from-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-portfolio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-reference-document-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sensible-so-retrieve-extractions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

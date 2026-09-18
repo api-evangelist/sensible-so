@@ -1,0 +1,56 @@
+generated: '2026-09-17'
+method: searched
+source: https://docs.sensible.so/changelog, https://sensible.statuspage.io, https://docs.sensible.so/llms.txt,
+  openapi/*.yml
+description: API lifecycle posture for Sensible - versioning, change communication, status, deprecation
+  and SLA - read from the provider surface on 2026-09-17.
+versioning:
+  scheme: uri-path
+  current_version: v0
+  base_url: https://api.sensible.so/v0
+  versions_live:
+  - v0
+  note: All seven published specs declare info.version "v0" and the single server https://api.sensible.so/v0.
+    The docs site itself carries a "v0" version selector. There is no v1, no version header and no dated
+    version. A production API still on a v0 path is a stability signal worth reading literally.
+  evidence: openapi/*.yml servers[] and info.version; https://docs.sensible.so version selector
+change_log:
+  published: true
+  url: https://docs.sensible.so/changelog
+  cadence: monthly
+  oldest_listed: December 2025 (page 1 of 7)
+  latest: September 2026
+  see: changelog/sensible-so-changelog.yml
+status_page:
+  published: true
+  url: https://sensible.statuspage.io
+  platform: Atlassian Statuspage
+  api: https://sensible.statuspage.io/api/v2/summary.json
+  components:
+  - API
+  - Web app
+  probed: '2026-09-17'
+  http_status: 200
+  observed: All Systems Operational
+  note: The status page exposes the standard Statuspage v2 JSON API, so an agent can read incident state
+    without scraping.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  evidence: 'No deprecation, sunset, retirement or breaking-change policy page appears in the 208-entry
+    documentation index at https://docs.sensible.so/llms.txt (fetched 2026-09-17), and no operation in
+    any published spec carries deprecated: true or an RFC 8594 Sunset/Deprecation header.'
+  note: Change is announced in the monthly changelog after the fact; nothing states how much notice a
+    breaking change gets.
+deprecated_operations: []
+sla:
+  published: false
+  note: 'The pricing page states a Custom SLA is available on the Enterprise tier only ("Service-level
+    agreement: - / - / Custom SLA"), so no SLA is published for the self-serve Growth and Scale plans.'
+  source: https://www.sensible.so/pricing
+support:
+  standard: Growth
+  priority: Scale
+  dedicated_csm: Enterprise
+  source: https://www.sensible.so/pricing

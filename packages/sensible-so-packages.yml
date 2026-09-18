@@ -1,0 +1,58 @@
+generated: '2026-09-17'
+method: searched
+source: https://registry.npmjs.org/sensible-api, https://pypi.org/pypi/sensibleapi/json, https://github.com/sensible-hq
+description: First-party Sensible client libraries, read from the public registry metadata endpoints on 2026-09-17.
+packages:
+- name: sensible-api
+  registry: npm
+  official: true
+  language: javascript
+  url: https://www.npmjs.com/package/sensible-api
+  repository: https://github.com/sensible-hq/sensible-api-js
+  version: 0.0.12
+  published: '2025-09-03'
+  description: Javascript/TypeScript SDK for Sensible document data extraction.
+  note: First-party — npm homepage field points at github.com/sensible-hq/sensible-api-js, the
+    Sensible GitHub organization, and the repo's package.json declares name "sensible-api".
+- name: sensibleapi
+  registry: pypi
+  official: true
+  language: python
+  url: https://pypi.org/project/sensibleapi/
+  repository: https://github.com/sensible-hq/sensible-api-py
+  version: 0.0.17
+  published: '2024-04-15'
+  description: Python SDK for Sensible document data extraction.
+  note: First-party — PyPI Homepage is github.com/sensible-hq/sensible-api-py. Last release
+    2024-04-15 while the repo itself was pushed 2026-08-24, so the published artifact trails
+    the source by roughly two years.
+counts:
+  total: 2
+  official: 2
+registries_checked:
+- registry: npm
+  result: hit (sensible-api)
+- registry: pypi
+  result: hit (sensibleapi); "sensible-api" is absent from PyPI
+- registry: rubygems
+  result: no first-party package
+- registry: crates.io
+  result: no first-party package
+- registry: nuget
+  result: no first-party package
+- registry: maven-central
+  result: no first-party package
+- registry: packagist
+  result: no first-party package
+- registry: pkg.go.dev
+  result: no first-party package
+not_first_party:
+- name: sensible
+  registry: npm
+  reason: github.com/Code-From-Anywhere/sensible — unrelated project, last published 2022-05-25.
+- name: sensible-sdk
+  registry: npm
+  reason: No repository or homepage tying it to sensible.so; last published 2022-09-06.
+- name: sensible
+  registry: pypi
+  reason: github.com/nogibjj/sensible — unrelated project, last released 2016.

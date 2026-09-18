@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sensible Classification Configuration Document type API
+  title: Sensible Document Types and Configurations Document type API
   version: v0
-  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  description: Manage document types and SenseML configurations. Create, list, update, and delete document types; create, list, fetch, update, publish, and delete SenseML configuration versions; list versions for a configuration.
   contact:
     name: Sensible
     url: https://www.sensible.so
@@ -98,9 +98,7 @@ paths:
       summary: Delete document type
       description: 'Delete a document type and everything it contains, for example configurations and reference PDfs,
 
-        but not its extraction history displayed in the Sensible app.
-
-        '
+        but not its extraction history displayed in the Sensible app.'
       tags:
       - Document type
       responses:
@@ -118,86 +116,15 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
-    Validation:
-      type: object
-      additionalProperties: false
-      description: See https://docs.sensible.so/docs/validate-extractions.
-      properties:
-        description:
-          type: string
-          description: User-friendly description for the test
-          example: Broker's email is in string@string format
-        condition:
-          description: The test for validating the field, written in JsonLogic.
-          example:
-            match:
-            - var: broker\.email.value
-            - ^\S+\@\S+$
-          type: object
-          additionalProperties: true
-        fields:
-          type: array
-          description: Skip this test unless prerequisite fields are non-null.
-          example:
-          - broker\.email
-          items:
-            type: string
-        severity:
-          type: string
-          description: Severity of the failing test
-          enum:
-          - warning
-          - error
-        scope:
-          type: array
-          description: If the field to validate is in sections, the list of parent sections.
-          example:
-          - parent_section
-          - child_section
-      required:
-      - description
-      - condition
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
     UniqueId:
       type: string
       format: uuid
       description: Unique identifier
       example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-    Date:
-      type: string
-      format: date-time
-      description: ISO 8601 date-time.
-    DocumentTypeName:
-      description: Unique user-friendly name for a document type
-      example: auto_insurance_quotes_all_carriers
-      type: string
-    PostDocumentType:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/DocumentTypeName'
-        schema:
-          $ref: '#/components/schemas/DocumentTypeOutput'
-      required:
-      - name
-      - schema
-      additionalProperties: false
-    GetAllDocumentTypes:
-      type: array
-      items:
-        type: object
-        properties:
-          name:
-            $ref: '#/components/schemas/DocumentTypeName'
-          id:
-            $ref: '#/components/schemas/UniqueId'
-          created:
-            $ref: '#/components/schemas/Date'
-          schema:
-            $ref: '#/components/schemas/DocumentTypeOutput'
-        required:
-        - name
-        - id
-        additionalProperties: false
     DocumentType:
       type: object
       properties:
@@ -262,31 +189,78 @@ components:
           type: array
           items:
             type: string
+    PostDocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+        schema:
+          $ref: '#/components/schemas/DocumentTypeOutput'
+      required:
+      - name
+      - schema
+      additionalProperties: false
+    Validation:
+      type: object
+      additionalProperties: false
+      description: See https://docs.sensible.so/docs/validate-extractions.
+      properties:
+        description:
+          type: string
+          description: User-friendly description for the test
+          example: Broker's email is in string@string format
+        condition:
+          description: The test for validating the field, written in JsonLogic.
+          example:
+            match:
+            - var: broker\.email.value
+            - ^\S+\@\S+$
+          type: object
+          additionalProperties: true
+        fields:
+          type: array
+          description: Skip this test unless prerequisite fields are non-null.
+          example:
+          - broker\.email
+          items:
+            type: string
+        severity:
+          type: string
+          description: Severity of the failing test
+          enum:
+          - warning
+          - error
+        scope:
+          type: array
+          description: If the field to validate is in sections, the list of parent sections.
+          example:
+          - parent_section
+          - child_section
+      required:
+      - description
+      - condition
+    Date:
+      type: string
+      format: date-time
+      description: ISO 8601 date-time.
+    GetAllDocumentTypes:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/DocumentTypeName'
+          id:
+            $ref: '#/components/schemas/UniqueId'
+          created:
+            $ref: '#/components/schemas/Date'
+          schema:
+            $ref: '#/components/schemas/DocumentTypeOutput'
+        required:
+        - name
+        - id
+        additionalProperties: false
   responses:
-    '204':
-      description: No content
-      content:
-        text/plain:
-          schema:
-            title: No Content
-            type: string
-            example: No Content
-    '415':
-      description: Unsupported Media Type
-      content:
-        text/plain:
-          schema:
-            title: Unsupported Media Type
-            type: string
-            example: Messages related to the file format of the document to extract data from.
-    '400':
-      description: Bad Request
-      content:
-        text/plain:
-          schema:
-            title: Bad Request
-            type: string
-            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
     '500':
       description: Internal Server Error
       content:
@@ -295,13 +269,14 @@ components:
             title: Sensible encountered an unknown error
             type: string
             example: Sensible encountered an unknown error
-    '404':
-      description: Not Found
+    '415':
+      description: Unsupported Media Type
       content:
         text/plain:
           schema:
-            title: Not Found
+            title: Unsupported Media Type
             type: string
+            example: Messages related to the file format of the document to extract data from.
     '401':
       description: Not authorized
       content:
@@ -310,6 +285,29 @@ components:
             title: Unauthorized
             type: string
             example: Unauthorized
+    '204':
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content
+    '404':
+      description: Not Found
+      content:
+        text/plain:
+          schema:
+            title: Not Found
+            type: string
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present
   parameters:
     documentTypeId:
       name: type-id

@@ -1,0 +1,78 @@
+generated: '2026-09-17'
+method: searched
+source: https://docs.sensible.so/docs/quickstart, https://www.sensible.so/pricing, https://docs.sensible.so/changelog/august-2026,
+  openapi/sensible-so-configuration-api-openapi.yml (components.schemas.Environment), https://github.com/sensible-hq/sensible-sample-documents
+description: Sensible test and rehearsal surface. There is no test-mode API key and no separate sandbox
+  host - testing is done through a development publication environment, reference documents, and public
+  sample PDFs against the live API.
+test_mode:
+  exists: false
+  note: There is no test/live key pair and no key prefix distinguishing modes. Sensible issues one kind
+    of API key (nonrecoverable or password-recoverable) and every call goes to https://api.sensible.so/v0.
+    Extractions run against a development-environment config still consume plan quota - the pricing page
+    defines a billed document as "a single extraction result" with no test exclusion.
+environments:
+  values:
+  - development
+  - production
+  mechanism: A configuration version is published to an environment via publish-configuration-by-version;
+    the extraction request selects which environment to run against, and the extraction response echoes
+    it in the environment field.
+  note: This separates config maturity, not billing or data. Both environments hit the same host and the
+    same account.
+  source: components.schemas.Environment (enum production/development) and components.schemas.EnvironmentResponse
+account_free_trial:
+  exists: true
+  url: https://www.sensible.so
+  note: Since August 2026 visitors can run LLM-powered extraction on sensible.so without creating an account
+    - start from a prebuilt config or upload a document, and Sensible auto-generates a config. This is
+    a web try-it, not an API surface, and it issues no key.
+  source: https://docs.sensible.so/changelog/august-2026
+free_trial:
+  exists: true
+  length_days: 14
+  note: Every paid plan starts with a 14-day free trial with full extraction, validation and config-editor
+    access; no credit card to start.
+  source: https://www.sensible.so/pricing
+reference_documents:
+  exists: true
+  mechanism: '"Goldens" - sample documents uploaded beneath a document type and associated with a configuration,
+    used to test an extraction config before publishing it to production.'
+  operations:
+  - create-reference-document
+  - extract-all-text-from-reference-document
+  - list-reference-documents
+  note: This is the closest thing Sensible ships to a fixture system, and it is build-time rather than
+    request-time.
+test_fixtures:
+- kind: sample document
+  name: 1_extract_your_first_data.pdf
+  url: https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf
+  used_by: https://docs.sensible.so/docs/quickstart
+- kind: sample document
+  name: 1040_2021_sample.pdf
+  url: https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf
+  used_by: https://docs.sensible.so/docs/api-tutorial-webhook
+- kind: sample document library
+  name: sensible-sample-documents
+  url: https://github.com/sensible-hq/sensible-sample-documents
+  note: First-party public repository of sample documents.
+- kind: configuration library
+  name: sensible-configuration-library
+  url: https://github.com/sensible-hq/sensible-configuration-library
+  note: Open-source SenseML configurations for public use - the out-of-the-box document types (1040s,
+    bank statements, pay stubs and others) a test account can install.
+- kind: webhook sink
+  name: webhook.site
+  url: https://webhook.site/
+  note: The webhook tutorial directs testers to webhook.site for a throwaway destination. Third-party,
+    and the docs explicitly say to use it for testing only.
+time_simulation:
+  exists: false
+  note: No test clock or time-travel facility.
+triggers:
+  exists: false
+  note: No fixture-trigger endpoint to force a FAILED extraction or a NEEDS_REVIEW state on demand.
+gaps:
+- No test-mode key or sandbox host - test traffic is billable production traffic.
+- No way to force error or review states for integration testing.

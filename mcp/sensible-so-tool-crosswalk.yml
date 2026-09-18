@@ -1,0 +1,153 @@
+generated: '2026-09-17'
+method: derived
+source: mcp/sensible-so-tools-list.json (live tools/list 2026-09-17) + openapi/*.yml
+summary: 'Sensible ships a remote MCP server at docs.sensible.so/mcp, but it is the ReadMe documentation-platform
+  server: seven generic tools for browsing the OpenAPI and the docs, plus one HAR-request proxy. No tool
+  binds to a named Sensible operation, so every REST operation is rest_only and every tool is mcp_only.
+  The only path from an agent to a Sensible business operation is execute-request, which can reach ALL
+  32 operations but exposes none of their parameters as a tool input schema.'
+surfaces:
+  openapi:
+    files:
+    - openapi/sensible-so-configuration-api-openapi.yml
+    - openapi/sensible-so-document-api-openapi.yml
+    - openapi/sensible-so-document-type-api-openapi.yml
+    - openapi/sensible-so-get-excel-from-documents-api-openapi.yml
+    - openapi/sensible-so-portfolio-api-openapi.yml
+    - openapi/sensible-so-reference-document-api-openapi.yml
+    - openapi/sensible-so-retrieve-extractions-api-openapi.yml
+    operations: 32
+    gated: false
+    servers:
+    - https://api.sensible.so/v0
+  graphql: null
+  mcp:
+    url: https://docs.sensible.so/mcp
+    gated: false
+    note: tools/list answers anonymously; execute-request needs the caller's own Sensible bearer key.
+crosswalk:
+- tool: execute-request
+  category: proxy
+  rest:
+  - create-configuration
+  - list-configurations
+  - get-configuration
+  - update-configuration
+  - delete-configuration
+  - delete-configuration-by-version
+  - get-configuration-by-version
+  - get-configuration-versions
+  - classify-document-sync
+  - classify-document
+  - extract-data-from-a-document-with-config
+  - extract-data-from-a-document
+  - generate-an-upload-url-with-config
+  - provide-a-download-url-with-config
+  - create-document-type
+  - list-document-types
+  - get-document-type
+  - delete-document-type
+  - get-csv-extraction
+  - get-excel-extraction
+  - provide-a-download-url-for-a-pdf-portfolio
+  - generate-an-upload-url-for-a-pdf-portfolio
+  - create-reference-document
+  - list-reference-documents
+  - extract-all-text-from-reference-document
+  - update-reference-document
+  - get-reference-document
+  - delete-reference-document
+  - delete-reference-document-association
+  - statistics
+  - retrieving-results
+  - list-extractions
+  binding: generic-proxy
+  confidence: low
+  note: Accepts an arbitrary HAR request object, so it can invoke any of the 32 Sensible operations —
+    but it does not inherit any operation's parameters or requestBody. An agent must already know the
+    path, method, headers and body shape; the tool schema gives it none of that.
+mcp_only:
+- tool: list-endpoints
+  reason: Reads the OpenAPI document itself; no backing REST operation.
+- tool: get-endpoint
+  reason: Reads the OpenAPI document itself; no backing REST operation.
+- tool: search-endpoints
+  reason: Searches the OpenAPI document; no backing REST operation.
+- tool: list-specs
+  reason: Lists docs-platform specs; no backing REST operation.
+- tool: search
+  reason: Documentation search on the ReadMe host; no backing REST operation.
+- tool: fetch
+  reason: Documentation page retrieval on the ReadMe host; no backing REST operation.
+rest_only:
+- operationId: create-configuration
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: list-configurations
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-configuration
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: update-configuration
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: delete-configuration
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: delete-configuration-by-version
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-configuration-by-version
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-configuration-versions
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: classify-document-sync
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: classify-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: extract-data-from-a-document-with-config
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: extract-data-from-a-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: generate-an-upload-url-with-config
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: provide-a-download-url-with-config
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: create-document-type
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: list-document-types
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-document-type
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: delete-document-type
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-csv-extraction
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-excel-extraction
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: provide-a-download-url-for-a-pdf-portfolio
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: generate-an-upload-url-for-a-pdf-portfolio
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: create-reference-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: list-reference-documents
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: extract-all-text-from-reference-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: update-reference-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: get-reference-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: delete-reference-document
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: delete-reference-document-association
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: statistics
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: retrieving-results
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+- operationId: list-extractions
+  reason: No named MCP tool; reachable only via the generic execute-request proxy.
+coverage:
+  mcp_tools: 7
+  rest_operations: 32
+  tools_bound_to_named_operations: 0
+  operations_with_a_named_tool: 0
+  operations_reachable_via_proxy: 32
+  named_tool_coverage_pct: 0.0

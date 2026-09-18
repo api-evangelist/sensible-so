@@ -4,8 +4,13 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Sensible
 providerId: sensible-so
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-09-17'
 reconciled: true
+generated: '2026-09-17'
+method: searched
+source: https://www.sensible.so/pricing
+source_checked: '2026-09-17'
+plan_count: 4
 tags:
   - Document Extraction
   - IDP

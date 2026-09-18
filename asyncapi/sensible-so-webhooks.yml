@@ -1,0 +1,69 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/sensible-so-document-api-openapi.yml (components.schemas.Webhook, ExtractionStatus, ReviewStatus),
+  openapi/sensible-so-portfolio-api-openapi.yml, https://docs.sensible.so/docs/api-tutorial-webhook, https://docs.sensible.so/docs/human-review-implementation
+description: Sensible ships a real webhook surface but publishes no AsyncAPI document. This is the webhook
+  catalog derived from the Webhook schema the OpenAPI declares and the events its enums and docs name.
+asyncapi_published: false
+asyncapi_note: No /asyncapi.yaml, no event catalog and no AsyncAPI document exists on any Sensible host
+  or in the sensible-hq GitHub org (checked 2026-09-17). Recorded as an honest absence - nothing is fabricated
+  here.
+style: callback-url supplied per request
+subscription:
+  mechanism: Pass a webhook object ({url, payload}) in the body of an asynchronous extraction or classification
+    request.
+  no_management_api: true
+  note: There is no subscribe/unsubscribe endpoint, no endpoint registry and no event-type filter. The
+    destination is named per request, so an agent cannot enumerate or revoke deliveries after the fact.
+delivery:
+  method: POST
+  content_type: application/json
+  body: A parsed_document object plus a webhook object echoing back the caller-supplied url and payload.
+  signing: null
+  signing_note: No signature header, no shared secret and no verification scheme is documented. The docs
+    suggest carrying a caller-chosen UUID in webhook.payload "for verification", which is a bearer-value
+    convention rather than a signed delivery.
+  retries: null
+  retries_note: No retry policy, backoff or dead-letter behaviour is documented.
+events:
+- name: extraction.status.COMPLETE
+  trigger: Extraction status changes to COMPLETE
+  payload: parsed_document + webhook
+  source: components.schemas.Webhook description; ExtractionStatus enum
+- name: extraction.status.FAILED
+  trigger: Extraction status changes to FAILED
+  payload: extraction errors + webhook
+  source: components.schemas.Webhook description; ExtractionStatus enum
+- name: extraction.reviewStatus.APPROVED
+  trigger: Human review approves an extraction that returned NEEDS_REVIEW
+  payload: parsed_document + webhook
+  source: components.schemas.ReviewStatus description
+- name: extraction.reviewStatus.REJECTED
+  trigger: Human review rejects an extraction that returned NEEDS_REVIEW
+  payload: parsed_document + webhook
+  source: components.schemas.ReviewStatus description
+event_enums:
+  ExtractionStatus:
+  - WAITING
+  - PROCESSING
+  - COMPLETE
+  - FAILED
+  ReviewStatus:
+  - NEEDS_REVIEW
+  - APPROVED
+  - REJECTED
+operations_supporting_webhooks:
+- provide-a-download-url-with-config
+- provide-a-download-url-for-a-pdf-portfolio
+- generate-an-upload-url-with-config
+- generate-an-upload-url-for-a-pdf-portfolio
+- classify-document
+alternative: Poll GET /documents/{id} (operationId retrieving-results) for the same status transitions.
+docs:
+- https://docs.sensible.so/docs/api-tutorial-webhook
+- https://docs.sensible.so/docs/human-review-implementation
+gaps:
+- No AsyncAPI document.
+- No delivery signing or verification scheme.
+- No documented retry or dead-letter policy.
+- No subscription management API.

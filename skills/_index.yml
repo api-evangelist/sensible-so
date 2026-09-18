@@ -1,0 +1,48 @@
+generated: '2026-09-17'
+method: generated
+source: openapi/*.yml operationIds (grepped, never invented) + arazzo/*.yml workflows + conventions/,
+  errors/, plans/
+provider: sensible-so
+description: Packaged Agent Skills for the marquee Sensible flows, each grounded in operationIds that
+  exist in the published contract, and each carrying the idempotency, reversibility and error rules the
+  contract does not state.
+skills:
+- file: sensible-so-classify-document.md
+  name: sensible-so-classify-document
+  description: Identify which Sensible document type a document matches, with a confidence score, before
+    spending an extraction on it.
+  operations:
+  - classify-document-sync
+  - classify-document
+  - list-document-types
+  - extract-data-from-a-document
+- file: sensible-so-extract-document-async.md
+  name: sensible-so-extract-document-async
+  description: Extract structured data from a document with Sensible using the asynchronous URL flow,
+    then poll or receive a webhook for the result.
+  operations:
+  - provide-a-download-url-with-config
+  - retrieving-results
+- file: sensible-so-extract-portfolio.md
+  name: sensible-so-extract-portfolio
+  description: Split a multi-document PDF into member documents with Sensible and extract each one, then
+    collect the results as a spreadsheet.
+  operations:
+  - provide-a-download-url-for-a-pdf-portfolio
+  - generate-an-upload-url-for-a-pdf-portfolio
+  - retrieving-results
+  - get-excel-extraction
+  - get-csv-extraction
+- file: sensible-so-publish-configuration.md
+  name: sensible-so-publish-configuration
+  description: Create or update a SenseML extraction configuration under a Sensible document type and
+    publish a version to an environment — including how to unpublish it again.
+  operations:
+  - create-document-type
+  - list-document-types
+  - create-configuration
+  - update-configuration
+  - list-configurations
+  - get-configuration-versions
+  - get-configuration-by-version
+  - delete-configuration-by-version

@@ -1,0 +1,228 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/*.yml ($ref graph and id-reference fields across 7 specs, 32 operations)
+description: Entity-relationship graph for the Sensible v0 API, derived from the published OpenAPI $ref
+  links and the id path parameters that bind the resources together.
+entities:
+- name: DocumentType
+  id_field: id (UniqueId, uuid)
+  path: /document_types/{type-id}
+  schemas:
+  - DocumentType
+  - DocumentTypeOutput
+  - PostDocumentType
+  - GetAllDocumentTypes
+  - DocumentTypeName
+  operations:
+  - create-document-type
+  - list-document-types
+  - get-document-type
+  - delete-document-type
+  description: The top-level container. A document type names a class of document (1040s, bank statement)
+    and owns the configurations and reference documents beneath it.
+- name: Configuration
+  id_field: name (ConfigurationName)
+  path: /document_types/{type-id}/configurations/{config-name}
+  schemas:
+  - ConfigurationResponse
+  - PostConfiguration
+  - PutConfiguration
+  - GetAllConfigurations
+  - StringifiedConfigurationRequest
+  - ConfigurationName
+  operations:
+  - create-configuration
+  - list-configurations
+  - get-configuration
+  - update-configuration
+  - delete-configuration
+  description: A SenseML extraction config, addressed by name beneath a document type. The config body
+    is stringified JSON validated against https://schema.sensible.so/configuration.schema.json.
+- name: ConfigurationVersion
+  id_field: version (ConfigurationVersion)
+  path: /document_types/{type-id}/configurations/{config-name}/{version}
+  schemas:
+  - ConfigurationVersion
+  - ConfigurationVersionsResponse
+  - Environment
+  operations:
+  - get-configuration-versions
+  - get-configuration-by-version
+  - delete-configuration-by-version
+  description: An immutable version of a configuration. A version is published to an Environment (development,
+    production); passing the environment name to the delete operation unpublishes it.
+- name: ReferenceDocument
+  id_field: name (DocumentName)
+  path: /document_types/{type-id}/goldens/{document-name}
+  schemas:
+  - GoldenResponse
+  - PostGolden
+  - PutGolden
+  - GetAllGoldens
+  - PostGoldenExtraction
+  - AssociatedConfigurationName
+  operations:
+  - create-reference-document
+  - list-reference-documents
+  - get-reference-document
+  - update-reference-document
+  - delete-reference-document
+  - delete-reference-document-association
+  - extract-all-text-from-reference-document
+  description: A "golden" sample document held beneath a document type and optionally associated with
+    a named configuration, used to test extraction before publishing.
+- name: Extraction
+  id_field: id (ExtractionId, uuid)
+  path: /documents/{id}
+  schemas:
+  - ExtractionSyncResponse
+  - ExtractionSingleRetrievalResponse
+  - ExtractionCreated
+  - ExtractionStatus
+  - ParsedDocument
+  - Validations
+  - Coverage
+  - Errors
+  - FileMetadata
+  - PostprocessorOutput
+  - ReviewStatus
+  operations:
+  - extract-data-from-a-document
+  - extract-data-from-a-document-with-config
+  - provide-a-download-url-with-config
+  - generate-an-upload-url-with-config
+  - retrieving-results
+  - list-extractions
+  - statistics
+  description: The billed unit of work and the central record. Carries the parsed_document result, validations,
+    coverage score, review status and any extraction errors.
+- name: PortfolioExtraction
+  id_field: id (ExtractionId, uuid)
+  path: /extract_from_url, /generate_upload_url
+  schemas:
+  - PortfolioBase
+  - ExtractFromUrlPortfolioResponse
+  - UploadPortfolioResponse
+  - ExtractionPortfolioRetrievalResponse
+  - DocumentInPortfolio
+  - SegmentDocumentsWith
+  - ClassificationPortfolio
+  operations:
+  - provide-a-download-url-for-a-pdf-portfolio
+  - generate-an-upload-url-for-a-pdf-portfolio
+  description: A multi-document PDF split into member documents. Each member is classified and extracted,
+    and each counts as one billed document.
+- name: Classification
+  id_field: null
+  path: /classify, /classify/async
+  schemas:
+  - Classification
+  - ClassifySingleResponse
+  - ClassifyAsyncSingleResponse
+  - ClassificationSummary
+  - Score
+  operations:
+  - classify-document
+  - classify-document-sync
+  description: A document-type prediction with a confidence Score, returned without running an extraction.
+- name: Spreadsheet
+  id_field: ids (ExtractionIds, comma-separated)
+  path: /generate_excel/{ids}, /generate_csv/{ids}
+  schemas:
+  - ExtractionIds
+  - ExtractionId
+  operations:
+  - get-excel-extraction
+  - get-csv-extraction
+  description: A derived artifact - one or more completed extractions rendered as XLSX or CSV and returned
+    as a download URL that expires after 15 minutes.
+- name: Webhook
+  id_field: null
+  path: (request body)
+  schemas:
+  - Webhook
+  operations: []
+  description: A per-request callback destination, not a stored resource. See asyncapi/sensible-so-webhooks.yml.
+relationships:
+- from: DocumentType
+  to: Configuration
+  type: has_many
+  via: type-id path parameter
+- from: Configuration
+  to: DocumentType
+  type: belongs_to
+  via: type-id path parameter
+- from: Configuration
+  to: ConfigurationVersion
+  type: has_many
+  via: version path parameter
+- from: ConfigurationVersion
+  to: Configuration
+  type: belongs_to
+  via: config-name path parameter
+- from: DocumentType
+  to: ReferenceDocument
+  type: has_many
+  via: type-id path parameter (/goldens)
+- from: ReferenceDocument
+  to: Configuration
+  type: has_one
+  via: AssociatedConfigurationName
+- from: Extraction
+  to: DocumentType
+  type: belongs_to
+  via: document_type path parameter / DocumentTypeName in the response
+- from: Extraction
+  to: Configuration
+  type: belongs_to
+  via: config_name path parameter / ConfigurationName + ConfigurationId in the response
+- from: Extraction
+  to: ConfigurationVersion
+  type: belongs_to
+  via: ConfigurationVersion field on the extraction response
+- from: Extraction
+  to: ParsedDocument
+  type: has_one
+  via: parsed_document
+- from: Extraction
+  to: Validation
+  type: has_many
+  via: validations / ValidationsSummary
+- from: Extraction
+  to: ExtractionError
+  type: has_many
+  via: errors (Errors)
+- from: PortfolioExtraction
+  to: DocumentInPortfolio
+  type: has_many
+  via: documents
+- from: DocumentInPortfolio
+  to: Classification
+  type: has_one
+  via: ClassificationPortfolio
+- from: PortfolioExtraction
+  to: DocumentType
+  type: has_many
+  via: DocumentTypeNames on the request
+- from: Spreadsheet
+  to: Extraction
+  type: has_many
+  via: ids path parameter (ExtractionIds)
+- from: Classification
+  to: DocumentType
+  type: has_one
+  via: DocumentTypeName + Score
+id_conventions:
+  uuid_ids:
+  - DocumentType.id
+  - Extraction.id
+  - Configuration.id
+  name_ids:
+  - Configuration (config-name)
+  - ReferenceDocument (document-name)
+  - DocumentType (type name on extraction paths)
+  note: Sensible addresses the same resource two ways depending on the endpoint - configurations and reference
+    documents by NAME under a document type, extractions by UUID. Extraction endpoints take the document
+    type by NAME (/extract/{document_type}) while the management endpoints take it by UUID (/document_types/{type-id}).
+    There are no prefixed ids.
+render: See arazzo/ for the 15 published workflows that traverse this graph.

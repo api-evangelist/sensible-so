@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sensible Classification Configuration Get Excel from documents API
+  title: Sensible Extractions Get Excel from documents API
   version: v0
-  description: Classify a document into one of the document types defined in your Sensible account, synchronously or asynchronously. Use classification to route documents in a workflow or label documents in a system of record.
+  description: Extract structured data from documents synchronously and asynchronously. Supports sync extract, async extract from your URL, async extract via a Sensible-signed upload URL, portfolio (multi-document) extractions, CSV and Excel output, extraction listing and retrieval, coverage statistics, and review auth tokens for human-in-the-loop workflows.
   contact:
     name: Sensible
     url: https://www.sensible.so
@@ -31,15 +31,13 @@ paths:
 
         For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
 
-        For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+        For more information about the conversion process, see SenseML to spreadsheet reference.
 
-        For a list of document file types that Sensible can extract data from, see [Supported file types](https://docs.sensible.so/docs/file-types).
+        For a list of document file types that Sensible can extract data from, see Supported file types.
 
         Call this endpoint after an extraction completes. For more information about checking extraction status,
 
-        see the `GET /documents/{id}` endpoint.
-
-        '
+        see the `GET /documents/{id}` endpoint.'
       parameters:
       - $ref: '#/components/parameters/ids'
       tags:
@@ -80,19 +78,17 @@ paths:
 
         For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
 
-        For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+        For more information about the conversion process, see SenseML to spreadsheet reference.
 
 
-        For portfolio extractions, Sensible returns an Excel file containing fields for all the documents it finds in the PDF. For more information, see [Multi-document spreadsheet](https://docs.sensible.so/docs/excel-reference#multi-document-spreadsheet).
+        For portfolio extractions, Sensible returns an Excel file containing fields for all the documents it finds in the PDF. For more information, see Multi-document spreadsheet.
 
 
-        For a list of document file types that Sensible can extract data from, see [Supported file types](https://docs.sensible.so/docs/file-types).
+        For a list of document file types that Sensible can extract data from, see Supported file types.
 
         Call this endpoint after an extraction completes. For more information about checking extraction status,
 
-        see the `GET /documents/{id}` endpoint.
-
-        '
+        see the `GET /documents/{id}` endpoint.'
       parameters:
       - $ref: '#/components/parameters/ids'
       tags:
@@ -132,22 +128,6 @@ components:
       schema:
         $ref: '#/components/schemas/ExtractionIds'
   responses:
-    '500':
-      description: Internal Server Error
-      content:
-        text/plain:
-          schema:
-            title: Sensible encountered an unknown error
-            type: string
-            example: Sensible encountered an unknown error
-    '400':
-      description: Bad Request
-      content:
-        text/plain:
-          schema:
-            title: Bad Request
-            type: string
-            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
     '415':
       description: Unsupported Media Type
       content:
@@ -156,6 +136,14 @@ components:
             title: Unsupported Media Type
             type: string
             description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
+    '500':
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error
     '401':
       description: Not authorized
       content:
@@ -164,6 +152,14 @@ components:
             title: Unauthorized
             type: string
             example: Unauthorized
+    '400':
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date
   schemas:
     ExtractionIds:
       type: array

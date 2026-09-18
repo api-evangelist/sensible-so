@@ -33,6 +33,7 @@ apis:
   name: sensible-so Configuration API
   description: The Configuration API from sensible-so — 4 operation(s) for configuration.
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Configuration
   properties:
@@ -90,7 +91,10 @@ apis:
   name: sensible-so Document API
   description: Classify documents by type
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -147,6 +151,7 @@ apis:
   name: sensible-so Document type API
   description: The Document type API from sensible-so — 2 operation(s) for document type.
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Document type
   properties:
@@ -204,6 +209,7 @@ apis:
   name: sensible-so Get Excel from documents API
   description: Convert extracted document data to spreadsheet
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Get Excel from documents
   properties:
@@ -261,6 +267,7 @@ apis:
   name: sensible-so Portfolio API
   description: Extract data from multiple documents bundled into single PDF files
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Portfolio
   properties:
@@ -318,6 +325,7 @@ apis:
   name: sensible-so Reference document API
   description: The Reference document API from sensible-so — 4 operation(s) for reference document.
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Reference document
   properties:
@@ -375,6 +383,7 @@ apis:
   name: sensible-so Retrieve extractions API
   description: Retrieve data extracted asynchronously from documents
   humanURL: https://docs.sensible.so/reference/extract-data-from-a-document
+  baseURL: https://api.sensible.so/v0
   tags:
   - Retrieve extractions
   properties:
@@ -508,7 +517,7 @@ common:
   - url: https://sensible.statuspage.io
     type: StatusPage
   - url: https://app.sensible.so/register
-    type: Signup
+    type: SignUp
   - url: https://app.sensible.so/account
     type: Account
   - url: https://www.sensible.so/pricing
@@ -601,8 +610,83 @@ common:
     updated: '2026-05-25'
   - type: Blog
     url: https://www.sensible.so/blog
+  - type: Packages
+    url: packages/sensible-so-packages.yml
+  - type: SDKs
+    url: packages/sensible-so-packages.yml
+    name: SDK inventory (API Evangelist)
+  - type: MCPServer
+    url: mcp/sensible-so-mcp.yml
+    name: MCP server manifest (probed)
+  - type: ToolCrosswalk
+    url: mcp/sensible-so-tool-crosswalk.yml
+  - type: LLMsTxt
+    url: llms/sensible-so-llms.txt
+  - type: Conformance
+    url: conformance/sensible-so-conformance.yml
+  - type: Compliance
+    url: conformance/sensible-so-conformance.yml
+  - type: ErrorCatalog
+    url: errors/sensible-so-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/sensible-so-lifecycle.yml
+  - type: Conventions
+    url: conventions/sensible-so-conventions.yml
+  - type: ChangeLog
+    url: changelog/sensible-so-changelog.yml
+    name: Changelog (structured)
+  - type: Webhooks
+    url: asyncapi/sensible-so-webhooks.yml
+  - type: DataModel
+    url: data-model/sensible-so-data-model.yml
+  - type: Sandbox
+    url: sandbox/sensible-so-sandbox.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Security
+    url: security/sensible-so-vulnerability-disclosure.yml
+  - type: Overlay
+    url: overlays/sensible-so-configuration-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-document-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-document-type-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-get-excel-from-documents-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-portfolio-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-reference-document-api-overlay.yaml
+  - type: Overlay
+    url: overlays/sensible-so-retrieve-extractions-api-overlay.yaml
+  - type: APIReference
+    url: https://docs.sensible.so/reference
+  - type: Support
+    url: https://www.sensible.so/contact
+  - type: TermsOfService
+    url: https://www.sensible.so/terms
+  - type: PrivacyPolicy
+    url: https://www.sensible.so/privacy
 created: '2026-05-25T00:00:00.000Z'
-modified: '2026-05-25'
+modified: '2026-09-17'
+tags:
+  - Document Extraction
+  - Intelligent Document Processing
+  - OCR
+  - PDF
+  - Artificial Intelligence
+  - Machine-Learning
+  - Data Extraction
+  - Document Automation
+tags_raw:
+  - Document Extraction
+  - Intelligent Document Processing
+  - OCR
+  - PDF
+  - Artificial Intelligence
+  - Machine Learning
+  - Data Extraction
+  - Document Automation
 position: Consuming
 description: >-
   Sensible is a document-automation API platform that extracts structured data from PDFs, images, spreadsheets, and
@@ -618,3 +702,8 @@ maintainers:
     X: apievangelist
     url: https://apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v3

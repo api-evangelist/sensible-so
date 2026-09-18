@@ -1,7 +1,9 @@
-generated: '2026-07-11'
+generated: '2026-09-17'
 method: derived
-source: openapi/sensible-classification-api-openapi.yml, openapi/sensible-document-types-api-openapi.yml,
-  openapi/sensible-extractions-api-openapi.yml, openapi/sensible-reference-documents-api-openapi.yml
+source: openapi/sensible-so-configuration-api-openapi.yml, openapi/sensible-so-document-api-openapi.yml,
+  openapi/sensible-so-document-type-api-openapi.yml, openapi/sensible-so-get-excel-from-documents-api-openapi.yml,
+  openapi/sensible-so-portfolio-api-openapi.yml, openapi/sensible-so-reference-document-api-openapi.yml,
+  openapi/sensible-so-retrieve-extractions-api-openapi.yml
 summary:
   types:
   - http
@@ -11,7 +13,10 @@ schemes:
   scheme: bearer
   description: Bearer token using a Sensible API key. Create keys at https://app.sensible.so/account/.
   sources:
-  - openapi/sensible-classification-api-openapi.yml
-  - openapi/sensible-document-types-api-openapi.yml
-  - openapi/sensible-extractions-api-openapi.yml
-  - openapi/sensible-reference-documents-api-openapi.yml
+  - openapi/sensible-so-configuration-api-openapi.yml
+  - openapi/sensible-so-document-api-openapi.yml
+  - openapi/sensible-so-document-type-api-openapi.yml
+  - openapi/sensible-so-get-excel-from-documents-api-openapi.yml
+  - openapi/sensible-so-portfolio-api-openapi.yml
+  - openapi/sensible-so-reference-document-api-openapi.yml
+  - openapi/sensible-so-retrieve-extractions-api-openapi.yml

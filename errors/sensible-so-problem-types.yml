@@ -1,0 +1,60 @@
+generated: '2026-09-17'
+method: derived
+source: openapi/_original/sensible-classification-api-openapi.yml (components.responses), openapi/*.yml,
+  https://docs.sensible.so/docs/troubleshoot
+description: Error catalog for the Sensible v0 API, derived from the shared components.responses block
+  the published OpenAPI reuses across every operation, plus the 401 observed live on 2026-09-17.
+format: text-plain
+format_note: NOT RFC 9457. Sensible returns errors as a bare text/plain body with the HTTP status carrying
+  the machine signal - the published OpenAPI declares content text/plain with a string schema for every
+  4xx/5xx, and a live unauthenticated POST to https://api.sensible.so/v0/extract/1040s returned content-type
+  text/plain with the body "Unauthorized" (12 bytes). There is no JSON error envelope, no error code field
+  and no type URI, so an agent has only the status code and prose to branch on.
+envelope:
+  media_type: text/plain
+  fields: []
+  note: The body is the message itself; there is no structured field to read.
+problem_types:
+- status: 400
+  title: Bad Request
+  applies_to: all operations
+  meaning: Messages related to the file content type, to reading or OCRing the file, or to classifying
+    the document.
+  remediation: Check the document media type against the supported file types, and the request body against
+    the operation schema.
+- status: 401
+  title: Unauthorized
+  applies_to: all operations
+  meaning: The bearer token is missing, malformed, or not a valid Sensible API key.
+  remediation: Send Authorization Bearer <API key>; create or rotate the key at https://app.sensible.so/account.
+  observed: 2026-09-17 - live probe returned HTTP 401 text/plain "Unauthorized"
+- status: 404
+  title: Not Found
+  applies_to: document type, configuration and reference-document operations
+  meaning: The addressed document type, configuration, version or reference document does not exist.
+  remediation: List the parent collection first (list-document-types, list-configurations, list-reference-documents)
+    and re-address.
+- status: 415
+  title: Unsupported Media Type
+  applies_to: all operations
+  meaning: Messages related to the file format of the document.
+  remediation: Convert the document to a supported file type before retrying; see https://docs.sensible.so/docs/file-types.
+- status: 429
+  title: Too Many Requests
+  applies_to: extraction and classification operations
+  meaning: One of - "Attempt limit exceeded, please retry after some time."; "Free accounts are limited
+    to 150 API calls per month."; "Pro accounts are limited to 5,000 API calls per month."
+  remediation: Back off and retry; the monthly-quota variants require a plan change rather than a retry,
+    and the two cases are distinguishable only by reading the prose.
+  note: The same status carries both a transient throttle and a hard monthly-quota stop. No Retry-After
+    header is documented and none was observed.
+- status: 500
+  title: Internal Server Error
+  applies_to: all operations
+  meaning: Sensible encountered an unknown error.
+  remediation: Retry with backoff and log the call so the document can be reprocessed - the go-live checklist
+    at https://docs.sensible.so/docs/go-live asks integrators to do exactly this.
+gaps:
+- No machine-readable error codes - an agent cannot branch on anything finer than the HTTP status.
+- 429 conflates rate limiting with monthly quota exhaustion.
+- No Retry-After or RateLimit-* headers are documented, and none appeared on a live 401.

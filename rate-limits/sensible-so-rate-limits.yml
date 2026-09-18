@@ -4,8 +4,20 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Sensible
 providerId: sensible-so
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-09-17'
 reconciled: true
+generated: '2026-09-17'
+method: searched
+source: https://www.sensible.so/pricing
+source_checked: '2026-09-17'
+limit_count: 5
+responseHeaders:
+  documented: []
+  observed: []
+  note: No RateLimit-*, X-RateLimit-* or Retry-After header is documented, and none appeared on a
+    live unauthenticated POST to https://api.sensible.so/v0/extract/1040s probed 2026-09-17 (HTTP
+    401, headers were AWS API Gateway/CloudFront trace ids only). An agent gets the 429 status and a
+    text/plain message and nothing else - it cannot read a remaining-quota budget at runtime.
 tags:
   - Document Extraction
   - Rate Limiting

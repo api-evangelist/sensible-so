@@ -1,0 +1,87 @@
+generated: '2026-09-17'
+method: searched
+source: openapi/*.yml, https://www.sensible.so/pricing, https://www.sensible.so/security, https://docs.sensible.so/llms.txt,
+  security/sensible-so-trust-center.yml
+description: Standards and compliance conformance for Sensible, asserted only where the contract or the
+  provider states it.
+conformance:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/*.yml - seven published OpenAPI documents, 32 operations, all declaring openapi 3.0.x
+    with a single server https://api.sensible.so/v0.
+- id: json-schema
+  conforms: true
+  evidence: https://schema.sensible.so/configuration.schema.json - the SenseML configuration language
+    is published as a JSON Schema and publish-configuration-by-version validates against it.
+- id: http-bearer-auth
+  conforms: true
+  evidence: securityScheme bearerAuth (type http, scheme bearer) applied globally in every published spec;
+    https://docs.sensible.so/reference/authentication.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 or openIdConnect securityScheme in any published spec, and no OAuth page in the
+    docs index. Auth is a static bearer API key only.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any Sensible host (probed 2026-09-17, all 404 or 403).
+- id: rfc9457
+  conforms: false
+  evidence: Errors are text/plain strings, not application/problem+json - see errors/sensible-so-problem-types.yml.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header in any published spec and no idempotency page in the docs index
+    - see conventions/sensible-so-conventions.yml.
+- id: pagination
+  conforms: true
+  partial: true
+  evidence: Cursor pagination (page_limit + continuation_token) on GET /extractions only; the other collection
+    endpoints are unpaginated.
+- id: soc2-type-ii
+  conforms: true
+  evidence: https://www.sensible.so/pricing - the plan comparison table lists "SOC 2 Type II" as included
+    on every tier; the site nav describes the security page as "SOC 2 Type II, HIPAA compliance, GDPR
+    compliance, and more".
+- id: gdpr
+  conforms: true
+  evidence: https://www.sensible.so/pricing - "GDPR - DPA on file" listed on every tier.
+- id: hipaa
+  conforms: true
+  conditional: true
+  evidence: https://www.sensible.so/pricing - "HIPAA - signed BAA" is marked available on the Enterprise
+    tier only, and the FAQ states a BAA can be extended to smaller plans on request. Not available self-serve.
+- id: penetration-testing
+  conforms: true
+  evidence: https://www.sensible.so/pricing - "Annual penetration testing" listed on every tier.
+- id: fhir
+  conforms: false
+  evidence: Sensible extracts data from healthcare documents (EOBs, CMS1500s, SBCs) but publishes no FHIR
+    resource, profile or endpoint - output is SenseML-shaped JSON keyed on caller-defined field ids.
+domain_standard:
+  declared: false
+  market: Intelligent document processing / document data extraction
+  assessment: Checked the contract itself for a domain-standard signature and found none. The output shape
+    is SenseML - Sensible's own configuration and output language, published as JSON Schema at https://schema.sensible.so/configuration.schema.json
+    - so extracted fields are keyed on ids the customer chooses, not on any cross-vendor vocabulary. Specifically
+    checked and absent - no FHIR resource for the healthcare document types (EOB, CMS1500, SBC), no X12
+    or HL7v2 message type, no ACORD form identifier for the insurance document types (ACORD COIs, loss
+    runs, dec pages), no MISMO container for the mortgage and closing document types, and no ISO 20022
+    message for the bank-statement types. None appears in any of the 32 operations, in any of the 100+
+    component schemas, or in the 208-entry documentation index.
+  reward_only_note: IDP has no single settled interchange standard, so this is recorded as a finding rather
+    than a penalty. It is still the integration cost a buyer inherits - a customer extracting a CMS1500
+    gets a JSON object shaped by their own config, and must map it to FHIR or X12 themselves.
+  candidates_probed:
+  - FHIR
+  - X12
+  - HL7v2
+  - ACORD
+  - MISMO
+  - ISO 20022
+  evidence: openapi/*.yml (32 operations, components.schemas), https://docs.sensible.so/llms.txt fetched
+    2026-09-17
+certifications:
+- SOC 2 Type II
+- GDPR (DPA)
+- HIPAA (BAA, Enterprise/on request)
+- Annual penetration testing
+certifications_source: https://www.sensible.so/pricing, https://www.sensible.so/security

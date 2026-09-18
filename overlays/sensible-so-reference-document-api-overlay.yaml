@@ -1,0 +1,53 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for Sensible Reference Documents Reference document API
+  version: 1.0.0
+extends: ./../openapi/sensible-so-reference-document-api-openapi.yml
+x-generated: '2026-09-17'
+x-method: generated
+x-source: API Evangelist enrichment pipeline - derived from this repo's artifacts; the original OpenAPI
+  is never mutated.
+actions:
+- target: $.info
+  description: Link the runtime-semantics artifacts derived from this contract.
+  update:
+    x-api-evangelist:
+      provider: sensible-so
+      conventions: conventions/sensible-so-conventions.yml
+      errors: errors/sensible-so-problem-types.yml
+      authentication: authentication/sensible-so-authentication.yml
+      rate-limits: rate-limits/sensible-so-rate-limits.yml
+      plans: plans/sensible-so-plans-pricing.yml
+      lifecycle: lifecycle/sensible-so-lifecycle.yml
+      data-model: data-model/sensible-so-data-model.yml
+      webhooks: asyncapi/sensible-so-webhooks.yml
+      skills: skills/_index.yml
+- target: $.info
+  description: Record the measured idempotency and reversibility posture, which the contract itself does
+    not state.
+  update:
+    x-idempotency:
+      coverage: none
+      header: null
+      note: No Idempotency-Key header in the contract and no idempotency page in the docs (measured 2026-09-17).
+        Retried mutating calls are not replay-protected.
+    x-reversibility:
+      grade: documented
+      note: Configuration publishing is reversible by unpublish (delete-configuration-by-version with
+        an environment name). Deletes and extractions have no documented undo and no stated window.
+- target: $.components.responses['429']
+  description: Note that 429 carries two distinct conditions that cannot be told apart by status code.
+  update:
+    x-semantics:
+      conditions:
+      - transient throttle - retry with backoff
+      - monthly quota exhausted - requires a plan change
+      retry_after_header: false
+      note: Distinguishable only by reading the text/plain body.
+- target: $.servers[0]
+  description: Record that the contract is still on a v0 path with no second live version.
+  update:
+    x-version-posture:
+      scheme: uri-path
+      current: v0
+      other_versions_live: []
